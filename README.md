@@ -18,5 +18,7 @@ thymleaf project
 4. 타 팀원 작업물 내용 변경 시 push하면서 알려주시기 바랍니다.
 
 5. project 받은 후 오류 있을 시 project 우클릭 - configue - add graddle nature
+
+6. 기존 작업하시던 workspace에 받으면 인식 안됩니다. 다른 폴더에 받으세요.
  
-6. 매일 밤 10시 이후 작업내용 push 바랍니다.
+7. 매일 밤 10시 이후 작업내용 push 바랍니다.
