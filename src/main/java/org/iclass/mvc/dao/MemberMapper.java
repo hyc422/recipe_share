@@ -7,6 +7,7 @@ import org.iclass.mvc.dto.Member;
 
 @Mapper
 public interface MemberMapper {
-	int insert(Member member);
+	int register(Member member);
 	Member login(Map<String,String> map);
+	int idcheck(String id);
 }

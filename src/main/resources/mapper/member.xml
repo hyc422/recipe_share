@@ -3,20 +3,30 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.iclass.mvc.dao.MemberMapper">
-<!-- 	<insert id="register" parameterType="Member">
-		INSERT INTO th_member
-(idx,id,password,name,nickname,email,phone,birth)
-VALUES
-(mem_idx_seq.nextval,#{id},#{password},#{name},#{nickname},#{email},#{phone},#{birth});
-<selectKey keyProperty="idx" resultType="long" order="AFTER">
-			SELECT mem_idx_seq.currval 
+	<insert id="register" parameterType="Member">
+		INSERT INTO cook_member
+		(idx,id,password,name,nickname,email,phone,birth)
+		VALUES
+		(mem_idx_seq.nextval,#{id},#{password},#{name},#{nickname},#{email},#{phone},#{birth});
+		<selectKey keyProperty="idx" resultType="long" order="AFTER">
+			SELECT
+			mem_idx_seq.currval
 			FROM dual
-		</selectKey>	
-	</insert>-->
-	
-	<select id="login" parameterType="java.util.Map" resultType="Member">
+		</selectKey>
+	</insert>
+
+	<select id="login" parameterType="java.util.Map"
+		resultType="Member">
 		SELECT * FROM cook_member
-		WHERE id=#{id} and password=#{password}
+		WHERE id=#{id} and
+		password=#{password}
 	</select>
-	
+	<select id="idcheck" parameterType="String" resultType="int">  
+ 		SELECT count(*) FROM cook_member
+ 		WHERE id = #{id}
+ 	</select>
+ 	<select id="nickchk" parameterType="String" resultType="int">
+ 		SELECT count(*) FROM cook_member
+ 		where nickname=#{nickname}
+ 	</select>
 </mapper>
