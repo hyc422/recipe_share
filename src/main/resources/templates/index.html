@@ -1,11 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<script type="text/javascript" src="/js/index.js"></script>
+<link href="/css/index.css" rel="stylesheet">
+<title>Top 10 Recipe Videos in Korea</title>
 </head>
 <body>
-<h3>인덱스</h3>
-<a href="login">로그인</a>
+	<div th:replace="top :: myIncludedFragment"></div>
+	<!-- CJW <-> CGH와 협의 후 처리
+	<h3>인덱스</h3>
+
+<a><span th:if="${session.member}!=null">
+		<br>[[${session.member.name}]]
+		<br>[[${session.member.password}]]
+		<br>[[${session.member.id}]]
+		<br>[[${session.member.name}]]
+		<br>[[${session.member.nickname}]]
+		<br>[[${session.member.email}]]
+		<br>[[${session.member.phone}]]
+		<br>[[${session.member.birth}]]
+		<br>[[${session.member.grade}]]
+		</span></a> -->
+<hr>
+<div style="margin: auto; display: inline-block; padding: 30px;">
+<div style="width: 400px; height:500px; padding:30px; border: 3px solid gray; margin: auto; float: left;">
+<h4 style="text-align: center;">30추 글</h4>
+<hr>
+<hr>
+<hr>
+</div>
+
+<div style="width: 400px; height:500px; padding:30px; border: 3px solid gray; margin: auto; margin-left:30px; margin-right:30px; float: left;">
+<h4 style="text-align: center;">최근 올라온 글</h4>
+<hr>
+<hr>
+<hr>
+</div>
+
+<div style="width: 400px; height:500px; padding:30px; border: 3px solid gray; margin: auto; float: left;">
+<h4 style="text-align: center;">인기 글</h4>
+<hr>
+<hr>
+<hr>
+</div>
+
+</div>
+<br>
+<hr>
+<div>
+	<h4>인기 많은 레시피(Top5 Youtube)</h4>
+	<div class="container top10"></div>
+	<h4>최근 올라온 레시피(Top5 Youtube)</h4>
+	<div class="container latest10"></div>
+</div>
+<div>
+	<h3>광고 후원업체</h3>
+	<hr>
+	<h3>신선한 재료 사러가기</h3>
+	<a href="https://www.coupang.com/np/categories/393760" target="_blank"><span>쿠팡 프레시</span></a>
+	<a href="https://www.ssg.com" target="_blank"><span>SSG</span></a>
+</div>
 </body>
 </html>
