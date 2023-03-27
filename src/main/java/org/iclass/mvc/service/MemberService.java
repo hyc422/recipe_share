@@ -20,4 +20,10 @@ public class MemberService {
 		map.put("password", password);
 		return dao.login(map);
 	}
+
+	// HYC#3 Mypage update
+	public int update(Member dto) 
+	{
+		return dao.update(dto);
+	}	// method end
 }

@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class LoginController {
 	private final MemberService service;
 	
@@ -28,6 +30,9 @@ public class LoginController {
 		}	else {
 			session.setAttribute("member", member);
 		}
+		
+		log.info("Member : {}",member);
+		
 		return "redirect:/";		
 	}
 }

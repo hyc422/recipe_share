@@ -4,20 +4,26 @@
 
 function grade_func()
 {
-	const grade = null
+	let temp = null
 	
-	if('[[${session.member.grade}]] == 0')
-		grade = '관리자'
-	else if('[[${session.member.grade}]] == 1')
-		grade = '요린이'
-	else if('[[${session.member.grade}]] == 2')
-		grade = '짜파게티 요리사'
-	else if('[[${session.member.grade}]] == 3')
-		grade = '셰프'
-	else if('[[${session.member.grade}]] == 4')
-		grade = '고든램지'
-		
-	document.querySelector('#grade').innerHTML = grade	
+	console.log(grade)
+	
+	if(grade == '0')
+		temp = '관리자'
+	else if(grade == '1')
+		temp = '요린이'
+	else if(grade == '2')
+		temp = '짜파게티 요리사'
+	else if(grade == '3')
+		temp = '셰프'
+	else if(grade == '4')
+		temp = '고든램지'
+	
+	console.log(temp)
+	
+	document.querySelector('#grade').innerHTML = temp	
 }
 
 grade_func()
+
+
