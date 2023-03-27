@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.iclass.mvc.dao.MemberMapper">
+  <!-- CJW#1 Login -->
 	<insert id="register" parameterType="Member">
 		INSERT INTO cook_member
 		(idx,id,password,name,nickname,email,phone,birth)
@@ -12,21 +13,48 @@
 			SELECT
 			mem_idx_seq.currval
 			FROM dual
-		</selectKey>
+		</selectKey>	
 	</insert>
-
-	<select id="login" parameterType="java.util.Map"
+  
+	<!-- <select id="login" parameterType="java.util.Map"
 		resultType="Member">
 		SELECT * FROM cook_member
 		WHERE id=#{id} and
 		password=#{password}
-	</select>
+	</select> -->
+  
 	<select id="idcheck" parameterType="String" resultType="int">  
  		SELECT count(*) FROM cook_member
  		WHERE id = #{id}
  	</select>
+  
  	<select id="nickchk" parameterType="String" resultType="int">
  		SELECT count(*) FROM cook_member
  		where nickname=#{nickname}
  	</select>
+  
+  <select id="login" parameterType="java.util.Map" resultType="Member">
+		SELECT * FROM th_member
+		WHERE id=#{id} and password=#{password}
+	</select>
+	<!-- CJW#1 Login -->
+  
+	<!-- HYC#3 Mypage -->
+	<select id="selectOne" parameterType="String" resultType="Member">
+		SELECT * FROM th_member
+		WHERE id=#{id}
+	</select>
+	
+	<update id="update" parameterType="Member">
+		UPDATE TH_MEMBER
+		SET NICKNAME=#{nickname}, PHONE=#{phone}, EMAIL=#{email}
+		WHERE ID=#{id}
+	</update>
+	
+	<update id="pwChg" parameterType="Member">
+		UPDATE TH_MEMBER
+		SET PASWORD=#{PASSWORD}
+		WHERE ID=#{id}
+	</update>
+  <!-- HYC#3 Mypage -->
 </mapper>

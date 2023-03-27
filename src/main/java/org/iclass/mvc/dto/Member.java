@@ -10,7 +10,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"idx","password"})
 public class Member {
 	private	int idx;
 	private String id;
@@ -20,5 +20,6 @@ public class Member {
 	private	String email;
 	private String phone;
 	private String birth;
+	private String createAt;
 	private String grade;
 }
