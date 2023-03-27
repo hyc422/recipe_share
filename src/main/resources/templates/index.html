@@ -7,6 +7,20 @@
 </head>
 <body>
 	<div th:replace="top :: myIncludedFragment"></div>
+	<!-- CJW <-> CGH와 협의 후 처리
+	<h3>인덱스</h3>
+
+<a><span th:if="${session.member}!=null">
+		<br>[[${session.member.name}]]
+		<br>[[${session.member.password}]]
+		<br>[[${session.member.id}]]
+		<br>[[${session.member.name}]]
+		<br>[[${session.member.nickname}]]
+		<br>[[${session.member.email}]]
+		<br>[[${session.member.phone}]]
+		<br>[[${session.member.birth}]]
+		<br>[[${session.member.grade}]]
+		</span></a> -->
 <hr>
 <div style="margin: auto; display: inline-block; padding: 30px;">
 <div style="width: 400px; height:500px; padding:30px; border: 3px solid gray; margin: auto; float: left;">
