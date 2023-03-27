@@ -20,4 +20,10 @@ public class MemberService {
 		map.put("password", password);
 		return dao.login(map);
 	}
+	public int register(Member vo) {
+		return dao.register(vo);
+	}
+	public int idcheck(String id) {
+		return dao.idcheck(id);
+	}
 }

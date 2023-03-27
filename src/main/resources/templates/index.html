@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <h3>인덱스</h3>
-<a href="login">로그인</a>
+<a href="login"><span th:if="${session.member}==null">로그인</span></a>
+<a href="register"><span th:if="${session.member}==null">회원가입</span></a>
+<a href="logout"><span th:if="${session.member}!=null">로그아웃</span></a>
+<a><span th:if="${session.member}!=null">
+		<br>[[${session.member.name}]]
+		<br>[[${session.member.password}]]
+		<br>[[${session.member.id}]]
+		<br>[[${session.member.name}]]
+		<br>[[${session.member.nickname}]]
+		<br>[[${session.member.email}]]
+		<br>[[${session.member.phone}]]
+		<br>[[${session.member.birth}]]
+		<br>[[${session.member.grade}]]
+		</span></a>
 </body>
 </html>

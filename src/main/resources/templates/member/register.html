@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+</head>
+<body>
+	<h3>회원가입</h3>
+	<hr>
+	<main>
+		<form action="register" method="post" name="join">
+			<table>
+				<tr>
+					<td>
+					<input id="id" placeholder="아이디">
+					<input type="button" id="idcheck" value="중복확인">
+					<br><label id="idOk"></label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<input id="password" name="password" placeholder="비밀번호">
+					<br><label id="pwdcheckmsg"></label>
+					</td>
+				</tr>
+				<tr>
+					<td><input id="password2" name="password2" placeholder="비밀번호 재확인">
+					<br><label id="pwd2checkmsg"></label>
+					</td>
+				</tr>
+				<tr>
+					<td><input id="name" placeholder="이름"></td>
+				</tr>
+				<tr>
+					<td>
+					<input id="nickname" placeholder="별명">
+					<br><input type="button" id="nickchk" value="중복검사">
+					<br><label id="nnOk"></label>
+					</td>
+				</tr>
+				<tr>
+					<td><input id="email1">
+					@
+					<input id="email2"disabled>
+					<select name="email" onchange="email_change()"required>
+						<option value="0">직접 입력</option> 
+						<option value="naver.com">naver.com</option> 
+						<option value="daum.net">daum.net</option> 
+						<option value="gmail.com">gmail.com</option> 
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<select id="phone1">
+						<option value="010">010</option>
+						<option value="011">011</option>
+						<option value="012">012</option>
+					</select>
+					-<input id="phone2" maxlength="4">
+					-<input id="phone3" maxlength="4">
+					</td>
+				</tr>
+				<tr>
+					<td><input type="date" id="birth"></td>
+				</tr>
+				<tr>
+					<td><input type="button" name="join" id="join"></td>
+				</tr>
+			</table>
+		</form>
+	</main>
+</body>
+<script type="text/javascript" src="/js/register.js"></script>
+<script type="text/javascript">
+function email_change(){
+	if(document.join.email.options[document.join.email.selectedIndex].value == "0"){
+	 document.join.email2.disabled = false;
+	 document.join.email2.value = "";
+	 document.join.email2.focus();
+	} else{
+	 document.join.email2.disabled = true;
+	 document.join.email2.value = document.join.email.options[document.join.email.selectedIndex].value;
+	}
+}
+</script>
+</html>
