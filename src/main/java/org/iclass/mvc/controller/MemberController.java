@@ -30,10 +30,17 @@ public class MemberController {
 			service.register(vo);
 		return "redirect:/";
 	}
-	@GetMapping("/register/{id}")
+	@GetMapping("/find/{email}")
 	@ResponseBody
-	public int idcheck(@PathVariable String id) {
-		int result = service.idcheck(id);
+	public int idcheck(@PathVariable String email) {
+		int result = service.idcheck(email);
 		return result;
 	}
+	@GetMapping("/finds/{nickname}")
+	@ResponseBody
+	public int nickchk(@PathVariable String nickname) {
+		int result = service.nickchk(nickname);
+		return result;
+	}
+
 }

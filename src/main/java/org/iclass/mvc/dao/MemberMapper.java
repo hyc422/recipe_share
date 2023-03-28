@@ -10,4 +10,5 @@ public interface MemberMapper {
 	int register(Member member);
 	Member login(Map<String,String> map);
 	int idcheck(String id);
+	int nickchk(String nickname);
 }

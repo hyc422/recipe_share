@@ -21,9 +21,13 @@ public class MemberService {
 		return dao.login(map);
 	}
 	public int register(Member vo) {
+		
 		return dao.register(vo);
 	}
 	public int idcheck(String id) {
 		return dao.idcheck(id);
+	}
+	public int nickchk(String nickname) {
+		return dao.nickchk(nickname);
 	}
 }

@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.iclass.mvc.dao.MemberMapper">
 	<insert id="register" parameterType="Member">
-		INSERT INTO cook_member
-		(idx,id,password,name,nickname,email,phone,birth)
+		INSERT INTO th_member
+		(idx,email,password,name,nickname,phone,birth)
 		VALUES
-		(mem_idx_seq.nextval,#{id},#{password},#{name},#{nickname},#{email},#{phone},#{birth});
-		<selectKey keyProperty="idx" resultType="long" order="AFTER">
+		(mem_idx_seq.nextval,#{email},#{password},#{name},#{nickname},#{phone},#{birth})
+		<selectKey keyProperty="idx" resultType="int" order="AFTER">
 			SELECT
 			mem_idx_seq.currval
 			FROM dual
@@ -17,16 +17,16 @@
 
 	<select id="login" parameterType="java.util.Map"
 		resultType="Member">
-		SELECT * FROM cook_member
-		WHERE id=#{id} and
+		SELECT * FROM th_member
+		WHERE email=#{email} and
 		password=#{password}
 	</select>
 	<select id="idcheck" parameterType="String" resultType="int">  
- 		SELECT count(*) FROM cook_member
- 		WHERE id = #{id}
+ 		SELECT count(*) FROM th_member
+ 		WHERE email = #{email}
  	</select>
  	<select id="nickchk" parameterType="String" resultType="int">
- 		SELECT count(*) FROM cook_member
+ 		SELECT count(*) FROM th_member
  		where nickname=#{nickname}
  	</select>
 </mapper>

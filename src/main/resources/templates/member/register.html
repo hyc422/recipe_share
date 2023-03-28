@@ -12,76 +12,64 @@
 			<table>
 				<tr>
 					<td>
-					<input id="id" placeholder="아이디">
-					<input type="button" id="idcheck" value="중복확인">
-					<br><label id="idOk"></label>
+						<input id="email" name="email" placeholder="이메일">
+						<label id="emchk"></label>
+						<label id="idchk"></label>
+						<br><input type="button" id="idcheck" value="중복검사"> 
+						<label id="idOk"></label>
+						 <button type="button" onclick="sendEmail()">인증번호 발송</button>
+     		   <br><br>
+     		   <label for="authCode">인증번호:</label>
+     		   <input type="text" id="sendEmail" required>
+     		   <br><br>
+    		    <label for="password">비밀번호:</label>
+    		    <input type="password" id="password" name="password" required>
+    		    <br><br>
 					</td>
 				</tr>
 				<tr>
 					<td>
-					<input id="password" name="password" placeholder="비밀번호">
-					<br><label id="pwdcheckmsg"></label>
-					</td>
-				</tr>
-				<tr>
-					<td><input id="password2" name="password2" placeholder="비밀번호 재확인">
-					<br><label id="pwd2checkmsg"></label>
-					</td>
-				</tr>
-				<tr>
-					<td><input id="name" placeholder="이름"></td>
-				</tr>
-				<tr>
-					<td>
-					<input id="nickname" placeholder="별명">
-					<br><input type="button" id="nickchk" value="중복검사">
-					<br><label id="nnOk"></label>
-					</td>
-				</tr>
-				<tr>
-					<td><input id="email1">
-					@
-					<input id="email2"disabled>
-					<select name="email" onchange="email_change()"required>
-						<option value="0">직접 입력</option> 
-						<option value="naver.com">naver.com</option> 
-						<option value="daum.net">daum.net</option> 
-						<option value="gmail.com">gmail.com</option> 
-					</select>
+						<input id="password" name="password" placeholder="비밀번호"> <br>
+						<label id="pwdcheckmsg"></label>
 					</td>
 				</tr>
 				<tr>
 					<td>
-					<select id="phone1">
-						<option value="010">010</option>
-						<option value="011">011</option>
-						<option value="012">012</option>
-					</select>
-					-<input id="phone2" maxlength="4">
-					-<input id="phone3" maxlength="4">
+						<input id="password2" name="password2" placeholder="비밀번호 재확인"> <br>
+						<label id="pwd2checkmsg"></label>
 					</td>
 				</tr>
 				<tr>
-					<td><input type="date" id="birth"></td>
+					<td>
+						<input id="name" name="name" placeholder="이름">
+						</td>
 				</tr>
 				<tr>
-					<td><input type="button" name="join" id="join"></td>
+					<td>
+						<input id="nickname" name="nickname" placeholder="별명"> <br>
+						<input type="button" id="nickchk" value="중복검사"> <br>
+						<label id="nnOk"></label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" id="phone" name="phone" placeholder="전화번호">
+						<label id="phmsg"></label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="date" id="birth" name="birth">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="button" id="rkdlq" value="회원가입">
+					</td>
 				</tr>
 			</table>
 		</form>
 	</main>
 </body>
 <script type="text/javascript" src="/js/register.js"></script>
-<script type="text/javascript">
-function email_change(){
-	if(document.join.email.options[document.join.email.selectedIndex].value == "0"){
-	 document.join.email2.disabled = false;
-	 document.join.email2.value = "";
-	 document.join.email2.focus();
-	} else{
-	 document.join.email2.disabled = true;
-	 document.join.email2.value = document.join.email.options[document.join.email.selectedIndex].value;
-	}
-}
-</script>
 </html>
