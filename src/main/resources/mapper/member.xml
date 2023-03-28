@@ -33,7 +33,7 @@
  		where nickname=#{nickname}
  	</select>
   
-  <select id="login" parameterType="java.util.Map" resultType="Member">
+  	<select id="login" parameterType="java.util.Map" resultType="Member">
 		SELECT * FROM th_member
 		WHERE id=#{id} and password=#{password}
 	</select>
@@ -51,7 +51,7 @@
 		WHERE ID=#{id}
 	</update>
 	
-	<update id="pwChg" parameterType="Member">
+	<update id="pwChg" parameterType="java.util.Map">
 		UPDATE TH_MEMBER
 		SET PASWORD=#{PASSWORD}
 		WHERE ID=#{id}
