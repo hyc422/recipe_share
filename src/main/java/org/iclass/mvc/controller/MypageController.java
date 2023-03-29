@@ -4,9 +4,12 @@ import javax.servlet.http.HttpSession;
 
 import org.iclass.mvc.dto.Member;
 import org.iclass.mvc.service.MemberService;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,19 +28,29 @@ public class MypageController
 	public MypageController(MemberService service)
 	{this.service = service;}
 	
-	@PutMapping("/update/{id}")
-	public void update(@PathVariable String id, @RequestBody String temp, HttpSession session) throws JsonMappingException, JsonProcessingException
+	// member update
+	@PutMapping("/info/update/{id}")
+	public String update(@PathVariable String id, @RequestBody String member, HttpSession session) throws JsonMappingException, JsonProcessingException
 	{
-		Member dto = objMapper.readValue(temp, Member.class);
+		Member dto = objMapper.readValue(member, Member.class);
 		
 		log.info("Member dto : {}",dto);
 		
-		service.update(dto);
+		int count = service.update(dto);
 		
+		return objMapper.writeValueAsString(count);
 	}	// method end
 	
-	@PutMapping("pwChg/{id}")
-	public void pwChg(@PathVariable String id)
+	// password check
+	@GetMapping("info/chkPw/{id}")
+	public String chkPw(@PathVariable String id, @RequestParam("password") String password, Model model)
+	{
+		return null;
+	} // method end;
+	
+	// password update
+	@PutMapping("/info/chgPw/{id}")
+	public void chgpw(@PathVariable String id)
 	{
 		
 	}	// method end
