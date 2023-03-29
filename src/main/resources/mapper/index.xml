@@ -1,0 +1,18 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.iclass.mvc.dao.IndexMapper">
+  
+  <!-- CGH 추천 30 이상 가져오기 -->
+  <select id="viewcntSelect" resultType="Board">
+  SELECT *FROM BOARD b WHERE VIEWCNT >29 ORDER BY REGDATE DESC 
+  </select>
+  <!-- CGH 인기글 가져오기 -->
+  <select id="cntSelect" resultType="Board">
+  SELECT *FROM BOARD b ORDER BY VIEWCNT DESC 
+  </select>
+  <!-- CGH 최근 올라 온 글 가져오기 -->
+  <select id="regSelect" resultType="Board">
+  SELECT *FROM BOARD b ORDER BY REGDATE DESC 
+  </select>
+  </mapper>
