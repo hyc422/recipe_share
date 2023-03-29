@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 </head>
+
 <body>
 	<h3>회원가입</h3>
 	<hr>
@@ -15,16 +16,13 @@
 						<input id="email" name="email" placeholder="이메일">
 						<label id="emchk"></label>
 						<label id="idchk"></label>
-						<br><input type="button" id="idcheck" value="중복검사"> 
+						<br>
+						<input type="button" id="idcheck" value="중복검사" style="display:none;"> 
 						<label id="idOk"></label>
-						 <button type="button" onclick="sendEmail()">인증번호 발송</button>
-     		   <br><br>
-     		   <label for="authCode">인증번호:</label>
-     		   <input type="text" id="sendEmail" required>
-     		   <br><br>
-    		    <label for="password">비밀번호:</label>
-    		    <input type="password" id="password" name="password" required>
-    		    <br><br>
+						<!-- <span>이메일 인증번호</span> -->
+						<button type="button" id="checkEmail">인증번호발송</button>
+						<label for="memailconfirm" id="memailconfirmTxt">인증번호를 입력해주세요</label> 
+						<input type="text" class="form-control" id="memailconfirm">
 					</td>
 				</tr>
 				<tr>
@@ -72,4 +70,5 @@
 	</main>
 </body>
 <script type="text/javascript" src="/js/register.js"></script>
+
 </html>

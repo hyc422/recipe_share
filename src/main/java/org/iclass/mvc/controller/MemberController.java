@@ -20,6 +20,7 @@ public class MemberController {
 
 	private final MemberService service;
 	
+	
 	@GetMapping("/register")
 	public String insertPage() {
 		return "member/register";
