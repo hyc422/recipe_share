@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>게시글 작성</title>
+<!-- <script type="text/javascript">
+	$(document).ready(function(){
+		$("#binSave").click(function(){
+			var title = $("#title").val();
+			var nickname = $("#title").val();
+			var category = $("#category").val();
+			var mainCag = $("#mainCag").val();
+			var content = $("#content").val();
+			if(category = ""){
+				alert("카테고리를 선택 하세요.")
+				document.form1.category.focus();
+				return;
+			}
+			if(mainCag = ""){
+				alert("대분류를 선택 하세요.")
+				document.form1.mainCag.focus();
+				return;
+			}
+			if(title = ""){
+				alert("제목을 입력 하세요.")
+				document.form1.title.focus();
+				return;
+			}
+			if(content = ""){
+				alert("내용을 입력 하세요.")
+				document.form1.content.focus();
+				return;
+			}
+			if(nickname = ""){
+				alert("이름을 입력 하세요.")
+				document.form1.nickname.focus();
+				return;
+			}
+			document.form1.submit();
+		});
+	});
+</script> -->
+
+</head>
+<body>
+	<h2>게시글 작성</h2>
+	<form action="recipeView" name="form1" method="post" enctype="multipart/form-data">
+	<div>
+		<label>작성자</label>
+		<input type="text" name="nickname" id="nickname">
+	</div>
+	<div>
+		<label>카테고리</label>
+	<select id="category" name="category" title="카테고리 선택" class="category">
+	<option>선택하세요</option>
+	<option value="레시피">레시피 공유 게시판</option>
+	<option value="자유">자유 게시판</option>
+	<option value="질문">질문 게시판</option>
+	</select>
+	</div>
+	<div>
+		<label>대분류</label>
+	<select id="lblAddr" name="mainCag" title="대분류 선택" class="mian">
+	<option value="전통음식">전통음식</option>
+	<option value="건강식">건강식</option>
+	<option value="주식">酒식</option>
+	</select>
+	</div>
+	<div>
+	<label>제목</label>
+	<input name="title" id="title" size="50" placeholder="제목을 입력 하세요.">
+	</div>
+	<div>
+	<label>파일 업로드</label>
+	<input type="file" name="pics" accept="image/*"><br>
+	</div>
+	<div>
+	<label>내용</label>
+	<textarea rows="4" cols="80" name="content" id="content" placeholder="내용을 입력하세요."></textarea>
+	</div>
+	<div style="width:650px; text-align:center;">
+		<button type="submit" id="binSave" name="binSave">확인</button>
+		<button type="reset" >취소</button>
+	</div>
+	</form>
+	<!--d dd -->
+</body>
+</html>
