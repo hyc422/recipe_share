@@ -75,18 +75,27 @@ function()
 	const jsonObj = {"id":id,"name":name,"nickname":nickname,"phone":phone,"email":email,"birth":birth,"createAt":createAt,"grade":grade}
 	
 	const xhr = new XMLHttpRequest()
-	xhr.open('PUT','/update/'+id)
+	xhr.open('PUT','/info/update/'+id)
 	xhr.setRequestHeader('content-type', 'application/json;charset=utf-8')
 	
 	const data = JSON.stringify(jsonObj)
 	xhr.send(data)
 	xhr.onload=function()
 	{
+		const result = JSON.parse(xhr.response)
+		
 		if(xhr.status === 200 || xhr.status === 201)
 		{
-			location.href='/mypage'
+			if(result == 1)
+			{
+				alert('수정 완료')
+				location.href='mypage'
+			}
 		}
 		else
+		{
 			console.error('오류',xhr.status)
+			alert('정보 수정 오류')
+		}
 	}
 })

@@ -35,4 +35,9 @@ public class MemberService {
 	{
 		return dao.update(dto);
 	}	// method end
+	
+	public int chgPw(Map<String, String> map)
+	{
+		return dao.pwChg(map);
+	}	// method end
 }
