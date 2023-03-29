@@ -1,0 +1,53 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.iclass.mvc.dao.BoardMapper">
+  
+  <!-- 게시글 작성 -->
+  <insert id="create" parameterType="Board">
+  	INSERT INTO HR.BOARD
+(IDX, CATEGORY, MAINCAG, NICKNAME, TITLE, FILENAME, CONTENT, REGDATE)
+VALUES(board_idx_seq.nextval, #{category}, #{mainCag}, #{nickname}, #{title}, #{filename},#{content}, sysdate)
+  	</insert>
+  
+  <!-- 게시글 조회 -->
+  	<select id="selectAll" resultType="Board">
+  		SELECT #{idx}, #{category}, #{mainCag}, #{nickname}, #{title}, #{title}, #{filename},#{content}, sysdate, #{viewcnt}, #{numcomments}
+FROM HR.BOARD
+  	</select>
+  	
+  	<!-- 게시글 상세보기 조회 -->
+  	<select id="selectByidx" resultType="Board" parameterType="int">
+  	select * from board
+  	where idx = #{idx}
+  	</select>
+  	
+  <!-- 게시글 조회수 증가 처리 -->
+  <update id="updateviewcnt">
+	UPDATE board SET viewcnt = viewcnt + 1
+	WHERE idx = #{idx}
+  </update>
+  
+  <!-- 게시글 댓글 갯수 증가 처리 -->
+  <update id="cntcomments">
+  update board set numcomments = numcomments + 1
+  where idx = #{idx}
+  </update>
+  
+  <!-- 게시글 수정 처리 -->
+  <update id="Article">
+  update board set 
+  mainCag = #{mainCag},
+  title = #{title},
+  filename = #{filename},
+  content = #{content}
+  where idx = #{idx}
+  </update>
+  
+  <!-- 게시글 삭제 처리 -->
+  <delete id="deleteArticle">
+  	Delete from board
+  	where idx = #{idx}
+  </delete>
+  
+  </mapper>
