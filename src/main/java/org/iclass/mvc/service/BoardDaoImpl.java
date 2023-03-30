@@ -2,13 +2,15 @@ package org.iclass.mvc.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.ibatis.session.SqlSession;
 import org.iclass.mvc.dao.BoardMapper;
 import org.iclass.mvc.dto.Board;
-import org.springframework.stereotype.Repository;
+import org.iclass.mvc.dto.Paging;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,9 +19,10 @@ public class BoardDaoImpl implements BoardService {
 	
 	SqlSession SqlSession;
 	private BoardMapper dao;
-	public BoardDaoImpl(BoardMapper dao) {
-		this.dao=dao;
-	}
+	  public BoardDaoImpl(SqlSession sqlSession, BoardMapper dao) {
+	        this.SqlSession = sqlSession;
+	        this.dao = dao;
+	    }
 	
 	//01. 게시글 작성
 	@Override
@@ -47,7 +50,7 @@ public class BoardDaoImpl implements BoardService {
 	//02. 게시글 상세보기 조회
 	@Override
 	public Board read(int idx) {
-		return SqlSession.selectOne("board.selectByidx",idx);
+		return dao.read(idx);
 	}
 	
 	//03. 게시글 수정
@@ -62,17 +65,77 @@ public class BoardDaoImpl implements BoardService {
 	public void delete(int idx) {
 		SqlSession.delete("board.deleteArticle", idx);
 	}
-
-	@Override
-	public List<Board> listAll() {
-		return SqlSession.selectList("board.selectAll");
+	//05. 카테고리별 게시글 목록 조회
+	public Map<String,Object> getCategoryList(String category, String mainCategory, int page) {
+		//만들어진 페이지리스트와 Paging 정보를 같이 리턴하기 위해 
+				//List<Community> 에서 Map으로 변경함.
+				
+				int pageSize=7;		//pageSize 를 15 또는 10으로 변경해서 실행해 봅시다.
+				int totalCount = dao.count();
+				
+				//위의 값들을 이용해서 Paging 객체를 생성하면서 다른 필드값을 계산합니다.
+				Paging paging = new Paging(page, totalCount, pageSize);
+				
+				//pagelist() 메소드를 실행하기 위한 Map을 생성합니다.
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("category", category);
+				map.put("start",paging.getStartNo());
+				map.put("end",paging.getEndNo());
+				List<Board> list = dao.getMainCagList(map);
+				
+				Map<String,Object> result = new HashMap<String, Object>(); 
+				result.put("paging", paging);
+				result.put("list", list);
+		return result;
 	}
-
+	// 메인 카테고리별 게시글 목록 조회
+	public Map<String, Object> getMainCagList(String maincag,int page){
+		int pageSize = 7;
+		int totalCount = dao.count();
+		
+		Paging paging = new Paging(page, totalCount, pageSize);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("mainCag", maincag);
+		map.put("start", paging.getStartNo());
+		map.put("end", paging.getEndNo());
+		
+		List<Board> list = dao.getMainCagList(map);
+		Map<String,Object> result = new HashMap<String, Object>();
+		  result.put("paging", paging);
+	        result.put("list", list);
+	        return result;
+	}
+	//06. 게시글 조회수 증가
 	@Override
 	public void increaseViewcnt(int idx) {
 		SqlSession.update("board.updateviewcnt", idx);
 	}
-	
+
+	@Override
+	public List<Board> listAll(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getCategoryCount(String category) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getMainCagCount(String mainCag) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 	
 	

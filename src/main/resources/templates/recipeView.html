@@ -52,19 +52,21 @@
 	<div>
 		<label>카테고리</label>
 	<select id="category" name="category" title="카테고리 선택" class="category">
-	<option>선택하세요</option>
-	<option value="레시피">레시피 공유 게시판</option>
+	<option value="레시피" id="recipe">레시피 공유 게시판</option>
 	<option value="자유">자유 게시판</option>
 	<option value="질문">질문 게시판</option>
 	</select>
 	</div>
+	
 	<div>
 		<label>대분류</label>
-	<select id="lblAddr" name="mainCag" title="대분류 선택" class="mian">
+	<select id="mainCag" name="mainCag" title="대분류 선택" class="mian" disabled>
+	<option>선택 해주세요</option>
 	<option value="전통음식">전통음식</option>
 	<option value="건강식">건강식</option>
 	<option value="주식">酒식</option>
 	</select>
+  <!-- <input type="hidden" id="mainCag2"name="mainCag" value="${category == '레시피' ? mainCagValue : null}"> -->
 	</div>
 	<div>
 	<label>제목</label>
@@ -83,6 +85,32 @@
 		<button type="reset" >취소</button>
 	</div>
 	</form>
-	<!--d dd -->
+	<script type="text/javascript">
+	const mainCag = document.getElementById('mainCag');
+
+	// 카테고리 select 요소 변경 이벤트 감지
+	document.getElementById('category').addEventListener('change', function() {
+	  // 레시피가 선택되었을 때
+	  if (this.value === '레시피' && this.options[this.selectedIndex].id === 'recipe') {
+	    // 대분류 select 요소 활성화
+	    mainCag.disabled = false;
+	    mainCag.name = "mainCag"; // name 속성 값 변경
+	  } else {
+	    // 대분류 select 요소 비활성화
+	    mainCag.disabled = true;
+	    /* mainCag.name = ""; // name 속성 값 제거 */
+	    mainCag.value = ""; // value 속성 값 초기화
+	  }
+	});
+
+	// hidden input 요소의 value 값을 설정하는 함수
+	function setHiddenInputValue() {
+	  const mainCagText = mainCag.options[mainCag.selectedIndex].text;
+	  document.querySelector('input[id="mainCag2"]').value = mainCagText;
+	}
+
+	// mainCag 요소의 값이 변경되었을 때 hidden input 요소의 value 값을 설정
+	mainCag.addEventListener('change', setHiddenInputValue);
+</script>
 </body>
 </html>
