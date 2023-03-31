@@ -23,9 +23,30 @@
 		WHERE roomId=#{roomId}
 	</update>
 	
-	<update id="plusUserCnt" parameterType="String">
+	<update id="minusUserCnt" parameterType="String">
 		UPDATE chatroom 
 		SET userCount = userCount - 1
 		WHERE roomId=#{roomId}
 	</update>
+	
+	<insert id="enterUser" parameterType="String">
+		INSERT 
+		INTO userlist(userId,roomId,nickName)
+		VALUES (#{userId},#{roomId},#{nickName})
+	</insert>
+	
+	<delete id="leaveUser" parameterType="String">
+  		DELETE FROM userlist
+  		where userId=#{userId}
+	</delete>
+	
+	<select id="selectUserListAll" parameterType="String" resultType="UserList">
+		SELECT userID,nickName FROM userlist
+		WHERE roomId=#{roomId}
+	</select>
+	
+	<select id="selectUserListOne" parameterType="java.util.Map" resultType="UserList">
+		SELECT nickName FROM userlist
+		WHERE roomId=#{roomId} and userId=#{userId}
+	</select>
 </mapper>

@@ -1,7 +1,5 @@
 package org.iclass.mvc.dto;
 
-import java.util.HashMap;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +17,8 @@ public class ChatRoom
 	private String roomId; 		// roomId = nickname
 	private String roomName; 	// roomName
 	private long userCount; 	// userCount
-	private String[] userlist;	// userList
+	private UserList userlist;	// userList
+	private int maxUserCnt;		// 
+	private String roomPwd;
+	private boolean sceretChk;
 }	// Class end

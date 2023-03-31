@@ -1,10 +1,13 @@
 package org.iclass.mvc.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.iclass.mvc.dao.ChatMapper;
 import org.iclass.mvc.dto.ChatRoom;
+import org.iclass.mvc.dto.UserList;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -20,9 +23,9 @@ public class ChatService
 		return dao.selectAll();
 	}	// method end
 	
-	public ChatRoom selectOne(String roomName)
+	public ChatRoom selectOne(String roomId)
 	{
-		return dao.selectOne(roomName);
+		return dao.selectOne(roomId);
 	}	// method end
 	
 	public int createChatRoom(String roomName)
@@ -41,8 +44,28 @@ public class ChatService
 		return dao.minusUserCnt(roomId);
 	}	// method end
 	
-	public int enterUser(String nickname)
+	public int enterUser(String roomId, String nickname)
+	{	
+		String userId = UUID.randomUUID().toString();
+		return dao.enterUser(userId, roomId, nickname);
+	}	// method end
+	
+	public int leaveUser(String userId)
 	{
-		return dao.enterUser(nickname);
+		return dao.leaveUser(userId);
+	}	// method end
+	
+	public List<UserList> selectUserList(String roomId)
+	{
+		return dao.selectUserListAll(roomId);
+	}	// method end
+
+	public UserList selectUserListOne(String roomId, String userId)
+	{
+		Map<String, String> map = new HashMap<>();
+		map.put("roomId", roomId);
+		map.put("userId", userId);
+		
+		return dao.selectUserListOne(map);
 	}	// method end
 }	// Class end

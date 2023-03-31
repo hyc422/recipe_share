@@ -12,19 +12,10 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class IndexController {
+public class IndexController 
+{
 	private final IndexService service;
-	@GetMapping("/mypage")
-	public void mypage()
-	{
-		
-	}
-	
-	@GetMapping("/update")
-	public void update()
-	{
-		
-	}
+
 	@GetMapping({"/","index"})
 	public String index(Model model) {
 		model.addAttribute("viewcnt", service.viewcntSelect());
