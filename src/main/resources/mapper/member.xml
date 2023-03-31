@@ -6,9 +6,9 @@
   <!-- CJW#1 Login -->
 	<insert id="register" parameterType="Member">
 		INSERT INTO cook_member
-		(idx,id,password,name,nickname,email,phone,birth)
+		(idx,email,password,name,nickname,phone,birth)
 		VALUES
-		(mem_idx_seq.nextval,#{id},#{password},#{name},#{nickname},#{email},#{phone},#{birth});
+		(mem_idx_seq.nextval,#{email},#{password},#{name},#{nickname},#{phone},#{birth});
 		<selectKey keyProperty="idx" resultType="long" order="AFTER">
 			SELECT
 			mem_idx_seq.currval
@@ -25,7 +25,7 @@
   
 	<select id="idcheck" parameterType="String" resultType="int">  
  		SELECT count(*) FROM cook_member
- 		WHERE id = #{id}
+ 		WHERE email = #{email}
  	</select>
   
  	<select id="nickchk" parameterType="String" resultType="int">
@@ -35,7 +35,7 @@
   
   	<select id="login" parameterType="java.util.Map" resultType="Member">
 		SELECT * FROM th_member
-		WHERE id=#{id} and password=#{password}
+		WHERE email=#{email} and password=#{password}
 	</select>
 	<!-- CJW#1 Login -->
   

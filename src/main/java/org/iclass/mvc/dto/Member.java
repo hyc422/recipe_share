@@ -13,11 +13,10 @@ import lombok.ToString;
 @ToString(exclude = {"idx","password"})
 public class Member {
 	private	int idx;
-	private String id;
+	private	String email;
 	private String password;
 	private	String name;
 	private	String nickname;
-	private	String email;
 	private String phone;
 	private String birth;
 	private String createAt;

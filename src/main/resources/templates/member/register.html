@@ -4,84 +4,76 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 </head>
-<body>
-	<h3>회원가입</h3>
-	<hr>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<div th:replace="top :: myIncludedFragment"></div>
+<hr>
+<!-- 탑과 사이드를 구분하기 위해 추가 -->
+<div style="display: flex;">
+	<!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
+	<div style="flex-basis: 25%; min-width: 200px;">
+		<div th:replace="side :: myIncludedFragment"></div>
+	</div>
+</div>
+<body style="padding-top: 150px;">
 	<main>
 		<form action="register" method="post" name="join">
-			<table>
-				<tr>
-					<td>
-					<input id="id" placeholder="아이디">
-					<input type="button" id="idcheck" value="중복확인">
-					<br><label id="idOk"></label>
-					</td>
-				</tr>
-				<tr>
-					<td>
-					<input id="password" name="password" placeholder="비밀번호">
-					<br><label id="pwdcheckmsg"></label>
-					</td>
-				</tr>
-				<tr>
-					<td><input id="password2" name="password2" placeholder="비밀번호 재확인">
-					<br><label id="pwd2checkmsg"></label>
-					</td>
-				</tr>
-				<tr>
-					<td><input id="name" placeholder="이름"></td>
-				</tr>
-				<tr>
-					<td>
-					<input id="nickname" placeholder="별명">
-					<br><input type="button" id="nickchk" value="중복검사">
-					<br><label id="nnOk"></label>
-					</td>
-				</tr>
-				<tr>
-					<td><input id="email1">
-					@
-					<input id="email2"disabled>
-					<select name="email" onchange="email_change()"required>
-						<option value="0">직접 입력</option> 
-						<option value="naver.com">naver.com</option> 
-						<option value="daum.net">daum.net</option> 
-						<option value="gmail.com">gmail.com</option> 
-					</select>
-					</td>
-				</tr>
-				<tr>
-					<td>
-					<select id="phone1">
-						<option value="010">010</option>
-						<option value="011">011</option>
-						<option value="012">012</option>
-					</select>
-					-<input id="phone2" maxlength="4">
-					-<input id="phone3" maxlength="4">
-					</td>
-				</tr>
-				<tr>
-					<td><input type="date" id="birth"></td>
-				</tr>
-				<tr>
-					<td><input type="button" name="join" id="join"></td>
-				</tr>
-			</table>
+			<div style="text-align: center;">
+				<div style="padding:10px;">
+					<span> <input id="email" placeholder="아이디"> <input
+						type="button" id="idcheck" value="중복확인"><br>
+						<button type="button" id="send-email-button">인증코드 발송</button> <br>
+						<span for="verification-code">인증코드:</span> <input type="text"
+						id="verification-codechk" name="verification-codechk"> <input
+						type="button" id="emailcheck" name="emailcheck" value="인증">
+						<br> <span id="true"></span> <span id="idOk"></span> <span
+						id="codeOk"></span>
+					</span>
+				</div>
+				<div>
+					<span><input id="password" name="password"
+						placeholder="비밀번호"> <br> <span id="pwdcheckmsg"></span></span>
+					<span><input id="password2" name="password2"
+						placeholder="비밀번호 재확인"> <br> <span id="pwd2checkmsg"></span>
+					</span>
+				</div>
+				<div>
+					<span><input id="name" placeholder="이름"></span>
+				</div>
+				<div>
+					<span><input id="nickname" placeholder="별명"> <br>
+						<input type="button" id="nickchk" value="중복검사"> <br>
+						<span id="nnOk"></span></span>
+				</div>
+				<div>
+					<span><select id="phone1">
+							<option value="010">010</option>
+							<option value="011">011</option>
+							<option value="012">012</option>
+					</select> - <input id="phone2" maxlength="4"> - <input id="phone3"
+						maxlength="4"></span>
+				</div>
+				<div>
+					<span><input type="date" id="birth"></span>
+				</div>
+				<div>
+					<span><input type="button" name="join" id="join"
+						value="회원가입"> </span>
+				</div>
+			</div>
 		</form>
 	</main>
+	<script type="text/javascript" src="/js/register.js"></script>
+	<script type="text/javascript">
+		function email_change() {
+			if (document.join.email.options[document.join.email.selectedIndex].value == "0") {
+				document.join.email2.disabled = false;
+				document.join.email2.value = "";
+				document.join.email2.focus();
+			} else {
+				document.join.email2.disabled = true;
+				document.join.email2.value = document.join.email.options[document.join.email.selectedIndex].value;
+			}
+		}
+	</script>
 </body>
-<script type="text/javascript" src="/js/register.js"></script>
-<script type="text/javascript">
-function email_change(){
-	if(document.join.email.options[document.join.email.selectedIndex].value == "0"){
-	 document.join.email2.disabled = false;
-	 document.join.email2.value = "";
-	 document.join.email2.focus();
-	} else{
-	 document.join.email2.disabled = true;
-	 document.join.email2.value = document.join.email.options[document.join.email.selectedIndex].value;
-	}
-}
-</script>
 </html>
