@@ -15,19 +15,22 @@ public class MemberService {
 	private final MemberMapper dao;
 	
   // CJW#2 Login
-	public Member login(String id, String password) {
+	public Member login(String email, String password) {
 		Map<String, String> map = new HashMap<>();
-		map.put("id", id);
+		map.put("email", email);
 		map.put("password", password);
 		return dao.login(map);
 	}
-  
+	
   public int register(Member vo) {
 		return dao.register(vo);
 	}
   
-	public int idcheck(String id) {
-		return dao.idcheck(id);
+	public int idcheck(String email) {
+		return dao.idcheck(email);
+	}
+	public int nickchk(String nickname) {
+		return dao.nickchk(nickname);
 	}
 
 	// HYC#3 Mypage
