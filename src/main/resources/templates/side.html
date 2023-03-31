@@ -71,10 +71,30 @@
 </div>
 
 
-  <form method="get" th:action="@{/search}" style="margin-top: 50px;">
-    <input type="text" style="height: 30px;" placeholder="검색">
-    <button type="submit" style="height: 30px; width: 60px;">검색</button>
+  <form method="get" th:action="search" style="margin-top: 50px;">
+  	<select id="a" name="a">
+  		<option value="0">전체</option>
+  		<option value="1">카테고리</option>
+  		<option value="2">제목</option>
+  		<option value="3">내용</option>
+  	</select>
+    <input type="text" name="search" id="search" style="height: 30px;" placeholder="검색">
+    <button type="button" onclick="search()" style="height: 30px; width: 60px;">검색</button>
   </form>
+  
+  <script type="text/javascript">
+  function search() {
+	  const frm = document.forms[0];
+	  const value = frm.name.value;
+	  if(value == ""){
+		  alert('검색어를 입력해주세요.')
+	  } else if(value !== "") {
+		  frm.submit();
+ 		  location.href="/shoppingMall/search?name="+value;
+	  }
+  }
+  
+  </script>
   <ul class="menu" style="margin-top: 50px;">
     <li><a href="#">전통음식</a></li>
     <li><a href="#">건강식</a></li>

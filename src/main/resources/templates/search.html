@@ -1,17 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>검색 창</title>
 </head>
 <body>
-<div th:if="${not #lists.isEmpty(results)}">
-    <ul>
-        <li th:each="result : ${results}" th:text="${result}" />
-    </ul>
-</div>
-<div th:if="${#lists.isEmpty(results)}">
-    No results found for "<span th:text="${searchTerm}" />".
+<ul id="main">
+	<li>
+		<ul  class="row">
+			<li>번호</li>
+			<li>제목</li>
+			<li>작성자</li>
+			<li>조회수</li>
+			<li>작성일</li>
+		</ul>
+	</li>
+	<th:block th:each="vo:${list}">
+	<li>
+		<ul  class="row">
+			<li>
+				[[${vo.idx}]]
+			</li>
+			<li><a href="#" class="title">  <!-- 현재페이지 번호 전달 시작 -순서1) -->
+					[[${vo.title}]]
+				</a>
+		 		..<span style="color:orange;font-size: 80%;">
+		 		</span></li>
+			<li>
+				[[${vo.nickname}]]
+			</li>
+			<li>
+				[[${vo.viewcnt}]]
+			</li>
+			<li>
+			<th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
+			    <span th:if="${#strings.equals(regdate, today)}">
+			        [[${#temporals.format(vo.regdate, 'HH:mm')}]]
+			    </span>
+			    <span th:unless="${#strings.equals(regdate, today)}">
+			        [[${#temporals.format(vo.regdate, 'MM-dd' )}]]
+			    </span>    
+			</th:block>
+			</li>
+		</ul>
+	</li>
+	<!-- https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#dates -->
+ 	</th:block>
+	</ul>
+	<div style="width:700px;margin: auto;padding: 10px;text-align: center;">
+	전체 글 개수 : [[${paging.totalCount }]] <br>
+	<hr>
+	<div th:with="start=${paging.startPage},last=(${paging.startPage+9<paging.totalPage?start+9:paging.totalPage})">
+			<a th:href="@{search(a=${a},search=${search},page=1)}" th:class="${paging.startPage==1}? 'none':'btn btn-default'">&lt;&lt;</a>
+			
+			<a th:href="${paging.startPage==1}? '#':@{search(a=${a},search=${search},page=${paging.currentPage-10})}" 
+						th:class="${paging.startPage==1}? 'none':'btn btn-default'">&lt;</a>
+			<!-- start ~ last 범위값으로 반복-->
+			<a th:each="i:${#numbers.sequence(start,last)}" 
+			th:href="@{search(a=${a},search=${search},page=${i})}" th:text="${i}" th:class="${i==paging.currentPage}?'btn':'btn btn-default'"></a>
+
+			<a th:href="${paging.endPage==paging.totalPage}? '#':@{search(a=${a},search=${search},page=${paging.currentPage+10})}" 
+					th:class="${paging.endPage==paging.totalPage}? 'none':'btn btn-default'">&gt;</a>
+			<a th:href="@{search(a=${a},search=${search},page=${paging.totalPage})}"th:class="${paging.endPage==paging.totalPage}? 'none':'btn btn-default'">&gt;&gt;</a>
+	</div>
 </div>
 </body>
 </html>
