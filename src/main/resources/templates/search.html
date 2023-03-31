@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>검색 창</title>
+</head>
+<body>
+<div th:if="${not #lists.isEmpty(results)}">
+    <ul>
+        <li th:each="result : ${results}" th:text="${result}" />
+    </ul>
+</div>
+<div th:if="${#lists.isEmpty(results)}">
+    No results found for "<span th:text="${searchTerm}" />".
+</div>
+</body>
+</html>
