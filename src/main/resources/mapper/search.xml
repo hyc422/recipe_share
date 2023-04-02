@@ -1,33 +1,52 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="org.iclass.mvc.dao.BoardMapper">
+  <mapper namespace="org.iclass.mvc.dao.SearchMapper">
   
 	<select id="AllSearch" parameterType="java.util.Map" resultType="Board">
 		SELECT * FROM 
 (SELECT rownum r ,f.* FROM
-(SELECT * FROM BOARD b WHERE category LIKE  '%' || #{category} || '%' or mainCag LIKE '%' || #{mainCag} || '%' or content LIKE '%' || #{content} || '%' ORDER BY idx DESC) f)
+(SELECT * FROM BOARD b WHERE category LIKE  '%' || #{search} || '%' or subCate LIKE '%' || #{search} || '%' or content LIKE '%' || #{search} || '%' ORDER BY idx DESC) f)
 WHERE r BETWEEN #{start} AND #{end}
 	</select>
   
-	<select id="McagSearch" parameterType="java.util.Map" resultType="Board">
+	<select id="TitSearch" parameterType="java.util.Map" resultType="Board">
 SELECT * FROM 
 (SELECT rownum r ,f.* FROM
-(SELECT * FROM BOARD b WHERE mainCag LIKE '%' || #{mainCag} || '%' ORDER BY idx DESC) f)
+(SELECT * FROM BOARD b WHERE title LIKE '%' || #{search} || '%' ORDER BY idx DESC) f)
 WHERE r BETWEEN #{start} AND #{end}
 	</select>
 	
 	<select id="ContSearch" parameterType="java.util.Map" resultType="Board">
 		SELECT * FROM 
 (SELECT rownum r ,f.* FROM
-(SELECT * FROM BOARD b WHERE content LIKE '%' || #{content} || '%' ORDER BY idx DESC) f)
+(SELECT * FROM BOARD b WHERE content LIKE '%' || #{search} || '%' ORDER BY idx DESC) f)
 WHERE r BETWEEN #{start} AND #{end}
 	</select>
 	
 	<select id="CagSearch" parameterType="java.util.Map" resultType="Board">
 		SELECT * FROM 
 (SELECT rownum r ,f.* FROM
-(SELECT * FROM BOARD b WHERE category LIKE  '%' || #{category} || '%' ORDER BY idx DESC) f)
+(SELECT * FROM BOARD b WHERE category LIKE  '%' || #{search} || '%' or subCate LIKE '%' || #{search} || '%' ORDER BY idx DESC) f)
 WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="AllCount" resultType="int" parameterType="String">
+	SELECT count(*) FROM BOARD b 
+	WHERE category LIKE  '%' || #{search} || '%' or subCate LIKE '%' || #{search} || '%' or content LIKE '%' || #{search} || '%' ORDER BY idx DESC
 	</select>  
+	
+	<select id="CagCount" resultType="int" parameterType="String">
+	SELECT count(*) FROM BOARD b 
+	WHERE category LIKE  '%' || #{search} || '%' or subCate LIKE '%' || #{search} || '%' ORDER BY idx DESC
+	</select> 
+	<select id="TitCount" resultType="int" parameterType="String">
+	SELECT count(*) FROM BOARD b 
+	WHERE title LIKE '%' || #{search} || '%' ORDER BY idx DESC
+	</select> 
+	<select id="ContCount" resultType="int" parameterType="String">
+	SELECT count(*) FROM BOARD b 
+	WHERE content LIKE '%' || #{search} || '%' ORDER BY idx DESC
+	</select> 
+	  
   </mapper>
