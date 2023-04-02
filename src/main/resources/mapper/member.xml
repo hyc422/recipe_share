@@ -3,58 +3,61 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.iclass.mvc.dao.MemberMapper">
-  <!-- CJW#1 Login -->
-	<insert id="register" parameterType="Member">
-		INSERT INTO cook_member
+	<!-- CJW#1 Login -->
+	<!-- <insert id="register" parameterType="Member">
+		INSERT INTO th_member
 		(idx,email,password,name,nickname,phone,birth)
 		VALUES
 		(mem_idx_seq.nextval,#{email},#{password},#{name},#{nickname},#{phone},#{birth});
-		<selectKey keyProperty="idx" resultType="long" order="AFTER">
+		<selectKey keyProperty="idx" resultType="int" order="AFTER">
 			SELECT
 			mem_idx_seq.currval
 			FROM dual
-		</selectKey>	
-	</insert>
-  
-	<!-- <select id="login" parameterType="java.util.Map"
+		</selectKey>
+	</insert> -->
+
+	<select id="login" parameterType="java.util.Map"
 		resultType="Member">
-		SELECT * FROM cook_member
-		WHERE id=#{id} and
-		password=#{password}
-	</select> -->
-  
-	<select id="idcheck" parameterType="String" resultType="int">  
- 		SELECT count(*) FROM cook_member
- 		WHERE email = #{email}
- 	</select>
-  
- 	<select id="nickchk" parameterType="String" resultType="int">
- 		SELECT count(*) FROM cook_member
- 		where nickname=#{nickname}
- 	</select>
-  
-  	<select id="login" parameterType="java.util.Map" resultType="Member">
 		SELECT * FROM th_member
-		WHERE email=#{email} and password=#{password}
+		WHERE email=#{email} and
+		password=#{password}
+	</select>
+		<select id="idcheck" parameterType="String" resultType="int">
+		SELECT count(*) FROM th_member
+		where id=#{id}
+	</select>
+	<select id="nickchk" parameterType="String" resultType="int">
+		SELECT count(*) FROM th_member
+		where nickname=#{nickname}
+	</select>
+
+	<select id="login" parameterType="java.util.Map"
+		resultType="Member">
+		SELECT * FROM th_member
+		WHERE email=#{email} and
+		password=#{password}
 	</select>
 	<!-- CJW#1 Login -->
-  
+
 	<!-- HYC#3 Mypage -->
-	<select id="selectOne" parameterType="String" resultType="Member">
+	<select id="selectOne" parameterType="String"
+		resultType="Member">
 		SELECT * FROM th_member
 		WHERE id=#{id}
 	</select>
-	
+
 	<update id="update" parameterType="Member">
 		UPDATE TH_MEMBER
-		SET NICKNAME=#{nickname}, PHONE=#{phone}, EMAIL=#{email}
+		SET
+		NICKNAME=#{nickname}, PHONE=#{phone}, EMAIL=#{email}
 		WHERE ID=#{id}
 	</update>
-	
+
 	<update id="pwChg" parameterType="java.util.Map">
 		UPDATE TH_MEMBER
-		SET PASWORD=#{PASSWORD}
+		SET
+		PASWORD=#{PASSWORD}
 		WHERE ID=#{id}
 	</update>
-  <!-- HYC#3 Mypage -->
+	<!-- HYC#3 Mypage -->
 </mapper>

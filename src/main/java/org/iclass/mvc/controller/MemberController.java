@@ -3,7 +3,6 @@ package org.iclass.mvc.controller;
 
 import org.iclass.mvc.dto.Member;
 import org.iclass.mvc.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-//@RequestMapping("/member")
 public class MemberController {
 
 	private final MemberService service;
@@ -36,10 +34,10 @@ public class MemberController {
 		int result = service.idcheck(email);
 		return result;
 	}
-	@GetMapping("/finds/{email}")
+	@GetMapping("/finds/{nickname}")
 	@ResponseBody
-	public int nickchk(@PathVariable String email) {
-		int result = service.idcheck(email);
+	public int nickchk(@PathVariable String nickname) {
+		int result = service.idcheck(nickname);
 		return result;
 	}
 	
