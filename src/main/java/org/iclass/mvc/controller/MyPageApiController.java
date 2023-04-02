@@ -20,12 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-public class MypageController 
+public class MyPageApiController 
 {
 	private MemberService service;
 	private ObjectMapper objMapper = new ObjectMapper();
 	
-	public MypageController(MemberService service)
+	public MyPageApiController(MemberService service)
 	{this.service = service;}
 	
 	// member update

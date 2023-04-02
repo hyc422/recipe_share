@@ -6,7 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.iclass.mvc.dto.Member;
 
 @Mapper
-public interface MemberMapper {
+public interface MemberMapper 
+{
   // CJW#2 login
 	int register(Member member);
 	Member login(Map<String,String> map);
@@ -15,5 +16,4 @@ public interface MemberMapper {
 	// HYC#3 mypage
 	int update(Member dto);
 	int pwChg(Map<String,String> map);
-
 }
