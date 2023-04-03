@@ -15,16 +15,9 @@ public interface BoardService {
 	public int update(Board vo);
 	//04. 게시글 삭제
 	public void delete(int idx);
-	//05. 게시글 전체 목록
-	public List<Board> listAll(Map<String, Integer> map);
 	//06. 게시글 조회 증가 
 	public void increaseViewcnt(int idx);
-	int count();
-	 // 07. 카테고리별 게시글 개수 조회
-    public int getCategoryCount(String category);
-    // 08. 메인 카테고리별 게시글 개수 조회
-    public int getMainCagCount(String mainCag);
     // 9. 메인 카테고리별 게시글 목록 조회
-    public Map<String, Object> getMainCagList(String mainCag, int page);
-	public Map<String, Object> getCategoryList(String category, String mainCategory, int page);
+    public Map<String, Object> getsubCateList(String subCate, int page);
+	public Map<String, Object> getCategoryList(String category, int page);
 }

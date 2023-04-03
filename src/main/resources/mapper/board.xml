@@ -50,25 +50,44 @@ FROM HR.BOARD
   	where idx = #{idx}
   </delete>
   <!-- 게시글 총 갯수 출력 -->
-  <select id="countBoard" resultType="int">
-   SELECT COUNT(*) FROM BOARD
+  <!-- <select id="count" resultType="int" parameterType="java.util.Map">
+	  SELECT COUNT(*) FROM BOARD
+	    <if test="category != null or category != ''">
+	      WHERE category = #{category}
+	    </if>
+	    <if test="subCate != null or subCate != ''">
+	     AND subCate = #{subCate}
+	    </if>
+</select> -->
+  <select id="getCategorycount" resultType="int" parameterType="String">
+  SELECT COUNT(*) FROM BOARD where category = #{category}
   </select>
-  <!-- 게시글 카테고리별 페이지 출력 -->
-  <select id="categorylist">
-  SELECT*FROM
-(SELECT ROWNUM r,f.*FROM
-(SELECT * FROM BOARD b 
-WHERE category = #{category}
-ORDER BY idx DESC)f)
-WHERE r BETWEEN #{start} AND #{end}
+  
+  <select id="getsubCatecount" resultType="int" parameterType="String">
+  SELECT COUNT(*) FROM BOARD where subCate = #{subCate}
   </select>
-  <!-- 게시판 메인분류 페이지 출력 -->
-  <select id="mainCaglist">
-  SELECT*FROM
-(SELECT ROWNUM r,f.*FROM
-(SELECT * FROM BOARD b 
-WHERE mainCag=#{mainCag}
-ORDER BY idx DESC)f)
-WHERE r BETWEEN #{start} AND #{end}
-  </select>
+
+<select id="getCategoryList" resultType="Board" parameterType="java.util.Map">
+    SELECT * FROM (
+    SELECT ROWNUM r, f.*
+    FROM (
+      SELECT *
+      FROM BOARD
+      WHERE category = #{category, jdbcType=VARCHAR}
+      ORDER BY idx DESC
+    ) f
+  )WHERE r BETWEEN #{start} AND #{end}
+</select>
+
+<select id="getsubCateList" resultType="Board" parameterType="java.util.Map">
+  SELECT * FROM (
+    SELECT ROWNUM r, f.*
+    FROM (
+      SELECT *
+      FROM BOARD
+      WHERE SUBCATE = #{subCate}
+      ORDER BY idx DESC
+    ) f
+  ) WHERE r BETWEEN #{start} AND #{end} 
+</select>
   </mapper>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>레시피 - 전통음식 게시글</title>
+</head>
+<body>
+<ul id="main">
+   <li>
+      <ul  class="row">
+         <li>번호</li>
+         <li>제목</li>
+         <li>작성자</li>
+         <li>조회수</li>
+         <li>작성일</li>
+      </ul>
+   </li>
+   <th:block th:each="vo:${list}">
+   <li>
+      <ul  class="row">
+         <li>
+            [[${vo.idx}]]
+         </li>
+         <li><a th:href="@{read(idx=${vo.idx},page=${paging.currentPage},a=${a},Cate=${Cate})}" class="title">  <!-- 현재페이지 번호 전달 시작 -순서1) -->
+               [[${vo.title}]]
+            </a>
+             ..<span style="color:orange;font-size: 80%;">
+             </span></li>
+         <li>
+            [[${vo.nickname}]]
+         </li>
+         <li>
+            [[${vo.viewcnt}]]
+         </li>
+         <li>
+         <th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
+             <span th:if="${#strings.equals(regdate, today)}">
+                 [[${#temporals.format(vo.regdate, 'HH:mm')}]]
+             </span>
+             <span th:unless="${#strings.equals(regdate, today)}">
+                 [[${#temporals.format(vo.regdate, 'MM-dd' )}]]
+             </span>    
+         </th:block>
+         </li>
+      </ul>
+   </li>
+   <!-- https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#dates -->
+    </th:block>
+   </ul>
+   <div style="width:700px;margin: auto;padding: 10px;text-align: center;">
+   전체 글 개수 : [[${paging.totalCount }]] <br>
+   <hr>
+   <div th:with="start=${paging.startPage},last=(${paging.startPage+9<paging.totalPage?start+9:paging.totalPage})">
+    <a th:href="@{list(a=${a},list=${list},page=1)}" th:class="${paging.startPage==1}? 'none':'btn btn-default'">&lt;&lt;</a>
+         
+    <a th:href="${paging.startPage==1}? '#':@{search(a=${a},list=${list},page=${paging.currentPage-10})}" 
+        th:class="${paging.startPage==1}? 'none':'btn btn-default'">&lt;</a>
+
+    <a th:each="i:${#numbers.sequence(start,last)}" 
+        th:href="@{list(a=${a},list=${list},page=${i})}" th:text="${i}" th:class="${i==paging.currentPage}?'btn':'btn btn-default'"></a>
+
+    <a th:href="${paging.endPage==paging.totalPage}? '#':@{list(a=${a},list=${list},page=${paging.currentPage+10})}" 
+        th:class="${paging.endPage==paging.totalPage}? 'none':'btn btn-default'">&gt;</a>
+
+    <a th:href="@{list(a=${a},list=${list},page=${paging.totalPage})}" 
+        th:class="${paging.endPage==paging.totalPage}? 'none':'btn btn-default'">&gt;&gt;</a>
+
+    <!-- 추가된 다음 페이지로 이동하는 링크 -->
+    <a th:href="@{list(a=${a},list=${list},page=${paging.totalPage})}" 
+        th:if="${paging.currentPage < paging.totalPage}" class="btn btn-default">&gt;&gt;</a>
+</div>
+</div>
+</body>
+</html>

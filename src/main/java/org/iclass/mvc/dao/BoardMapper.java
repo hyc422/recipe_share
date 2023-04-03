@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.iclass.mvc.dto.Board;
 
 @Mapper
@@ -21,12 +22,11 @@ public interface BoardMapper {
 	//06. 게시글 조회 증가 
 	public void increaseViewcnt(int idx);
 	int count();
-	 // 07. 카테고리별 게시글 개수 조회
-    public int getCategoryCount(String category);
-    // 08. 메인 카테고리별 게시글 개수 조회
-    public int getMainCagCount(String mainCag);
+	int getCategorycount(String category);
+	int getsubCatecount(String subCate);
     // 9. 메인 카테고리별 게시글 목록 조회
-    public List<Board> getMainCagList(Map<String, Object> map);
+    public List<Board> getsubCateList(Map<String, Object> map);
     // 10. 카테고리별 게시글 목록 조회
     public List<Board> getCategoryList(Map<String, Object> map);
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory);
 }

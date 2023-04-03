@@ -1,0 +1,17 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.iclass.mvc.dao.CommentsMapper">
+	<insert id="Commentsinsert" parameterType="org.iclass.mvc.dto.Comments">
+		INSERT INTO HR.COMMENTS
+(IDX, NICKNAME, CONTENTS, CREATEDATE)
+VALUES(COMMENTS_idx_seq.nextval, #{nickname}, #{CONTENTS}, sysdate)
+	</insert>
+	<delete id="CommentsDelete" parameterType="int">
+		Delete From comments
+		where idx=#{idx}
+	</delete>
+	<update id="setCommentsCount" parameterType="int">
+
+	</update>
+ </mapper>
