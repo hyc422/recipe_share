@@ -26,7 +26,7 @@ public class ChatRoomController
 		
 		log.info("chatroom list : {}", service.selectAll());
 		
-		return "chat";
+		return "roomlist";
 	}	// method end
 	
 	@PostMapping("/chat/createroom")
