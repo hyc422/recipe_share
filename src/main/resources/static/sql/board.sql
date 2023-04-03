@@ -10,7 +10,7 @@ CREATE TABLE board(
 	viewcnt NUMBER DEFAULT 0, --조회수
 	numcomments NUMBER DEFAULT 0 --댓글 수 
 );
-
+//
 select * from board
   	where idx = 136;
 SELECT *FROM BOARD b ;
