@@ -1,7 +1,7 @@
 package org.iclass.mvc.dto;
 
-import java.util.Map;
 
+import java.util.Map;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -62,5 +62,4 @@ public class Paging {
 			this.findText=map.get("findText");
 		}
 	}
-	
 }

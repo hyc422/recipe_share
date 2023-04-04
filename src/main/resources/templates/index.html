@@ -3,61 +3,146 @@
 <head>
 <script type="text/javascript" src="/js/index.js"></script>
 <link href="/css/index.css" rel="stylesheet">
-<title>Top 10 Recipe Videos in Korea</title>
+<title>레시피 천국</title>
 </head>
 <body>
 	<div th:replace="top :: myIncludedFragment"></div>
-	<!-- CJW <-> CGH와 협의 후 처리
-	<h3>인덱스</h3>
+	<hr> <!-- 탑과 사이드를 구분하기 위해 추가 -->
+	<div style="display: flex;"> <!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
+		<div style="flex-basis: 25%; min-width: 200px;">
+			<div th:replace="side :: myIncludedFragment"></div>
+		</div>
+		<div style="flex-basis: 100%; min-width: 400px; margin-top: 50px;"> <!-- 변경된 부분: 사이드 너비를 25%로 지정하고, 나머지 부분에 글 목록을 배치 -->
+			<div style="margin: auto; display: inline-block; padding: 30px;">
+				<div style="width: 300px; height: 400px; padding: 30px; border: 3px solid gray; margin: auto; float: left;">
+					<h4 style="text-align: center;">30추 글</h4>
+					<table class="userupdate" style="table-layout: fixed;">
+						<tr style="text-align: center;">
+							<th>카테고리</th>
+							<th>제목</th>
+							<th>닉네임</th>
+							<th>조회수</th>
+							<th>날짜</th>
+						</tr>
+						<th:block th:each="vo:${viewcnt}">
+							<tr class="out">
+								<td>
+									<th:block th:if="${vo.category == '레시피'}">
+								    [[${vo.subCate}]]
+									</th:block>
+									<th:block th:unless="${vo.category == '레시피'}">
+								    [[${vo.category}]]
+									</th:block>
+								</td>
+								<td>[[${vo.title}]]</td>
+								<td>[[${vo.nickname}]]</td>
+								<td>[[${vo.viewcnt}]]</td>
+								<td>
+									<th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
+									    <span th:if="${#strings.equals(regdate, today)}">
+									        [[${#temporals.format(vo.regdate, 'HH:mm')}]]
+									    </span>
+									    <span th:unless="${#strings.equals(regdate, today)}">
+									        [[${#temporals.format(vo.regdate, 'MM-dd' )}]]
+									    </span>    
+									</th:block>
+								</td>
+							</tr>
+						</th:block>
+					</table>
+				</div>
 
-<a><span th:if="${session.member}!=null">
-		<br>[[${session.member.name}]]
-		<br>[[${session.member.password}]]
-		<br>[[${session.member.id}]]
-		<br>[[${session.member.name}]]
-		<br>[[${session.member.nickname}]]
-		<br>[[${session.member.email}]]
-		<br>[[${session.member.phone}]]
-		<br>[[${session.member.birth}]]
-		<br>[[${session.member.grade}]]
-		</span></a> -->
-<hr>
-<div style="margin: auto; display: inline-block; padding: 30px;">
-<div style="width: 400px; height:500px; padding:30px; border: 3px solid gray; margin: auto; float: left;">
-<h4 style="text-align: center;">30추 글</h4>
-<hr>
-<hr>
-<hr>
-</div>
+				<div style="width: 300px; height: 400px; padding: 30px; border: 3px solid gray; margin: auto; margin-left: 30px; margin-right: 30px; float: left;">
+					<h4 style="text-align: center;">인기 글</h4>
+					<table class="userupdate" style="table-layout: fixed;">
+						<tr style="text-align: center;">
+							<th>카테고리</th>
+							<th>제목</th>
+							<th>닉네임</th>
+							<th>조회수</th>
+							<th>날짜</th>
+						</tr>
+						<th:block th:each="vo:${cnt}">
+							<tr class="out">
+								<td>
+								<th:block th:if="${vo.category == '레시피'}">
+								    [[${vo.subCate}]]
+								</th:block>
+								<th:block th:unless="${vo.category == '레시피'}">
+								    [[${vo.category}]]
+								</th:block>
+								</td>
+								<td>[[${vo.title}]]</td>
+								<td>[[${vo.nickname}]]</td>
+								<td>[[${vo.viewcnt}]]</td>
+								<td>
+								<th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
+									    <span th:if="${#strings.equals(regdate, today)}">
+									        [[${#temporals.format(vo.regdate, 'HH:mm')}]]
+									    </span>
+									    <span th:unless="${#strings.equals(regdate, today)}">
+									        [[${#temporals.format(vo.regdate, 'MM-dd' )}]]
+									    </span>    
+								</th:block>
+								</td>
+							</tr>
+						</th:block>
+					</table>
+				</div>
 
-<div style="width: 400px; height:500px; padding:30px; border: 3px solid gray; margin: auto; margin-left:30px; margin-right:30px; float: left;">
-<h4 style="text-align: center;">최근 올라온 글</h4>
-<hr>
-<hr>
-<hr>
-</div>
-
-<div style="width: 400px; height:500px; padding:30px; border: 3px solid gray; margin: auto; float: left;">
-<h4 style="text-align: center;">인기 글</h4>
-<hr>
-<hr>
-<hr>
-</div>
-
-</div>
+				<div style="width: 300px; height: 400px; padding: 30px; border: 3px solid gray; margin: auto; float: left;">
+					<h4 style="text-align: center;">최근 올라온 글</h4>
+					<table class="userupdate" style="table-layout: fixed;">
+						<tr style="text-align: center;">
+							<th>카테고리</th>
+							<th>제목</th>
+							<th>닉네임</th>
+							<th>조회수</th>
+							<th>날짜</th>
+						</tr>
+						<th:block th:each="vo:${reg}">
+							<tr class="out">
+								<td>
+								<th:block th:if="${vo.category == '레시피'}">
+								    [[${vo.subCate}]]
+								</th:block>
+								<th:block th:unless="${vo.category == '레시피'}">
+								    [[${vo.category}]]
+								</th:block>
+								</td>
+								<td>[[${vo.title}]]</td>
+								<td>[[${vo.nickname}]]</td>
+								<td>[[${vo.viewcnt}]]</td>
+								<td>
+								<th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
+									    <span th:if="${#strings.equals(regdate, today)}">
+									        [[${#temporals.format(vo.regdate, 'HH:mm')}]]
+									    </span>
+									    <span th:unless="${#strings.equals(regdate, today)}">
+									        [[${#temporals.format(vo.regdate, 'MM-dd' )}]]
+									    </span>    
+								</th:block>
+								</td>
+							</tr>
+						</th:block>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 <br>
 <hr>
-<div>
+<div style="flex-basis: 100%; min-width: 400px; margin-left: 25%;">
 	<h4>인기 많은 레시피(Top5 Youtube)</h4>
 	<div class="container top10"></div>
 	<h4>최근 올라온 레시피(Top5 Youtube)</h4>
 	<div class="container latest10"></div>
 </div>
-<div>
-	<h3>광고 후원업체</h3>
 	<hr>
+<div style="flex-basis: 90%; min-width: 400px; margin-left: 25%;">
+	<h3>광고 후원업체</h3>
 	<h3>신선한 재료 사러가기</h3>
-	<a href="https://www.coupang.com/np/categories/393760" target="_blank"><span>쿠팡 프레시</span></a>
+	<a href="https://www.coupang.com/np/categories/393760" target="_blank"><span>쿠팡 프레시</span></a><br>
 	<a href="https://www.ssg.com" target="_blank"><span>SSG</span></a>
 </div>
 </body>

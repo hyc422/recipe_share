@@ -5,10 +5,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="login" method="post">
-	<input type="text" placeholder="아이디" name="id" id="id">
-	<input type="text" placeholder="패스워드" name="password" id="password">
-	<button>로그인</button>
-</form>
+	<form action="login" method="post">
+		<input type="text" placeholder="아이디" name="email" id="email"> <input
+			type="text" placeholder="패스워드" name="password" id="password">
+		<button>로그인</button>
+		<div>
+			<ul>
+				<li>
+				<a class="p-2"
+					href="https://kauth.kakao.com/oauth/authorize?client_id=30e7f69335fe5beb8e563f00ec4f0bb9&redirect_uri=http://localhost:8083/kakao&response_type=code">
+					카카오로그인</a>
+					</li>
+					<li>
+					<a href="https://kauth.kakao.com/oauth/logout?client_id=30e7f69335fe5beb8e563f00ec4f0bb9&logout_redirect_uri=http://localhost:8083/">로그아웃</a>
+					</li>
+					<li th:text="|유효토큰 = ${access_token}|">code</li>
+					<li th:text="|사용자정보 = ${userInfo}|">code</li>
+					<li th:text="|동의정보 = ${agreementInfo}|">code</li>
+			</ul>
+		</div>
+
+	</form>
 </body>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 </html>
