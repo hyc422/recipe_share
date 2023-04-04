@@ -2,38 +2,60 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>검색 창</title>
+<title>Insert title here</title>
+<link href="/css/search.css" rel="stylesheet">
 </head>
 <body>
-<ul id="main">
-	<li>
-		<ul  class="row">
-			<li>번호</li>
-			<li>제목</li>
-			<li>작성자</li>
-			<li>조회수</li>
-			<li>작성일</li>
-		</ul>
-	</li>
+<div th:replace="top :: myIncludedFragment"></div>
+	<hr> <!-- 탑과 사이드를 구분하기 위해 추가 -->
+	<div style="display: flex;"> <!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
+		<div style="flex-basis: 15%; min-width: 200px;">
+			<div th:replace="side :: myIncludedFragment"></div>
+		</div>
+<section class="commu-center" style="margin-top: 50px;">
+	<div id="comAdExtVideo" class="comAdExtVideo floating">
+		<div style="width:800px;"><div id="__A1VideoLargeBanner" style="float: none; display: block; "></div></div>
+	</div>
+	
+	
+    <div class="commu-body pcMain"><div class="isearch_section isearch_wrap">
+    	<div class="top_search_area">
+		<p class="text" style="font-size: 30px;">통합검색</p> 
+		<form method="get" th:action="search" style="margin-top: 30px;">
+		<select id="a" name="a" style="height: 30px;">
+  		<option value="0">전체</option>
+  		<option value="1">카테고리</option>
+  		<option value="2">제목</option>
+  		<option value="3">내용</option>
+  		</select>
+		<input type="text" class="input" id="search" maxlength="100" name="search" >
+		<button class="btn btn_submit" onclick="searchData2()">검색</button>
+		</form>
+	</div>
+ 
+    <div class="isearch_sub_wrap">
+    	<div class="section_box noboard"> 
+<br>
+  <!-- 검색결과 리스트가 비어있을 때 -->
+<div th:if="${#lists.isEmpty(list)}" style="text-align: center;"><h2>검색 결과가 없습니다.</h2></div>
+
+<!-- 검색결과 리스트가 존재할 때 -->
+<div th:if="${not #lists.isEmpty(list)}">
+    <div class="section_body">
+	<ul class="news_list">
 	<th:block th:each="vo:${list}">
-	<li>
-		<ul  class="row">
-			<li>
-				[[${vo.idx}]]
-			</li>
-			<li><a href="#" class="title">  <!-- 현재페이지 번호 전달 시작 -순서1) -->
-					[[${vo.title}]]
-				</a>
-		 		..<span style="color:orange;font-size: 80%;">
-		 		</span></li>
-			<li>
-				[[${vo.nickname}]]
-			</li>
-			<li>
-				[[${vo.viewcnt}]]
-			</li>
-			<li>
-			<th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
+        		<li class="item">
+			<h1 style="font-size: 30px;"><a href="#" class="name" target="_blank">[[${vo.title}]]</a></h1>
+			<p class="caption" style="font-size:20px;">
+			<span th:text="${#strings.length(vo.content) &gt; 200} ? (${#strings.substring(vo.content, 0, 100)} + '<br>' + ${#strings.substring(vo.content, 100, 200)} + '...') : ${vo.content}" style="word-break: break-all;"></span></p> 
+			<div class="item_info clearfix">
+			 <th:block th:if="${vo.category == '레시피'}">
+				 <a href="#" class="board">[[${vo.subCate}]]</a> 
+					</th:block>
+					<th:block th:unless="${vo.category == '레시피'}">
+				  <a href="2#" class="board">[[${vo.category}]]</a>
+					</th:block>
+				<p class="date"><th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
 			    <span th:if="${#strings.equals(regdate, today)}">
 			        [[${#temporals.format(vo.regdate, 'HH:mm')}]]
 			    </span>
@@ -41,28 +63,50 @@
 			        [[${#temporals.format(vo.regdate, 'MM-dd' )}]]
 			    </span>    
 			</th:block>
-			</li>
-		</ul>
-	</li>
-	<!-- https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#dates -->
- 	</th:block>
-	</ul>
-	<div style="width:700px;margin: auto;padding: 10px;text-align: center;">
-	전체 글 개수 : [[${paging.totalCount }]] <br>
-	<hr>
-	<div th:with="start=${paging.startPage},last=(${paging.startPage+9<paging.totalPage?start+9:paging.totalPage})">
-			<a th:href="@{search(a=${a},search=${search},page=1)}" th:class="${paging.startPage==1}? 'none':'btn btn-default'">&lt;&lt;</a>
+			</p>
+			</div>
+		</li>
+		</th:block>
+	        	</ul>
+	        	<div style="width:700px;margin: auto;padding: 10px;text-align: center;">
+			    전체 글 개수 : [[${paging.totalCount }]] <br>
+			    <hr>
+			    <div th:with="start=${paging.startPage},last=(${paging.startPage+9<paging.totalPage?start+9:paging.totalPage})">
+			        <a th:href="@{search(a=${a},search=${search},page=1)}" th:class="${paging.startPage==1}? 'none':'btn btn-default'">&lt;&lt;</a>
+			        
+			        <a th:href="${paging.currentPage<=1} ? '#' : @{search(a=${a},search=${search},page=${paging.currentPage-1})}" 
+			   th:class="${paging.currentPage<=1} ? 'none' : 'btn btn-default'">&lt;</a>
 			
-			<a th:href="${paging.startPage==1}? '#':@{search(a=${a},search=${search},page=${paging.currentPage-10})}" 
-						th:class="${paging.startPage==1}? 'none':'btn btn-default'">&lt;</a>
 			<!-- start ~ last 범위값으로 반복-->
 			<a th:each="i:${#numbers.sequence(start,last)}" 
-			th:href="@{search(a=${a},search=${search},page=${i})}" th:text="${i}" th:class="${i==paging.currentPage}?'btn':'btn btn-default'"></a>
-
-			<a th:href="${paging.endPage==paging.totalPage}? '#':@{search(a=${a},search=${search},page=${paging.currentPage+10})}" 
-					th:class="${paging.endPage==paging.totalPage}? 'none':'btn btn-default'">&gt;</a>
-			<a th:href="@{search(a=${a},search=${search},page=${paging.totalPage})}"th:class="${paging.endPage==paging.totalPage}? 'none':'btn btn-default'">&gt;&gt;</a>
-	</div>
+			   th:href="@{search(a=${a},search=${search},page=${i})}" 
+			   th:text="${i}" 
+			   th:class="${i==paging.currentPage} ? 'btn' : 'btn btn-default'">
+			</a>
+			
+			<a th:href="${paging.currentPage>=paging.totalPage} ? '#' : @{search(a=${a},search=${search},page=${paging.currentPage+1})}" 
+			   th:class="${paging.currentPage>=paging.totalPage} ? 'none' : 'btn btn-default'">&gt;</a>
+			        <a th:href="@{search(a=${a},search=${search},page=${paging.totalPage})}"th:class="${paging.endPage==paging.totalPage}? 'none':'btn btn-default'">&gt;&gt;</a>
+			    </div>
+			</div>
+<script type="text/javascript">
+  function searchData2() {
+	  const frm = document.forms[1];
+	  const value = frm.search.value;
+	  if(value == ""){
+		  alert('검색어를 입력해주세요.')
+	  } else if(value !== "") {
+		  frm.submit();
+	  }
+  }
+  
+  </script>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</section>
 </div>
 </body>
 </html>

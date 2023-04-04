@@ -79,28 +79,27 @@
   		<option value="3">내용</option>
   	</select>
     <input type="text" name="search" id="search" style="height: 30px;" placeholder="검색">
-    <button type="button" onclick="search()" style="height: 30px; width: 60px;">검색</button>
+    <button type="button" onclick="searchData()" style="height: 30px; width: 60px;">검색</button>
   </form>
   
   <script type="text/javascript">
-  function search() {
+  function searchData() {
 	  const frm = document.forms[0];
-	  const value = frm.name.value;
+	  const value = frm.search.value;
 	  if(value == ""){
 		  alert('검색어를 입력해주세요.')
 	  } else if(value !== "") {
 		  frm.submit();
- 		  location.href="/shoppingMall/search?name="+value;
 	  }
   }
   
   </script>
   <ul class="menu" style="margin-top: 50px;">
-    <li><a href="#">전통음식</a></li>
-    <li><a href="#">건강식</a></li>
-    <li><a href="#">酒식</a></li>
-    <li><a href="#">자유게시판</a></li>
-    <li><a href="#">질문게시판</a></li>
+    <li><a href="/list?Cate=전통음식&a=1&page=1">전통음식</a></li>
+    <li><a href="/list?Cate=건강식&a=1&page=1">건강식</a></li>
+    <li><a href="/list?Cate=주식&a=1&page=1">酒식</a></li>
+    <li><a href="/list?Cate=자유게시판&a=0&page=1">자유게시판</a></li>
+    <li><a href="/list?Cate=질문&a=0&page=1">질문게시판</a></li>
   </ul>
 </div>
 </div>

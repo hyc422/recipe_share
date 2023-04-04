@@ -1,7 +1,10 @@
 package org.iclass.mvc.controller;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import org.iclass.mvc.dto.Board;
 import org.iclass.mvc.service.IndexService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +21,16 @@ public class IndexController
 
 	@GetMapping({"/","index"})
 	public String index(Model model) {
-		model.addAttribute("viewcnt", service.viewcntSelect());
-		model.addAttribute("cnt", service.cntSelect());
-		model.addAttribute("reg", service.regSelect());
+		List<Board>viewcntList = service.viewcntSelect();
+		List<Board>cntList = service.cntSelect();
+		List<Board>regList = service.regSelect();
+		int limit = 15;
+		List<Board>viewcnt = viewcntList.stream().limit(limit).collect(Collectors.toList());
+		List<Board>cnt = cntList.stream().limit(limit).collect(Collectors.toList());
+		List<Board>reg = regList.stream().limit(limit).collect(Collectors.toList());
+		model.addAttribute("viewcnt", viewcnt);
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("reg", reg);
 		model.addAttribute("today", LocalDate.now());	
 		return "index";
 	}

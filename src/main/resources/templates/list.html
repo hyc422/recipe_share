@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>게시판</title>
+<link href="/css/list.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="top :: myIncludedFragment"></div>
+	<hr> <!-- 탑과 사이드를 구분하기 위해 추가 -->
+	<div style="display: flex;"> <!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
+		<div style="flex-basis: 18%; min-width: 200px;">
+			<div th:replace="side :: myIncludedFragment"></div>
+		</div>
+	<article class="new-board" id="new-board" style="margin-top: 50px;">
+		<div class="admin-area"></div>
+		<div class="post-area">
+			<a class="btn" href="https://www.inven.co.kr/board/lostark/4811">목록</a>
+			<a class="btn dark write"
+				href="https://www.inven.co.kr/board/powerbbs.php?query=write&amp;come_idx=4811&amp;my=chuchu">글쓰기</a>
+		</div>
+				<div class="w327B"></div>
+
+		<form name="board_list1">
+			<input type="hidden" name="come_idx" value="4811">
+
+			<div class="board-list">
+				<table>
+					<caption style="font-size: 30px; padding-bottom: 40px;">[[${Cate}]]</caption>
+					<colgroup>
+						<col class="size01" data-alias="number">
+
+						<col class="size02" data-alias="subject">
+
+						<col class="size03" data-alias="writer">
+
+						<col class="size04" data-alias="date">
+
+						<col class="size05" data-alias="hit">
+
+						<col class="size06" data-alias="req">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>번호</th>
+
+							<th>제목</th>
+
+							<th>글쓴이</th>
+
+							<th>등록일</th>
+
+							<th>조회</th>
+
+						</tr>
+					</thead>
+					<tbody>
+					 <th:block th:each="vo:${list}">
+						<tr class="lgtm">
+							<td class="num"><span>[[${vo.idx}]]</span></td>
+
+							<td class="tit">
+								<div class="text-wrap">
+									<div>
+										<span class="user-icon"></span> <a class="subject-link"
+											href="#">
+											 [[${vo.title}]]
+										</a>
+									</div>
+									<span data-opinion-bbs-comeidx="4811"
+										data-opinion-bbs-uid="6734402" data-opinion-bbs-opi="82"
+										class="con-comment">&#91;[[${vo.numcomments}]]&#93;</span>
+								</div>
+							</td>
+
+							<td class="user"><span class="layerNickName">[[${vo.nickname}]]</span>
+							</td>
+
+							<td class="date"><th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
+					             <span th:if="${#strings.equals(regdate, today)}">
+					                 [[${#temporals.format(vo.regdate, 'HH:mm')}]]
+					             </span>
+					             <span th:unless="${#strings.equals(regdate, today)}">
+					                 [[${#temporals.format(vo.regdate, 'MM-dd' )}]]
+					             </span>    
+					         </th:block></td>
+
+							<td class="view">[[${vo.viewcnt}]]</td>
+
+						</tr>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</form>
+		<div class="post-area">
+
+			<a class="btn" href="https://www.inven.co.kr/board/lostark/4811">목록</a>
+
+			<a class="btn dark write"
+				href="https://www.inven.co.kr/board/powerbbs.php?query=write&amp;come_idx=4811&amp;my=chuchu">글쓰기</a>
+		</div>
+		<div style="width:700px;margin: auto;padding: 10px;text-align: center;">
+			    전체 글 개수 : [[${paging.totalCount }]] <br>
+			    <hr>
+			    <div th:with="start=${paging.startPage},last=(${paging.startPage+9<paging.totalPage?start+9:paging.totalPage})">
+			        <a th:href="@{list(Cate=${Cate},a=${a},page=1)}" th:class="${paging.startPage==1}? 'none':'btn btn-default'">&lt;&lt;</a>
+			        
+			        <a th:href="${paging.currentPage<=1} ? '#' : @{list(Cate=${Cate},a=${a},page=${paging.currentPage-1})}" 
+			   th:class="${paging.currentPage<=1} ? 'none' : 'btn btn-default'">&lt;</a>
+			
+			<!-- start ~ last 범위값으로 반복-->
+			<a th:each="i:${#numbers.sequence(start,last)}" 
+			   th:href="@{list(Cate=${Cate},a=${a},page=${i})}" 
+			   th:text="${i}" 
+			   th:class="${i==paging.currentPage} ? 'btn' : 'btn btn-default'">
+			</a>
+			
+			<a th:href="${paging.currentPage>=paging.totalPage} ? '#' : @{list(Cate=${Cate},a=${a},page=${paging.currentPage+1})}" 
+			   th:class="${paging.currentPage>=paging.totalPage} ? 'none' : 'btn btn-default'">&gt;</a>
+			        <a th:href="@{list(Cate=${Cate},a=${a},page=${paging.totalPage})}"th:class="${paging.endPage==paging.totalPage}? 'none':'btn btn-default'">&gt;&gt;</a>
+			    </div>
+			</div>
+	</article>
+	</div>
+</body>
+</html>
