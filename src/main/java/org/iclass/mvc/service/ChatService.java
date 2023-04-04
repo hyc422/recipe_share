@@ -44,10 +44,13 @@ public class ChatService
 		return dao.minusUserCnt(roomId);
 	}	// method end
 	
-	public int enterUser(String roomId, String nickname)
+	public String enterUser(String roomId, String nickname)
 	{	
 		String userId = UUID.randomUUID().toString();
-		return dao.enterUser(userId, roomId, nickname);
+
+		dao.enterUser(userId, roomId, nickname);
+
+		return userId;
 	}	// method end
 	
 	public int leaveUser(String userId)
