@@ -5,19 +5,19 @@
   
   <!-- 게시글 작성 -->
   <insert id="create" parameterType="Board">
-  	INSERT INTO HR.BOARD
-(IDX, CATEGORY, MAINCAG, NICKNAME, TITLE, FILENAME, CONTENT, REGDATE)
-VALUES(board_idx_seq.nextval, #{category}, #{mainCag}, #{nickname}, #{title}, #{filename},#{content}, sysdate)
+  	INSERT INTO BOARD
+  	(IDX, CATEGORY, MAINCAG, NICKNAME, TITLE, FILENAME, CONTENT, REGDATE)
+VALUES(board_idx_seq.nextval, #{category},  #{mainCag, jdbcType=VARCHAR}, #{nickname}, #{title}, #{filename},#{content}, sysdate)
   	</insert>
   
   <!-- 게시글 조회 -->
-  	<select id="selectAll" resultType="Board">
+  	<select id="listAll" resultType="Board">
   		SELECT #{idx}, #{category}, #{mainCag}, #{nickname}, #{title}, #{title}, #{filename},#{content}, sysdate, #{viewcnt}, #{numcomments}
 FROM HR.BOARD
   	</select>
   	
   	<!-- 게시글 상세보기 조회 -->
-  	<select id="selectByidx" resultType="Board" parameterType="int">
+  	<select id="read" resultType="Board" parameterType="int">
   	select * from board
   	where idx = #{idx}
   	</select>
@@ -49,5 +49,45 @@ FROM HR.BOARD
   	Delete from board
   	where idx = #{idx}
   </delete>
+  <!-- 게시글 총 갯수 출력 -->
+  <!-- <select id="count" resultType="int" parameterType="java.util.Map">
+	  SELECT COUNT(*) FROM BOARD
+	    <if test="category != null or category != ''">
+	      WHERE category = #{category}
+	    </if>
+	    <if test="subCate != null or subCate != ''">
+	     AND subCate = #{subCate}
+	    </if>
+</select> -->
+  <select id="getCategorycount" resultType="int" parameterType="String">
+  SELECT COUNT(*) FROM BOARD where category = #{category}
+  </select>
   
+  <select id="getsubCatecount" resultType="int" parameterType="String">
+  SELECT COUNT(*) FROM BOARD where subCate = #{subCate}
+  </select>
+
+<select id="getCategoryList" resultType="Board" parameterType="java.util.Map">
+    SELECT * FROM (
+    SELECT ROWNUM r, f.*
+    FROM (
+      SELECT *
+      FROM BOARD
+      WHERE category = #{category, jdbcType=VARCHAR}
+      ORDER BY idx DESC
+    ) f
+  )WHERE r BETWEEN #{start} AND #{end}
+</select>
+
+<select id="getsubCateList" resultType="Board" parameterType="java.util.Map">
+  SELECT * FROM (
+    SELECT ROWNUM r, f.*
+    FROM (
+      SELECT *
+      FROM BOARD
+      WHERE SUBCATE = #{subCate}
+      ORDER BY idx DESC
+    ) f
+  ) WHERE r BETWEEN #{start} AND #{end} 
+</select>
   </mapper>

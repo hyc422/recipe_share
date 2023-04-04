@@ -2,24 +2,33 @@ package org.iclass.mvc.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.iclass.mvc.dao.BoardMapper;
 import org.iclass.mvc.dto.Board;
-import org.springframework.stereotype.Repository;
+import org.iclass.mvc.dto.Paging;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BoardDaoImpl implements BoardService {
 	
+	
 	SqlSession SqlSession;
+	 private SqlSessionFactory sqlSessionFactory;
 	private BoardMapper dao;
-	public BoardDaoImpl(BoardMapper dao) {
-		this.dao=dao;
-	}
+	  public BoardDaoImpl(SqlSession sqlSession, BoardMapper dao) {
+	        this.SqlSession = sqlSession;
+	        this.dao = dao;
+	    }
 	
 	//01. 게시글 작성
 	@Override
@@ -47,7 +56,7 @@ public class BoardDaoImpl implements BoardService {
 	//02. 게시글 상세보기 조회
 	@Override
 	public Board read(int idx) {
-		return SqlSession.selectOne("board.selectByidx",idx);
+		return dao.read(idx);
 	}
 	
 	//03. 게시글 수정
@@ -62,19 +71,47 @@ public class BoardDaoImpl implements BoardService {
 	public void delete(int idx) {
 		SqlSession.delete("board.deleteArticle", idx);
 	}
+	//05. 카테고리별 게시글 목록 조회
+	public Map<String,Object> getCategoryList(String category, int page) {
+		  	int pageSize = 10;
+		    int totalCount = dao.getCategorycount(category);
+		    Paging paging = new Paging(page, totalCount, pageSize);
 
-	@Override
-	public List<Board> listAll() {
-		return SqlSession.selectList("board.selectAll");
+		    Map<String, Object> map = new HashMap<String, Object>();
+		    map.put("category", category);
+		    map.put("start", paging.getStartNo());
+		    map.put("end", paging.getEndNo());
+
+		    List<Board> list = dao.getCategoryList(map);
+		    Map<String, Object> result = new HashMap<String, Object>();
+		    result.put("paging", paging);
+		    result.put("list", list);
+		    return result;
+		}
+
+	// 메인 카테고리별 게시글 목록 조회
+	public Map<String, Object> getsubCateList(String subCate,int page){
+		int pageSize = 10;
+		int totalCount = dao.getsubCatecount(subCate);
+		
+		Paging paging = new Paging(page, totalCount, pageSize);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("subCate", subCate);
+		map.put("start", paging.getStartNo());
+		map.put("end", paging.getEndNo());
+		
+		List<Board> list = dao.getsubCateList(map);
+		Map<String,Object> result = new HashMap<String, Object>();
+		  result.put("paging", paging);
+		  result.put("list", list);
+	        return result;
 	}
-
+	//06. 게시글 조회수 증가
 	@Override
 	public void increaseViewcnt(int idx) {
 		SqlSession.update("board.updateviewcnt", idx);
 	}
-	
-	
-	
 	
 	
 }
