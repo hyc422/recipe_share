@@ -31,14 +31,18 @@ public class MemberController {
 	@GetMapping("/find/{email}")
 	@ResponseBody
 	public int idcheck(@PathVariable String email) {
-		int result = service.idcheck(email);
+		int result = service.emcheck(email);
 		return result;
 	}
 	@GetMapping("/finds/{nickname}")
 	@ResponseBody
 	public int nickchk(@PathVariable String nickname) {
-		int result = service.idcheck(nickname);
+		int result = service.nickchk(nickname);
 		return result;
 	}
-	
+
+	@GetMapping("/findUser")
+	public String findUserPop() {
+		return "findUser";
+	}
 }
