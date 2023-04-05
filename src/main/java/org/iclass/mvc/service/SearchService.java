@@ -16,9 +16,9 @@ import lombok.RequiredArgsConstructor;
 
 public class SearchService {
 	private final SearchMapper dao;
-	
+	//전체검색
 	public Map<String,Object>AllSearch(String search,int page){
-				int pageSize=2;		
+				int pageSize=10;		
 				int totalCount = dao.AllCount(search);
 				
 				Paging paging = new Paging(page, totalCount, pageSize);
@@ -36,8 +36,9 @@ public class SearchService {
 				
 				return result;
 	}
+	//제목 검색
 	public Map<String,Object>TitSearch(String search,int page){
-				int pageSize=5;		//pageSize 를 15 또는 10으로 변경해서 실행해 봅시다.
+				int pageSize=10;		//pageSize 를 15 또는 10으로 변경해서 실행해 봅시다.
 				int totalCount = dao.TitCount(search);
 				
 				Paging paging = new Paging(page, totalCount, pageSize);
@@ -54,8 +55,9 @@ public class SearchService {
 				
 				return result;
 	}
+	//내용 검색
 	public Map<String,Object>ContSearch(String search,int page){
-				int pageSize=5;		//pageSize 를 15 또는 10으로 변경해서 실행해 봅시다.
+				int pageSize=10;		//pageSize 를 15 또는 10으로 변경해서 실행해 봅시다.
 				int totalCount = dao.ContCount(search);
 				
 				Paging paging = new Paging(page, totalCount, pageSize);
@@ -73,9 +75,10 @@ public class SearchService {
 				
 				return result;
 	}
+	//카테고리 검색
 	public Map<String,Object>CagSearch(String search,int page){
 				
-				int pageSize=5;		//pageSize 를 15 또는 10으로 변경해서 실행해 봅시다.
+				int pageSize=10;		//pageSize 를 15 또는 10으로 변경해서 실행해 봅시다.
 				int totalCount = dao.CagCount(search);
 				
 				Paging paging = new Paging(page, totalCount, pageSize);
@@ -85,7 +88,7 @@ public class SearchService {
 				map.put("start",paging.getStartNo());
 				map.put("end",paging.getEndNo());
 				
-				List<Board> list = dao.ContSearch(map);
+				List<Board> list = dao.CagSearch(map);
 				
 				Map<String,Object> result = new HashMap<>(); 
 				result.put("paging", paging);

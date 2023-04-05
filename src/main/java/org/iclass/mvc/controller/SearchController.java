@@ -15,9 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class SearchController {
+	
 	private final SearchService service;
+	
 	@GetMapping("/search")
-	public String search(@RequestParam(defaultValue = "1") int page, Model model,String search,int a) {
+	public String search(@RequestParam(defaultValue = "1") int page, Model model,
+			 @RequestParam(name = "search", required = false, defaultValue = "")String search,
+			int a) {
 		if(a == 0) {
 			model.addAttribute("list", service.AllSearch(search, page).get("list"));
 			model.addAttribute("paging", service.AllSearch(search, page).get("paging"));
