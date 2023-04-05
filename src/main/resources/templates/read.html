@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>레시피 커뮤니티</h3>
+	<hr>
+	<div>
+	<ul>
+	<li>
+				<ul class="rowme">   <!-- 부트스트랩과 id이름 충돌하여 변경  -->
+					<li>제목</li>
+					<li th:text="${vo.title}"></li>
+					<li>조회수</li>
+					<li th:text="${vo.viewcnt}"></li>
+				</ul>
+			</li>
+			<li>
+				<ul class="rowme">
+					<li>작성자</li>
+					<li>[[${vo.nickname}]]
+					<span style="font-size: 70%; padding-left: 30px;" th:text="(${vo.nickname})"></span></li>
+					<li>작성날짜</li>
+					<li th:text="${#temporals.format(vo.regdate,'yyyy-MM-dd HH:mm')}"></li>
+				</ul>
+			</li>
+			<li id="content">
+				<ul>
+					<li>내용</li>			
+					<!-- textarea에 입력한 엔터는 \n db에도 \n으로 저장됩니다.
+					     브라우저 출력은 줄바꿈은 <br> 태그 해결1) pre 태그, 해결  2) \n을 <br>로 대치-->	
+					<li>
+						<pre th:text="${vo.content}"></pre>
+					</li>				
+				</ul>
+			</li>
+	</ul>
+	<div style="text-align: center;margin-bottom: 10px;">
+	<span th:if="${session.member}!=null and ${session.member.id}==${vo.writer}">
+	 <!-- session 에 저장된 user애트리뷰트의 id와 작성자의 id 가 같은면 보이기 -->
+		<a class="button" th:href="|javascript:execute(1)|">수정</a>  <!-- 자바스크립트 함수:인자값 1은 수정 -->
+		<a class="button" th:href="|javascript:execute(2)|">삭제</a>  <!-- 자바스크립트 함수:인자값 2는 삭제  -->
+	</span>
+		<a class="button" th:href="@{list(Cate=${Cate},a=${a},page=${page})}">목록</a>   <!-- 현재페이지 번호 전달 - 순서3) -->
+	</div>
+	<hr>
+	<!-- 댓글 등록 -->
+	<form action="comments" method="post">
+	<!-- 필요한 파라미터.화면에는 표시안함. -->
+	<input type="hidden" name="mref" th:value="${vo.idx }">  <!-- 댓글 추가할 메인글의 idx(댓글테이블 mref.고정값)  -->
+	<input type="hidden" name="idx" th:value="0" >	<!-- 삭제할 댓글의 idx(고정값 아님)는 executeCmt 함수에서 설정  -->
+	<input type="hidden" name="f" th:value="0">
+	<input type="hidden" name="page" th:value="${page }">  <!-- 현재페이지 번호 전달 - 순서8) -->
+		<ul>
+			<li>
+				<ul class="rowme">
+					<li>작성자</li>	<!-- 구현 보류 : 로그인한 사용자가 작성할때는 로그인 이메일,닉네임 가져와서 표시 -->			
+					<li><input name="writer" class="input" th:value="${session.member!=null? session.member.id:'' }" readonly></li>	
+				</ul>
+			</li>
+			<li>
+				<ul style="display: flex;">
+					<li>
+						<textarea rows="5" cols="80" name="content" 
+						style="resize:none;margin-right:20px;" 
+						placeholder="로그인 후에 댓글을 작성하세요." class="input"></textarea>
+					</li>				
+						<li style="align-self: center;margin-bottom: 20px;">
+							  <span> <!-- th:if="${session.member}!=null" -->
+									<button type="button" onclick="executeCmt('1',0)">저장</button>  <!-- 2번째 인자 0은 의미없음. -->
+							  </span>	
+							 <!--  <span th:unless="${session.member}!=null"> 로그인 안했을때
+								<button type="button" onclick="location.href='../login'">로그인</button>
+							  </span> -->
+					</li>
+				</ul>
+			</li>
+			<li>
+					<span>댓글</span>
+					<span th:text="${vo.numcomments}"></span> <!-- 댓글갯수 -->
+				<hr>
+			</li>
+			<th:block th:each="cmt:${cmtlist}">
+			<li>
+				<ul class="crow">
+					<li th:text="${cmt.nickname }"></li>				
+					<li th:text="${cmt.regdat }"></li>				
+				<li th:if="${session.member}!=null">  <!-- session 에 저장된 user애트리뷰트의 id와 작성자의 id 가 같은면 보이기 -->		
+					<span th:if="${session.member.id}==${cmt.nickname}"><a href="|javascript:executeCmt('2','${cmt.idx }')}">삭제</a></span>				
+				</li>	
+				</ul>
+			</li>
+			<li>
+				<pre class="cmtcontent" th:text="${cmt.content}"></pre>
+			</li>
+			</th:block>
+			</ul>
+			</form>
+	</div>
+	
+</body>
+</html>

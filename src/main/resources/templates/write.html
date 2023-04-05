@@ -20,7 +20,7 @@
 				alert("대분류를 선택 하세요.")
 				document.form1.mainCag.focus();
 				return;
-			}s
+			}
 			if(title = ""){
 				alert("제목을 입력 하세요.")
 				document.form1.title.focus();
@@ -58,9 +58,9 @@
 	</select>
 	</div>
 	
-	<div>
+	<div>  <!-- 자유게시판은 서브카테 없음  -->
 		<label>대분류</label>
-	<select id="mainCag" name="mainCag" title="대분류 선택" class="mian" disabled>
+	<select id="subCate" name="subCate" title="대분류 선택" class="mian" disabled>
 	<option>선택 해주세요</option>
 	<option value="전통음식">전통음식</option>
 	<option value="건강식">건강식</option>
