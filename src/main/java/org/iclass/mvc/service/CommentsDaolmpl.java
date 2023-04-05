@@ -23,8 +23,12 @@ public class CommentsDaolmpl implements CommentsService {
     }
 
     @Override
-    public int setCommentsCount(int idx) {
-        return dao.setCommentsCount(idx);
+    public Comments setCommentsCount(int idx) {
+    	int cnt = dao.setCommentsCount(idx);
+    	Comments comments = new Comments();
+    	comments.setIdx(cnt);
+		return comments;
+        
     }
 
     @Override

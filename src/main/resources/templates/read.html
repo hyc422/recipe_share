@@ -37,13 +37,35 @@
 			</li>
 	</ul>
 	<div style="text-align: center;margin-bottom: 10px;">
-	<span th:if="${session.member}!=null and ${session.member.id}==${vo.writer}">
+	<!-- <span th:if="${session.member}!=null and ${session.member.id}==${vo.writer}"> -->
 	 <!-- session 에 저장된 user애트리뷰트의 id와 작성자의 id 가 같은면 보이기 -->
-		<a class="button" th:href="|javascript:execute(1)|">수정</a>  <!-- 자바스크립트 함수:인자값 1은 수정 -->
-		<a class="button" th:href="|javascript:execute(2)|">삭제</a>  <!-- 자바스크립트 함수:인자값 2는 삭제  -->
-	</span>
-		<a class="button" th:href="@{list(Cate=${Cate},a=${a},page=${page})}">목록</a>   <!-- 현재페이지 번호 전달 - 순서3) -->
+		<a class="button" th:href="|javascript:execute(1,'${vo.idx}','${Cate}',${a})|">수정</a>  
+		<!-- 자바스크립트 함수:인자값 1은 수정, 게시물 번호, 카테고리, 페이지 번호 전달 -->
+		<a class="button" th:href="|javascript:execute(2,'${vo.idx}','${Cate}',${a})|">삭제</a>  
+		<!-- 자바스크립트 함수:인자값 2는 삭제, 게시물 번호, 카테고리, 페이지 번호 전달 -->
+	<!-- </span> -->
+		<a class="button" th:href="@{list(Cate=${Cate },a=${a},page=${page})}">목록</a>   <!-- 현재페이지 번호 전달 - 순서3) -->
 	</div>
+	<script type="text/javascript" th:inline="javascript">
+		function execute(f, idx, cate, a){
+			let url
+			let message
+			if(f===1){
+				message='글 수정하시겠습니까?'
+				url = 'update?idx='+idx+'&Category='+cate+'&a='+a+'&page=1'
+			}else if(f===2){
+				message='글 삭제하시겠습니까?'
+				url = 'delete?idx='+idx+'&Category='+cate+'&a='+a+'&page=1'
+			}
+			const yn = confirm(message)
+			if(yn) {
+				location.href=url;
+			}else{
+				alert('취소합니다.')
+			}	
+		}
+	</script>
+
 	<hr>
 	<form method="post" th:action="@{/read}" th:object="${com}">
     <input type="hidden" th:name="merf" th:value="${vo.idx}">
@@ -58,39 +80,42 @@
         <textarea rows="5" cols="50" th:name="contents" id="contents"></textarea>
     </p>
     <p>
-        <button type="submit">댓글 작성</button>
+        <button type="submit" name="${cnt.merf}" onclick="execute(event, this.form)">댓글 작성</button>
     </p>
     
 </form>
+<div>
+    <ul>
+        <li>댓글 수 : <span th:text="${vo.numcomments}">0</span></li>
+    </ul>
+</div>
     <div th:each="cmt : ${cmtlist}">
   <ul class="crow">
-    <li >작성자:${cmt.nickname}</li>
-    <li >작성 날짜:${cmt.createdate}</li>
+    <li th:text="${cmt.nickname}"></li>
+    <li th:text="${#temporals.format(vo.regdate,'yyyy-MM-dd HH:mm')}"></li>
 <!--     <li th:if="${session.member != null and session.member.id == cmt.writer}">
       <a href="javascript:executeCmt('2', ${cmt.idx})">삭제</a> -->
   <!--   </li> -->
-    <li>
-   ${cmt.contents}
+    <li th:text="${cmt.contents}">
     </li>
   </ul>
 </div>
 <script type="text/javascript">
 function execute(event) {
 	event.preventDefault(); // 기본 이벤트 중지
+	 console.log(event); // event 객체 출력
 
-    const contents = document.querySelector("#contents").value; // textarea 내용 가져오기
-    const form = event.target.form; // 폼 요소 가져오기
+	    const contents = document.querySelector("#contents").value; // textarea 내용 가져오기
+	    const form = event.target.form; // 폼 요소 가져오기
 
-    // FormData 객체 생성
-    const formData = new FormData(form);
-    formData.append("contents", contents);
+	    // FormData 객체 생성
+	    const formData = new FormData(form);
+	    formData.append("contents", contents);
 
-    // Ajax를 사용하여 댓글 작성 처리
-    const xhr = new XMLHttpRequest();
-    xhr.open(form.method, form.action);
-    xhr.send(formData);
-  
-	}
+	    // Ajax를 사용하여 댓글 작성 처리
+	    const xhr = new XMLHttpRequest();
+	    xhr.open(form.method, form.action);
+	    xhr.send(formData);
 </script>
 </body>
 </html>
