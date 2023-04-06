@@ -18,5 +18,6 @@ public interface MailServiceInter {
     
     // 메일 발송
     String sendSimpleMessage(String to) throws Exception;
-
+    
+    
 }

@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.iclass.mvc.dao.MemberMapper">
 	<!-- CJW#1 Login -->
-	<!-- <insert id="register" parameterType="Member">
+	<insert id="register" parameterType="Member">
 		INSERT INTO th_member
 		(idx,email,password,name,nickname,phone,birth)
 		VALUES
@@ -14,30 +14,21 @@
 			mem_idx_seq.currval
 			FROM dual
 		</selectKey>
-	</insert> -->
-
+	</insert>
 	<select id="login" parameterType="java.util.Map"
 		resultType="Member">
 		SELECT * FROM th_member
 		WHERE email=#{email} and
 		password=#{password}
 	</select>
-		<select id="idcheck" parameterType="String" resultType="int">
+		<select id="emcheck" parameterType="String" resultType="int">
 		SELECT count(*) FROM th_member
-		where id=#{id}
+		where email=#{email}
 	</select>
 	<select id="nickchk" parameterType="String" resultType="int">
 		SELECT count(*) FROM th_member
 		where nickname=#{nickname}
 	</select>
-
-	<select id="login" parameterType="java.util.Map"
-		resultType="Member">
-		SELECT * FROM th_member
-		WHERE email=#{email} and
-		password=#{password}
-	</select>
-	<!-- CJW#1 Login -->
 
 	<!-- HYC#3 Mypage -->
 	<select id="selectOne" parameterType="String"
