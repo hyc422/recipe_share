@@ -23,9 +23,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     position: absolute;
     left: -9999px;
 }
-body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
-    font-size: 13px;
-}
 h3 {
     display: block;
     font-size: 30px;
@@ -125,9 +122,6 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
-    font-size: 13px;
-}
 table {
     display: table;
     border-collapse: separate;
@@ -142,9 +136,6 @@ colgroup {
 table {
     border-collapse: collapse;
     border-spacing: 0;
-}
-body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
-    font-size: 13px;
 }
 table {
     border-collapse: separate;
@@ -171,7 +162,7 @@ table {
     border-spacing: 0;
 }
 body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fieldset, legend, input, textarea, button, select {
-    font-size: 13px;
+    font-size: 15px;
 }
 table {
     border-collapse: separate;

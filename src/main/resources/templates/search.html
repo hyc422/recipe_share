@@ -8,11 +8,12 @@
 <body>
 <div th:replace="top :: myIncludedFragment"></div>
 	<hr> <!-- 탑과 사이드를 구분하기 위해 추가 -->
-	<div style="display: flex;"> <!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
+	<div> <!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
 		<div style="flex-basis: 15%; min-width: 200px;">
 			<div th:replace="side :: myIncludedFragment"></div>
 		</div>
-<section class="commu-center" style="margin-top: 50px;">
+	<div>
+	<section class="commu-center" style="margin-top: 50px;">
 	<div id="comAdExtVideo" class="comAdExtVideo floating">
 		<div style="width:800px;"><div id="__A1VideoLargeBanner" style="float: none; display: block; "></div></div>
 	</div>
@@ -28,7 +29,7 @@
   		<option value="2">제목</option>
   		<option value="3">내용</option>
   		</select>
-		<input type="text" class="input" id="search" maxlength="100" name="search" >
+		<input type="text" class="input" id="search" maxlength="100" name="search">
 		<button class="btn btn_submit" onclick="searchData2()">검색</button>
 		</form>
 	</div>
@@ -106,7 +107,9 @@
     </div>
     </div>
     </div>
+    </div>
 </section>
+</div>
 </div>
 </body>
 </html>
