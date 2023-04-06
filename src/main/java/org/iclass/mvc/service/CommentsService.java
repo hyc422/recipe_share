@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 public interface CommentsService{
 	 int Commentsinsert(Comments comments);
 	    int CommentsDelete(int idx);
-	    int setCommentsCount(int idx);
+	    Comments setCommentsCount(int idx);
 	    List<Comments> commentList(int idx);
 	    int commentUpdate(Comments comment);
+	    
 	}
