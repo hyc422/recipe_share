@@ -8,7 +8,7 @@
 
 	<select id="selectOne" parameterType="String" resultType="ChatRoom">
 		SELECT * FROM chatroom
-		WHERE roomName=#{roomName}
+		WHERE roomId=#{roomId}
 	</select>
 	
 	<insert id="createChatRoom" parameterType="String">
@@ -17,15 +17,11 @@
 		VALUES (#{roomId},#{roomName})
 	</insert>
 	
-	<update id="plusUserCnt" parameterType="String">
+	<update id="countUser" parameterType="String">
 		UPDATE chatroom 
-		SET userCount = userCount + 1
-		WHERE roomId=#{roomId}
-	</update>
-	
-	<update id="minusUserCnt" parameterType="String">
-		UPDATE chatroom 
-		SET userCount = userCount - 1
+		SET userCount = 
+			(SELECT count(*) FROM userlist
+			WHERE roomId=#{roomId})
 		WHERE roomId=#{roomId}
 	</update>
 	
@@ -41,7 +37,7 @@
 	</delete>
 	
 	<select id="selectUserListAll" parameterType="String" resultType="UserList">
-		SELECT userID,nickName FROM userlist
+		SELECT * FROM userlist
 		WHERE roomId=#{roomId}
 	</select>
 	

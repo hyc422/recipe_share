@@ -19,36 +19,38 @@ public class ChatRoomController
 	public ChatRoomController(ChatService service) 
 	{this.service = service;}
 	
-	@GetMapping("/chat")
+	@GetMapping("/chat/roomlist")
 	public String chat(Model model)
 	{
 		model.addAttribute("list", service.selectAll());
 		
 		log.info("chatroom list : {}", service.selectAll());
 		
-		return "roomlist";
+		return "/chat/roomlist";
 	}	// method end
 	
 	@PostMapping("/chat/createroom")
-	public String createRoom(@RequestParam String name, RedirectAttributes rttr)
+	public String createRoom(@RequestParam("roomName") String roomName, RedirectAttributes rttr)
 	{
 		String message;
 		
-		if(service.createChatRoom(name) == 1)
+		if(service.createChatRoom(roomName) == 1)
 			message = "생성 완료";
 		else
 			message = "생성 실패";
 		
 		rttr.addFlashAttribute("message",message);
 		
-		return "redirect:/chat";
+		return "redirect:/chat/roomlist";
 	}	// method end
 	
-	@GetMapping("/chat/room")
+	@GetMapping("/chat/chatroom")
 	public String chatRoom(Model model, String roomId)
 	{
+		log.info("roomId : {}",roomId);
+		
 		model.addAttribute("room", service.selectOne(roomId));
 		
-		return "chat/room";
+		return "/chat/chatroom";
 	}	// method end
 }	// Class end

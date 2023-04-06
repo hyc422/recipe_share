@@ -36,7 +36,7 @@
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">
                                 <span class="hidden" th:id="${room.roomName}"></span>
-                                <a th:href="@{/chat/room(roomId=${room.roomId})}">[[${room.roomName}]]</a>
+                                <a th:href="@{/chat/chatroom(roomId=${room.roomId})}">[[${room.roomName}]]</a>
                             </div>
                         </div>
                         <span class="badge bg-primary rounded-pill">[[${room.userCount}]]명</span>
@@ -45,7 +45,7 @@
             </div>
         </div>
         <form action="/chat/createroom" method="post" onsubmit="return createRoom()">
-            <input type="text" name="name" class="form-control" id="roomName">
+            <input type="text" name="roomName" class="form-control" id="roomName">
             <button class="btn btn-secondary" id="create">개설하기</button>
         </form>
     </th:block>

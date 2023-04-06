@@ -11,12 +11,11 @@ import org.iclass.mvc.dto.UserList;
 public interface ChatMapper 
 {
 	List<ChatRoom> selectAll();
-	ChatRoom selectOne(String roomName);
-	int createChatRoom(String roomId, String roomName);
-	int plusUserCnt(String roomId);
-	int minusUserCnt(String roomId);
-	int enterUser(String userId, String roomId, String nickName);
+	ChatRoom selectOne(String roomId);
+	int createChatRoom(Map<String, String> map);
+	int enterUser(UserList list);
 	int leaveUser(String userId);
+	int countUser(String roomId);
 	List<UserList> selectUserListAll(String roomId);
 	UserList selectUserListOne(Map<String, String> map);
 }	// Class end

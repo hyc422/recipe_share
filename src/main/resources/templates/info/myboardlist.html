@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>작성 글 목록</title>
+	</head>
+	<body>
+		<div th:replace="top :: myIncludedFragment"></div>
+		<hr> <!-- 탑과 사이드를 구분하기 위해 추가 -->
+		<div style="display: flex;"> <!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
+			<div style="flex-basis: 25%; min-width: 200px;">
+				<div th:replace="side :: myIncludedFragment"></div>
+			</div>
+		</div>
+		<div th:replace="/info/top :: myInfo"></div>
+	</body>
+</html>

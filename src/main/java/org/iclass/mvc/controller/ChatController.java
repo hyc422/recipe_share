@@ -1,6 +1,6 @@
 package org.iclass.mvc.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.iclass.mvc.dto.Chat;
 import org.iclass.mvc.dto.UserList;
@@ -34,15 +34,22 @@ public class ChatController
 	@MessageMapping("/chat/enterUser")
 	public void enterUser(@Payload Chat chat, SimpMessageHeaderAccessor headerAcceccor)
 	{
-		service.plusUserCnt(chat.getRoomId());
+		log.info("enterUser chat : {}",chat);
 		
-		String userUUID = service.enterUser(chat.getRoomId(), chat.getSender());
+		UserList list = UserList.builder()
+								.roomId(chat.getRoomId())
+								.nickName(chat.getSender())
+								.build();
+		
+		String userUUID = service.enterUser(list);
+		
+		service.countUser(chat.getRoomId());
 		
 		headerAcceccor.getSessionAttributes().put("userUUID", userUUID);
 		headerAcceccor.getSessionAttributes().put("roomId", chat.getRoomId());
 		
 		chat.setMessage(chat.getSender() + "님 입장");
-		template.convertAndSend("/sub/chat/room/" + chat.getRoomId(), chat);
+		template.convertAndSend("/sub/chat/chatroom/" + chat.getRoomId(), chat);
 	}	// method end
 	
 	@MessageMapping("/chat/sendMessage")
@@ -50,7 +57,7 @@ public class ChatController
 	{
 		log.info("chat : {}",chat);
 		chat.setMessage(chat.getMessage());
-		template.convertAndSend("/sub/chat/room/" + chat.getRoomId(), chat);
+		template.convertAndSend("/sub/chat/chatroom/" + chat.getRoomId(), chat);
 	}	// method end
 	
 	@EventListener
@@ -65,10 +72,11 @@ public class ChatController
 		
 		log.info("headAccssor : {}", headerAccessor);
 		
-		service.minusUserCnt(roomId);
 		
 		String nickName = service.selectUserListOne(roomId, userUUId).getNickName();
 		service.leaveUser(userUUId);
+		
+		service.countUser(roomId);
 		
 		if(nickName!=null)
 		{
@@ -80,14 +88,16 @@ public class ChatController
 							.message(nickName + " 님 퇴장")
 							.build();
 		
-			template.convertAndSend("/sub/chat/room/" + roomId, chat);
+			template.convertAndSend("/sub/chat/chatroom/" + roomId, chat);
 		}
 	}	// method end
 	
 	@GetMapping("/chat/userlist")
 	@ResponseBody
-	public List<UserList> userList(String roomId)
+	public ArrayList<String> userList(String roomId)
 	{
+		log.info("userList roomId : {}",roomId);
+		
 		return service.selectUserList(roomId);
 	}	// method end
 }	// Class end
