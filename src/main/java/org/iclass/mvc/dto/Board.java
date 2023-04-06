@@ -19,7 +19,7 @@ import lombok.ToString;
 public class Board {
 	private int idx;	// seq
 	private String category; // 카테고리
-	private String mainCag;	// 대분류
+	private String subCate;	// 대분류
 	private String nickname;	//작성자
 	private String title;	//글 제목
 	private String filename;	//파일명
@@ -29,5 +29,10 @@ public class Board {
 	private int numcomments;//댓글 갯수
 	
 	private List<MultipartFile> pics;
+	private List<String> encodedPics;
+	public void setEncodedPics(List<String> encodedFiles) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
