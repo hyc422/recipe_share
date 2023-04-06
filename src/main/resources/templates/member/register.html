@@ -37,8 +37,6 @@ padding: 10px;
 						<span for="verification-code"></span> 
 						<input type="text" placeholder="인증번호 "id="verification-codechk" name="verification-codechk"> 
 						<input type="button"style="background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;" id="emailcheck" name="emailcheck" value="인증"><br>
-						 <span id="true"></span>
-						 <span id="codeOk"></span>
 					</span>
 				</div>
 				<div>
@@ -50,24 +48,24 @@ padding: 10px;
 					</span> 
 				</div>
 				<div>
-					<span><input type="text" id="name" placeholder="이름"></span>
+					<span><input type="text" id="name" name="name"placeholder="이름"></span>
 				</div>
 				<div>
 					<span>
-						<input type="text" id="nickname" placeholder="별명"> <br>
+						<input type="text" id="nickname" name="nickname"placeholder="별명"> <br>
 						<input type="button"style="background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;" id="nickchk" value="중복검사"> <br>
 					</span>
 				</div>
 				<div>
-					<span><select id="phone1">
-							<option value="010">010</option>
+					<span><select id="phone1" name="phone1">
+							<option value="010" selected>010</option>
 							<option value="011">011</option>
 							<option value="012">012</option>
-					</select> - <input type="text"id="phone2" maxlength="4" style="width:80px;"> - <input type="text"style="width:80px;"id="phone3"
-						maxlength="4"></span>
+					</select> - <input type="text"id="phone2" name="phone2" maxlength="4" style="width:80px;"> - <input type="text"style="width:80px;"id="phone3"
+						maxlength="4"name="phone3"></span>
 				</div>
 				<div>
-					<span><input type="date" id="birth"></span>
+					<span><input type="date" name="birth" id="birth"></span>
 				</div>
 				<div>
 					<span><input type="button" name="join" id="join"

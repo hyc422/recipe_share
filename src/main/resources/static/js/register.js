@@ -86,10 +86,10 @@ $(document).ready(function() {
 				const code = data;
 				const codec = document.querySelector('#verification-codechk').value;
 					if (codec === code) {
-						document.querySelector('#true').style.border = '3px solid green'
+						document.querySelector('#verification-codechk').style.border = '3px solid green'
 						isValid = true;
 					} else {
-						document.querySelector('#true').style.border = '3px solid red'
+						document.querySelector('#verification-codechk').style.border = '3px solid red'
 					}
 				})
 			},
