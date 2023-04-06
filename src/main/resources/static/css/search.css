@@ -19,9 +19,10 @@ ol, ul {
     background-color: #fff;
 }
 .commu-center .commu-body {
-    margin: 10px auto;
+    margin-top: 112px;
+    margin-left:18%;
     padding: 0;
-    width: calc(100% - 20px);
+    width: 80%;
 }
 .isearch_wrap {
     padding-top: 15px;

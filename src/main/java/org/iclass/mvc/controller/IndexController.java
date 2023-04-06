@@ -34,4 +34,8 @@ public class IndexController
 		model.addAttribute("today", LocalDate.now());	
 		return "index";
 	}
+	@GetMapping("/side2")
+	public void side2() {
+		
+	}
 }	// Class end
