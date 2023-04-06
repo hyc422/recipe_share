@@ -29,4 +29,5 @@ public interface BoardMapper {
     // 10. 카테고리별 게시글 목록 조회
     public List<Board> getCategoryList(Map<String, Object> map);
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory);
+	public int cntcomments(int idx);
 }

@@ -18,7 +18,9 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Comments {
 	private int idx;
+	private int merf;
 	private String nickname;
+	@Getter
 	private String contents;
 	private LocalDateTime createDate;
 	private String ip;

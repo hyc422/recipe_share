@@ -62,14 +62,14 @@ public class BoardDaoImpl implements BoardService {
 	//03. 게시글 수정
 	@Override
 	public int update(Board vo) {
-		return SqlSession.update("board.Article",vo);
+		return dao.update(vo);
 		
 	}
 
 	//04. 게시글 삭제
 	@Override
 	public void delete(int idx) {
-		SqlSession.delete("board.deleteArticle", idx);
+		dao.delete(idx);
 	}
 	//05. 카테고리별 게시글 목록 조회
 	public Map<String,Object> getCategoryList(String category, int page) {
@@ -111,6 +111,14 @@ public class BoardDaoImpl implements BoardService {
 	@Override
 	public void increaseViewcnt(int idx) {
 		SqlSession.update("board.updateviewcnt", idx);
+	}
+
+	@Override
+	public Board cntcomments(int idx) {
+		int cnt = dao.cntcomments(idx);
+		Board board = new Board();
+		board.setIdx(cnt);
+		return board;
 	}
 	
 	
