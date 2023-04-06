@@ -93,14 +93,29 @@ public class BoardController {
 	    
 	    List<Comments> cmtlist = ser.commentList(idx);
 	    model.addAttribute("cmtlist", cmtlist);
-		return "read";
+	    
+	    
+	    Comments cnt = ser.setCommentsCount(idx);
+		model.addAttribute("cnt", cnt);
+	    return "read";
+		
+		
 	}
 	@PostMapping("/read")
 	public String insertComment(@ModelAttribute("com") Comments vo,String Category,int a,int merf,Model model) {
 	    ser.Commentsinsert(vo);
 	    return "redirect:/read?idx=" + merf + "&Cate=" + Category + "&a=" + a + "&page=1";
 	}
-	
+	@PostMapping("/update")
+	public String update(Board vo, String Category, int a,int merf,Model model) {
+	   int result= service.update(vo);
+	   if (result > 0) {
+		   model.addAttribute("msg", "게시물이 수정되었습니다.");
+		   } else {
+		   model.addAttribute("msg", "게시물 수정에 실패하였습니다.");
+		   }
+		   return "redirect:/read?idx=" + merf + "&Category=" + Category + "&a=" + a + "&page=1";
+	}
 	
 }
 	

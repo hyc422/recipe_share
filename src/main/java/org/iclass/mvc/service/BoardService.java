@@ -20,4 +20,5 @@ public interface BoardService {
     // 9. 메인 카테고리별 게시글 목록 조회
     public Map<String, Object> getsubCateList(String subCate, int page);
 	public Map<String, Object> getCategoryList(String category, int page);
+	public Board cntcomments(int idx);
 }
