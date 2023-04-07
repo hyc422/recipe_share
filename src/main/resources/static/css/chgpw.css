@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+h3
+{
+	color:#4CA950;
+}
+
+.hidden 
+{
+    display: none;
+}
+
+table
+{
+    width: 500px;
+    margin: auto;
+}
+
+td:first-child  
+{
+	width: 20%;
+}
+
+td:first-child > label 
+{
+    background-color:#4CA950;         
+    color:white;
+    border-radius: 20px;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}
+
+td:nth-child(2)-child 
+{
+	width: 60%;
+}
+
+input[type="password"]
+{
+	color:black;
+    border-radius: 20px;
+    border:2px solid gray;
+    text-align: center;
+    width: 100%;
+    padding: 8px;
+}
+
+
+#td-button button
+{
+    background-color: #4CA950;
+	color:white;
+    border-radius: 20px;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+}
+
+#td-button button:first-child  
+{
+	margin-left:180px;
+}
