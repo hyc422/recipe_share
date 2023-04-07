@@ -1,5 +1,7 @@
 package org.iclass.mvc.dto;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,6 @@ public class Member {
 	private	String name;
 	private	String nickname;
 	private String phone;
-	private String birth;
-	private String createAt;
+	private Date birth;
 	private String grade;
 }

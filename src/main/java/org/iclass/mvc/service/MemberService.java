@@ -1,6 +1,8 @@
 package org.iclass.mvc.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.iclass.mvc.dao.MemberMapper;
@@ -22,7 +24,12 @@ public class MemberService {
 		return dao.login(map);
 	}
 	
-	
+	public String findpwd(Map<String, String> map) {
+		return dao.findpwd(map);
+	}
+	public String findem(Map<String, String> map) {
+		return dao.findem(map);
+	}
   public int register(Member vo) {
 		return dao.register(vo);
 	}
