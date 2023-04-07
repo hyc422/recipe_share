@@ -20,7 +20,7 @@ public class AdminController {
 	
 	@GetMapping("/adminPage")
 	public String adminPage() {
-		return "admin";
+		return "";
 	}
 	
 	@GetMapping("/board_search")
