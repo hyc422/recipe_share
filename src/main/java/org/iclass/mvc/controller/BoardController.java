@@ -2,6 +2,7 @@ package org.iclass.mvc.controller;
 
 
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import org.iclass.mvc.dto.Board;
 import org.iclass.mvc.dto.Comments;
 import org.iclass.mvc.service.BoardService;
 import org.iclass.mvc.service.CommentsService;
+import org.iclass.mvc.service.MemberService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 	private final BoardService service;
 	private final CommentsService ser;
+	private final MemberService memberservice;
 	
 	//레시피 게시판 자동 화면
 //	@GetMapping("/list")
@@ -53,17 +56,9 @@ public class BoardController {
 	
 	// 게시판 글 저장
 	@PostMapping("/write")
-	public String write(Board vo, String category){
-//		log.info("recipe vo:{}",vo);
-//		String message;
-//		if(service.create(vo)==1)
-//			message="글 등록 되었습니다.";
-//		else
-//			message="글 등록에 문제가 생겼습니다.";
-//		reAttr.addFlashAttribute("message", message);
+	public String write(Board vo, String category, Model model){
 		 String encodedCategory = URLEncoder.encode(category, StandardCharsets.UTF_8);
 		    String unicodeCategory = new String(encodedCategory.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
-		    
 		    service.create(vo);
 		    return "redirect:/list?Cate=" + unicodeCategory + "&a=0&page=1";
 		
@@ -83,7 +78,6 @@ public class BoardController {
 	    }
 	    model.addAttribute("a", a);
 	    model.addAttribute("Cate", Cate);
-	    
 //	    return "list?Cate="+Cate+"&a="+a+"&page="+page;
 	    return "list";
 	}
@@ -100,6 +94,10 @@ public class BoardController {
 	    List<Comments> cmtlist = ser.commentList(idx);
 	    model.addAttribute("cmtlist", cmtlist);
 	    
+	    service.increaseViewcnt(idx);
+	    
+	   Board viewcnt = service.SelectViewcnt(idx);
+	    model.addAttribute("viewcnt", viewcnt);
 	    
 	    Comments cnt = ser.setCommentsCount(idx);
 		model.addAttribute("cnt", cnt);
@@ -108,8 +106,8 @@ public class BoardController {
 		
 	}
 	@PostMapping("/read")
-	public String insertComment(@ModelAttribute("com") Comments vo,String Category,int a,int merf,Model model) {
-		
+	public String insertComment(@ModelAttribute("com") Comments vo,String Category,int a,int merf, Model model) {
+		log.info("vo{}",vo);
 	    ser.Commentsinsert(vo);
 	    return "redirect:/read?idx=" + merf + "&Cate=" + Category + "&a=" + a + "&page=1";
 	}

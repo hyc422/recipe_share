@@ -16,7 +16,8 @@ public interface BoardService {
 	//04. 게시글 삭제
 	public int delete(int idx);
 	//06. 게시글 조회 증가 
-	public void increaseViewcnt(int idx);
+	public int increaseViewcnt(int idx);
+	public Board SelectViewcnt(int idx);
     // 9. 메인 카테고리별 게시글 목록 조회
     public Map<String, Object> getsubCateList(String subCate, int page);
 	public Map<String, Object> getCategoryList(String category, int page);

@@ -3,52 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 작성</title>
-<!-- <script type="text/javascript">
-	$(document).ready(function(){
-		$("#binSave").click(function(){
-			var title = $("#title").val();
-			var nickname = $("#title").val();
-			var category = $("#category").val();
-			var mainCag = $("#mainCag").val();
-			var content = $("#content").val();
-			if(category = ""){
-				alert("카테고리를 선택 하세요.")
-				document.form1.category.focus();
-				return;
-			}
-			if(mainCag = ""){
-				alert("대분류를 선택 하세요.")
-				document.form1.mainCag.focus();
-				return;
-			}
-			if(title = ""){
-				alert("제목을 입력 하세요.")
-				document.form1.title.focus();
-				return;
-			}
-			if(content = ""){
-				alert("내용을 입력 하세요.")
-				document.form1.content.focus();
-				return;
-			}
-			if(nickname = ""){
-				alert("이름을 입력 하세요.")
-				document.form1.nickname.focus();
-				return;
-			}
-			document.form1.submit();
-		});
-	});
-</script> -->
+<script type="text/javascript">
+
+if(category = ""){
+	alert("카테고리를 선택 하세요.")
+	document.form1.category.focus();
+	return;
+}
+if(mainCag = ""){
+	alert("대분류를 선택 하세요.")
+	document.form1.mainCag.focus();
+	return;
+}
+if(title = ""){
+	alert("제목을 입력 하세요.")
+	document.form1.title.focus();
+	return;
+}
+if(content = ""){
+	alert("내용을 입력 하세요.")
+	document.form1.content.focus();
+	return;
+}
+if(nickname = ""){
+	alert("이름을 입력 하세요.")
+	document.form1.nickname.focus();
+	return;
+}
+</script>
 
 </head>
 <body>
 	<h2>게시글 작성</h2>
-	<form action="recipeView" name="form1" method="post" enctype="multipart/form-data">
+	<form action="/write" name="form1" method="post" enctype="multipart/form-data">
 	<div>
-		<label>작성자</label>
-		<input type="text" name="nickname" id="nickname">
-	</div>
+    <label>작성자</label>
+    <input type="text" name="nickname" id="nickname" th:value="${session.user.nickname}" readonly="readonly">
+</div>
 	<div>
 		<label>카테고리</label>
 	<select id="category" name="category" title="카테고리 선택" class="category">
@@ -58,16 +49,17 @@
 	</select>
 	</div>
 	
-	<div>  <!-- 자유게시판은 서브카테 없음  -->
-		<label>대분류</label>
-	<select id="subCate" name="subCate" title="대분류 선택" class="mian" disabled>
-	<option>선택 해주세요</option>
-	<option value="전통음식">전통음식</option>
-	<option value="건강식">건강식</option>
-	<option value="주식">酒식</option>
-	</select>
-  <!-- <input type="hidden" id="mainCag2"name="mainCag" value="${category == '레시피' ? mainCagValue : null}"> -->
-	</div>
+	<div >  
+    <label>서브 카테고리</label>
+    <select id="subCate" name="subCate" title="대분류 선택" class="mian" th:value="${subCate}">
+    <option>선택 해주세요</option>
+    <option value="전통음식" th:selected="${subCate == '전통음식'}">전통음식</option>
+    <option value="건강식" th:selected="${subCate == '건강식'}">건강식</option>
+    <option value="주식" th:selected="${subCate == '주식'}">酒식</option>
+    </select>
+    <input type="hidden" id="subCate2"name="subCate2" value="${category == '레시피' ? mainCagValue : null}">
+</div>
+
 	<div>
 	<label>제목</label>
 	<input name="title" id="title" size="50" placeholder="제목을 입력 하세요.">
@@ -85,32 +77,17 @@
 		<button type="reset" >취소</button>
 	</div>
 	</form>
-	<script type="text/javascript">
-	const mainCag = document.getElementById('mainCag');
+	<script>
+    const category = document.querySelector('#category');
+    const subCate = document.querySelector('#subCate');
 
-	// 카테고리 select 요소 변경 이벤트 감지
-	document.getElementById('category').addEventListener('change', function() {
-	  // 레시피가 선택되었을 때
-	  if (this.value === '레시피' && this.options[this.selectedIndex].id === 'recipe') {
-	    // 대분류 select 요소 활성화
-	    mainCag.disabled = false;
-	    mainCag.name = "mainCag"; // name 속성 값 변경
-	  } else {
-	    // 대분류 select 요소 비활성화
-	    mainCag.disabled = true;
-	    /* mainCag.name = ""; // name 속성 값 제거 */
-	    mainCag.value = ""; // value 속성 값 초기화
-	  }
-	});
-
-	// hidden input 요소의 value 값을 설정하는 함수
-	function setHiddenInputValue() {
-	  const mainCagText = mainCag.options[mainCag.selectedIndex].text;
-	  document.querySelector('input[id="mainCag2"]').value = mainCagText;
-	}
-
-	// mainCag 요소의 값이 변경되었을 때 hidden input 요소의 value 값을 설정
-	mainCag.addEventListener('change', setHiddenInputValue);
+    category.addEventListener('change', function() {
+        if (category.value === '레시피') {
+            subCate.disabled = false;
+        } else {
+            subCate.disabled = true;
+        }
+    });
 </script>
 </body>
 </html>
