@@ -14,10 +14,12 @@ public interface BoardService {
 	//03. 게시글 수정
 	public int update(Board vo);
 	//04. 게시글 삭제
-	public void delete(int idx);
+	public int delete(int idx);
 	//06. 게시글 조회 증가 
 	public void increaseViewcnt(int idx);
     // 9. 메인 카테고리별 게시글 목록 조회
     public Map<String, Object> getsubCateList(String subCate, int page);
 	public Map<String, Object> getCategoryList(String category, int page);
+	public Board cntcomments(int idx);
+	public Board selectByIdx(int idx);
 }

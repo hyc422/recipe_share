@@ -1,0 +1,194 @@
+@charset "UTF-8";
+body {
+    line-height: normal;
+}
+a{
+	text-decoration: none;
+	color:#000;
+}
+ol, ul {
+    list-style: none;
+}
+.commu-content>article {
+    display: flex;
+    height: 100%;
+}
+.commu-center {
+    padding: 0 0 20px;
+    width: calc(100% - 200px);
+    background-color: #fff;
+}
+.commu-center .commu-body {
+    margin-top: 112px;
+    margin-left:18%;
+    padding: 0;
+    width: 80%;
+}
+.isearch_wrap {
+    padding-top: 15px;
+}
+
+.isearch_wrap {
+    padding: 0px 16px;
+}
+.isearch_wrap, .isearch_wrap div, .isearch_wrap ul, .isearch_wrap ol, .isearch_wrap li, .isearch_wrap dl, .isearch_wrap dt, .isearch_wrap dd, .isearch_wrap h1, .isearch_wrap h2, .isearch_wrap h3, .isearch_wrap h4, .isearch_wrap h5, .isearch_wrap h6, .isearch_wrap form {
+    display: block;
+    float: none;
+}
+#comAdExtVideo.floating {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+    z-index: 20;
+}
+#comAdExtVideo {
+    width: 800px;
+    position: relative;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    font-size: 100%;
+    font-family: "Malgun Gothic", "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
+    margin: 0px;
+    padding: 0px;
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+div, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, fieldset {
+    display: block;
+    float: none;
+}
+.top_search_area {
+    background-color: #dd6d08;
+    border-color: #ffd257;
+}
+.top_search_area {
+    background-color: #005b6f;
+    border-color: #00bcc9;
+}
+.top_search_area {
+    padding: 9px 0 8px;
+    margin-bottom: 30px;
+    border-top: 3px solid transparent;
+    font-size: 0;
+    text-align: center;
+}
+.isearch_filter {
+    padding: 0 15px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #cacaca;
+}
+.isearch_sub_wrap {
+    padding: 0 15px;
+}
+#__A1VideoLargeBanner {
+    position: relative;
+}
+
+#__A1VideoLargeBanner {
+    position: relative;
+}
+#__A1VideoLargeBanner {
+    position: relative;
+}
+.top_search_area .text {
+    height: 30px;
+    padding: 0 20px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'NanumBarunGothic', sans-serif;
+    line-height: 30px;
+}
+.isearch_wrap p {
+    margin: 0;
+}
+.top_search_area > * {
+    display: inline-block;
+    font-size: 12px;
+    vertical-align: middle;
+}
+.top_search_area .input {
+    width: 370px;
+    height: 30px;
+    padding: 0 10px;
+    background: #fff;
+    border: 0;
+    font-family: 'NanumBarunGothic', sans-serif;
+    line-height: 30px;
+    box-sizing: border-box;
+}
+.top_search_area > * {
+    display: inline-block;
+    font-size: 12px;
+    vertical-align: middle;
+}
+.top_search_area .btn_submit {
+    background: #ffab49;
+    border: 1px solid #dd6d08;
+}
+.top_search_area .btn_submit {
+    background: #00bcc9;
+    border: 1px solid #005b6f;
+}
+.top_search_area .btn_submit {
+    float: none;
+    width: 35px;
+    height: 32px;
+    margin-left: 3px;
+    background: #d7821e;
+    border: 1px solid #005b6f;
+    box-sizing: border-box;
+}
+button.btn {
+    font-family: gulim, 굴림, Helvetica;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0px;
+    background: transparent;
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    outline: 0px;
+}
+.isearch_filter .type {
+    float: left;
+}
+.isearch_filter .type li {
+    float: left;
+    margin-right: 30px;
+}
+.isearch_section .section_box.noboard {
+    border-bottom: 0;
+}
+.isearch_section .section_box {
+    padding: 25px 0 20px 0;
+    border-bottom: 1px solid #e8e8e8;
+}
+.isearch_section .section_box .section_top {
+    margin-bottom: 15px;
+}
+.isearch_section .section_box .section_top .section_name {
+    float: left;
+    color: #000;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
+.isearch_section .section_box .section_top .tab_list {
+    float: left;
+    padding: 1px 0;
+    margin-left: 6px;
+}
+.section_body {
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+.news_list .item {
+    margin-bottom: 25px;
+}

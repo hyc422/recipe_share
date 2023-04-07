@@ -23,15 +23,15 @@ public class LoginController {
 		
 	}
 	@PostMapping("/login")
-	public String login(@RequestParam("id")String id,@RequestParam("password") String password,
+	public String login(@RequestParam("email")String email,@RequestParam("password") String password,
 			HttpSession session) {
-		Member member = service.login(id,password);
+		Member member = service.login(email,password);
 		if(member == null) {
 		}	else {
-			session.setAttribute("member", member);
+			session.setAttribute("user", member);
 		}
 		
-		log.info("Member : {}",member);
+		log.info("User : {}",member);
 		
 		return "redirect:/";		
 	}

@@ -62,14 +62,31 @@ public class BoardDaoImpl implements BoardService {
 	//03. 게시글 수정
 	@Override
 	public int update(Board vo) {
-		return SqlSession.update("board.Article",vo);
+		String path ="C:\\NYR\\ubload";
+		StringBuilder filenames = new StringBuilder();	
+		
+		for(MultipartFile f:vo.getPics()) {
+			if(f.getSize()!=0) {
+				String ofilename = f.getOriginalFilename();		
+				String postfix = ofilename.substring(ofilename.lastIndexOf("."));
+				StringBuilder newfile = new StringBuilder("gallery_")
+						.append(UUID.randomUUID().toString().substring(0,8)).append(postfix);
+				File file = new File(path + "\\"+newfile);	
+				try {
+					f.transferTo(file);
+					filenames.append(newfile).append(",");	//db테이블에 들어갈 파일명
+				} catch (IOException e) {	}
+			}
+		}	
+		vo.setFilename(filenames.toString());
+		return dao.update(vo);
 		
 	}
 
 	//04. 게시글 삭제
 	@Override
-	public void delete(int idx) {
-		SqlSession.delete("board.deleteArticle", idx);
+	public int delete(int idx) {
+		return dao.delete(idx);
 	}
 	//05. 카테고리별 게시글 목록 조회
 	public Map<String,Object> getCategoryList(String category, int page) {
@@ -111,6 +128,20 @@ public class BoardDaoImpl implements BoardService {
 	@Override
 	public void increaseViewcnt(int idx) {
 		SqlSession.update("board.updateviewcnt", idx);
+	}
+
+	@Override
+	public Board cntcomments(int idx) {
+		int cnt = dao.cntcomments(idx);
+		Board board = new Board();
+		board.setIdx(cnt);
+		return board;
+	}
+
+	@Override
+	public Board selectByIdx(int idx) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -11,7 +11,7 @@ public interface MemberMapper
   // CJW#2 login
 	int register(Member member);
 	Member login(Map<String,String> map);
-	int idcheck(String email);
+	int emcheck(String email);
 	int nickchk(String nickname);
 	// HYC#3 mypage
 	int update(Member dto);
