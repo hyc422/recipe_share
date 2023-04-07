@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>게시글 수정</title>
+</head>
+<body>
+	<h1>게시글 수정</h1>
+	<hr>
+        
+	<form action="/readupdate" method="post" enctype="multipart/form-data">
+		 <input type="text" name="idx" th:value="${board.idx}">
+        <input type="hidden" name="Cate" th:value="${Cate}" >
+        <input type="hidden" name="a" th:value="${a}">
+        <input type="hidden" name="page" th:value="${page}">
+	<div>
+		<label>작성자</label>
+		<input type="text" name="nickname" id="nickname" th:value="${board.nickname}">
+	</div>
+	<div>
+		<label>카테고리</label>
+	<input type="text" name="category" id="category" th:value="${board.category}" readonly="readonly">
+	</div>
+	
+	<div th:if="${board.category == '레시피'}">  
+    <label>서브 카테고리</label>
+    <select id="subCate" name="subCate" title="대분류 선택" class="mian" th:value="${board.subCate}">
+    <option>선택 해주세요</option>
+    <option value="전통음식" th:selected="${board.subCate == '전통음식'}">전통음식</option>
+    <option value="건강식" th:selected="${board.subCate == '건강식'}">건강식</option>
+    <option value="주식" th:selected="${board.subCate == '주식'}">酒식</option>
+    </select>
+    <input type="hidden" id="subCate2"name="mainCag" value="${category == '레시피' ? mainCagValue : null}">
+</div>
+	
+	<div>
+	<label>제목</label>
+	<input name="title" id="title" size="50" th:value="${board.title}">
+	</div>
+	
+	<div>
+	<label>파일 업로드</label>
+	<input type="file" name="pics" accept="image/*" th:value="${board.filename}"><br>
+	</div>
+	
+	<div>
+	<label>내용</label>
+	<textarea name="Content" rows="10" cols="50" th:text="${board.content}"></textarea>
+	</div>
+	
+	<div style="width:650px; text-align:center;">
+		<button type="submit" id="binSave" name="binSave">수정</button>
+		<button type="reset" >취소</button>
+	</div>
+	</form>
+	
+</body>
+</html>

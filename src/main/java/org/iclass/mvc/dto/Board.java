@@ -29,5 +29,10 @@ public class Board {
 	private int numcomments;//댓글 갯수
 	
 	private List<MultipartFile> pics;
+	private List<String> encodedPics;
+	public void setEncodedPics(List<String> encodedFiles) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
