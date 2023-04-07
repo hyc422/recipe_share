@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -22,15 +22,15 @@
     <h2>Sorry! Your browser doesn't support Javascript</h2>
 </noscript>
 
-<div id="username-page">
-    <div class="username-page-container">
-        <h1 class="title">Type your username</h1>
-        <form id="usernameForm" name="usernameForm">
+<div id="nickName-page">
+    <div class="nickName-page-container">
+        <h1 class="title">Type your nickname</h1>
+        <form id="nickNameForm" name="nickNameForm">
             <div class="form-group">
-                <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control"/>
+                <input type="text" id="nickName" placeholder="Nickname" autocomplete="off" class="form-control"/>
             </div>
             <div class="form-group">
-                <button type="submit" class="accent username-submit">Start Chatting</button>
+                <button type="submit" class="accent nickName-submit">Start Chatting</button>
             </div>
         </form>
     </div>
@@ -57,7 +57,7 @@
         <ul id="messageArea">
 
         </ul>
-        <form id="messageForm" name="messageForm" nameForm="messageForm">
+        <form id="messageForm" name="messageForm">
             <div class="form-group">
                 <div class="input-group clearfix">
                     <input type="text" id="message" placeholder="Type a message..." autocomplete="off"
@@ -72,6 +72,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script src="/js/socket.js"></script>
+<script th:src="@{/js/Socket.js}"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 </body>
 </html>

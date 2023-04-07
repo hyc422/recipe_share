@@ -9,17 +9,24 @@
 		<!-- font style <script src="https://kit.fontawesome.com/352c53403e.js" crossorigin="anonymous"></script> -->
 	</head>
 	<body>
-		<!-- <div th:replace="top :: myIncludedFragment"></div> -->
+		<div th:replace="top :: myIncludedFragment"></div>
+		<hr> <!-- 탑과 사이드를 구분하기 위해 추가 -->
+		<div style="display: flex;"> <!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
+			<div style="flex-basis: 25%; min-width: 200px;">
+				<div th:replace="side :: myIncludedFragment"></div>
+			</div>
+		</div>
+		<div th:replace="/info/top :: myInfo"></div>
 		
 		<main class="container" style="display: flex; justify-content: center;">
 			<div style="margin:auto; display: inline-block; padding: 30px;">
 				<table>
 					<tr>
 						<td>
-							<label for="lblId">아이디</label>
+							<label for="lblEmail">ID</label>
 						</td>
 						<td>
-							[[${session.member.id}]]
+							[[${session.member.email}]]
 						</td>
 					</tr>
 					<tr>
@@ -44,14 +51,6 @@
 						</td>
 						<td>
 							[[${session.member.phone}]]
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="lblEmail">e-mail</label>
-						</td>
-						<td>
-							[[${session.member.email}]]
 						</td>
 					</tr>
 					<tr>

@@ -42,6 +42,8 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.7.2'
   
   // #3HYC실시간 채팅 관련
+  	// JSON
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 	// sockjs
 	implementation 'org.webjars:sockjs-client:1.5.1'
 	// stomp
