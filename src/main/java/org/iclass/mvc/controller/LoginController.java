@@ -28,10 +28,10 @@ public class LoginController {
 		Member member = service.login(email,password);
 		if(member == null) {
 		}	else {
-			session.setAttribute("user", member);
+			session.setAttribute("member", member);
 		}
 		
-		log.info("User : {}",member);
+		log.info("Member : {}",member);
 		
 		return "redirect:/";		
 	}

@@ -23,4 +23,10 @@ public class MyPageController
 	{
 		
 	}	// method end
+	
+	@GetMapping("info/chgpw")
+	public void chgpw()
+	{
+		
+	} // method end;
 }	// Class end
