@@ -15,4 +15,11 @@
   <select id="regSelect" resultType="Board">
   SELECT *FROM BOARD b ORDER BY REGDATE DESC 
   </select>
+  <!-- CGH 최근 올라 온 글 가져오기 -->
+  <select id="TopSelect" resultType="TopSelect">
+  	SELECT *FROM BOARD b
+	JOIN UPLOADFILE u 
+	ON b.IDX =u.BOARDNUM
+	ORDER by b.VIEWCNT DESC
+  </select>
   </mapper>

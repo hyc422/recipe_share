@@ -6,7 +6,7 @@
 <title>레시피 천국</title>
 <style type="text/css">
 #cnt{
-	width: 400px; 
+	width: 410px; 
 	height: 500px; 
 	padding: 30px; 
 	border: 3px solid gray; 
@@ -43,19 +43,35 @@ hr{
 			<div th:replace="side :: myIncludedFragment"></div>
 		</div>
 		<!-- 위에 인크루드 할 내용들 -->
-		
-		<div class="row">
-		<div style="flex-basis: 100%; min-width: 400px; margin-top: 50px;" > <!-- 변경된 부분: 사이드 너비를 25%로 지정하고, 나머지 부분에 글 목록을 배치 -->
+		<div style="margin: auto; display: inline-block; padding: 30px;">
+		</div>
+		<!-- 최고인기 레시피 Top5 -->
+		<div class="card-group" style="width: 60%;display: flex; margin-left: 5%;">
+		<th:block th:each="vo:${Top}">
+		<div class="card" style="width: 18rem;">
+		 <img style="height: 170px;" th:src="@{/uploads/}+${#strings.arraySplit(vo.filename, ',')[0]}" th:if="${vo.filename != null}"  class="card-img-top" alt="...">
+		 <img style="height: 170px;" th:src="@{/image/}+${vo.upidx}" th:if="${vo.filename == null}"  class="card-img-top" alt="...">
+		  <div class="card-body">
+		    <h5 class="card-title">[[${vo.title}]]</h5>
+		    <p class="card-text">[[${vo.nickname}]]</p>
+		    <a th:href="@{read(idx=${vo.idx},page=1,a=1,Cate=${vo.subCate})}" class="btn btn-primary">보러가기</a>
+		  </div>
+		</div>
+		</th:block>
+		</div>
+		<!--  -->
+		<div class="row" style="width: 80%;">
+		<div style="flex-basis: 100%; min-width: 30%; margin-top: 50px;" > <!-- 변경된 부분: 사이드 너비를 25%로 지정하고, 나머지 부분에 글 목록을 배치 -->
 			<div style="margin: auto; display: inline-block; padding: 30px;">
 				<div id="cnt">
 					<h4 style="text-align: center; margin: auto;">30추 글</h4>
 					<table class="userupdate" style="table-layout: fixed;">
 						<tr style="text-align: center; height: 15px;">
-							<th style="height:15px;">카테고리</th>
-							<th style="height:15px;">제목</th>
-							<th style="height:15px;">닉네임</th>
-							<th style="height:15px;">조회수</th>
-							<th style="height:15px;">날짜</th>
+							<th style="height:15px; width: 20%;">카테고리</th>
+							<th style="height:15px; width: 20%;">제목</th>
+							<th style="height:15px; width: 20%;">닉네임</th>
+							<th style="height:15px; width: 20%;">조회수</th>
+							<th style="height:15px; width: 20%;">날짜</th>
 						</tr>
 						<th:block th:each="vo:${viewcnt}">
 							<tr class="out" style="height:15px;">
@@ -70,7 +86,9 @@ hr{
 								<td  style="height:15px;">
 							        <span th:text="${#strings.length(vo.title) &gt; 4} ? ${#strings.substring(vo.title, 0, 4) + '...'} : ${vo.title}"></span>
 								</td>
-								<td style="height:15px;">[[${vo.nickname}]]</td>
+								<td  style="height:15px;">
+							        <span th:text="${#strings.length(vo.nickname) &gt; 4} ? ${#strings.substring(vo.nickname, 0, 4) + '...'} : ${vo.nickname}"></span>
+								</td>
 								<td style="height:15px;">[[${vo.viewcnt}]]</td>
 								<td style="height:15px;">
 									<th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
@@ -108,7 +126,9 @@ hr{
 									</th:block>
 								</td>
 								<td style="height:15px;"> <span th:text="${#strings.length(vo.title) &gt; 4} ? ${#strings.substring(vo.title, 0, 4) + '...'} : ${vo.title}"></span></td>
-								<td style="height:15px;">[[${vo.nickname}]]</td>
+								<td  style="height:15px;">
+							        <span th:text="${#strings.length(vo.nickname) &gt; 4} ? ${#strings.substring(vo.nickname, 0, 4) + '...'} : ${vo.nickname}"></span>
+								</td>
 								<td style="height:15px;">[[${vo.viewcnt}]]</td>
 								<td style="height:15px;">
 								<th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
@@ -146,7 +166,9 @@ hr{
 									</th:block>
 								</td>
 								<td style="height:15px;"><span th:text="${#strings.length(vo.title) &gt; 4} ? ${#strings.substring(vo.title, 0, 4) + '...'} : ${vo.title}"></span></td>
-								<td style="height:15px;">[[${vo.nickname}]]</td>
+								<td  style="height:15px;">
+							        <span th:text="${#strings.length(vo.nickname) &gt; 6} ? ${#strings.substring(vo.nickname, 0, 6) + '...'} : ${vo.nickname}"></span>
+								</td>
 								<td style="height:15px;">[[${vo.viewcnt}]]</td>
 								<td style="height:15px;">
 								<th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">

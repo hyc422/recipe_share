@@ -24,36 +24,41 @@ select{
 		</div>
 <div class="container">
 
-<form id="articleForm" role="form" action="/write" method="post" enctype="multipart/form-data">
+		<form id="articleForm" role="form" action="/readupdate" method="post" enctype="multipart/form-data">
 		<div class="form-group">
+		<input type="hidden" th:value="${Cate}" name="Cate">
+		<input type="hidden" th:value="${a}" name="a">
+		<input type="hidden" th:value="${page}" name="page">
+		<input type="hidden" th:value="${board.idx}" name="idx">
 		<label for="title" style="font-size: 20px;">Title</label> 
 			<input type="text" class="form-control" id="title" name="title"
-				placeholder="title" required>
+				placeholder="title" required th:value="${board.title}">
 		</div>
 		<div class="form-group">
 			<label for="nickname" style="font-size: 20px;">작성자</label> 
-			<input type="text" class="form-control" id="nickname" name="nickname" style="width: 10%; font-size: 20px;" th:value="${session.user.nickname}" readonly="readonly">
+			<input type="text" class="form-control" id="nickname" name="nickname" th:value="${board.nickname}"
+			style="width: 10%; font-size: 20px;" readonly="readonly">
 		</div>
 		
 		<div>
 		<label for="category" style="font-size: 20px;">카테고리</label><br>
-		<select id="category" name="category" title="카테고리 선택" class="category">
+		<select id="category" name="category" title="카테고리 선택" class="category" th:value="${board.category}">
 		<option value="레시피" id="recipe">레시피 공유 게시판</option>
-		<option value="자유">자유 게시판</option>
-		<option value="질문">질문 게시판</option>
+		<option value="자유" th:selected="${board.category == '자유'}">자유 게시판</option>
+		<option value="질문" th:selected="${board.category == '질문'}">질문 게시판</option>
 		</select>
 		</div>
 		<br>
 		<div >  
 	    <label for="subCate" style="font-size: 20px;">서브 카테고리</label><br>
-	    <select id="subCate" name="subCate" title="대분류 선택" class="mian" th:value="${subCate}">
+	    <select id="subCate" name="subCate" title="대분류 선택" class="mian" th:value="${board.subCate}">
 	    <option>선택 해주세요</option>
-	    <option value="밥/면/죽">밥/면/죽</option>
-	    <option value="국/찌개/전골">국/찌개/전골</option>
-	    <option value="반찬">반찬</option>
-	    <option value="전통음식">전통음식</option>
-	    <option value="건강식">건강식</option>
-	    <option value="주식">酒식</option>
+	    <option value="밥면죽" th:selected="${board.subCate == '밥면죽'}">밥/면/죽</option>
+	    <option value="국류" th:selected="${board.subCate == '국류'}">국/찌개/전골</option>
+	    <option value="반찬" th:selected="${board.subCate == '반찬'}">반찬</option>
+	    <option value="전통음식" th:selected="${board.subCate == '전통음식'}">전통음식</option>
+	    <option value="건강식" th:selected="${board.subCate == '건강식'}">건강식</option>
+	    <option value="주식" th:selected="${board.subCate == '주식'}">酒식</option>
 	    </select>
 	    <input type="hidden" id="subCate2"name="subCate2" value="${category == '레시피' ? mainCagValue : null}">
 </div>
@@ -61,7 +66,7 @@ select{
 		<br>
 		<div class="form-group">
 			<textarea class="form-control" id="summernote" name="content"
-				placeholder="content" maxlength="140" rows="7"></textarea>
+				placeholder="content" maxlength="140" rows="7" >[[${board.content}]]</textarea>
 		</div>
 		<div style="font-size: 20px;">
 		<label>썸네임 파일 업로드</label>
@@ -108,23 +113,14 @@ select{
 				processData : false,
 				success : function(url) {                                         
 					$(el).summernote('insertImage', url, function($image) {
-						$image.css('width', "700px");
+						$image.css('width', "900px");
 						$image.css('height', "400px");
 					});
 				}
 			});
 		}
 		
-		 const category = document.querySelector('#category');
-		    const subCate = document.querySelector('#subCate');
-
-		    category.addEventListener('change', function() {
-		        if (category.value === '레시피') {
-		            subCate.disabled = false;
-		        } else {
-		            subCate.disabled = true;
-		        }
-		    });
+		 
 		   
 		  
 		    function validateAndSubmitForm() {
@@ -164,6 +160,30 @@ select{
 
 				return true;
 			}
+			
+			document.addEventListener('DOMContentLoaded', function() {
+			    var categorySelect = document.getElementById('category');
+			    var subCateSelect = document.getElementById('subCate');
+
+			    // 초기 로딩 시 카테고리 값에 따라 서브 카테고리의 활성/비활성 상태 설정
+			    var selectedCategory = categorySelect.value;
+			    if (selectedCategory === '레시피') {
+			        subCateSelect.disabled = false;
+			    }else{
+			    	 subCateSelect.disabled =true;
+			    }
+			});
+			
+			const category = document.querySelector('#category');
+		    const subCate = document.querySelector('#subCate');
+
+		    category.addEventListener('change', function() {
+		        if (category.value === '레시피') {
+		            subCate.disabled = false;
+		        } else {
+		            subCate.disabled = true;
+		        }
+		    });
 	</script>
 </div>
 </body>
