@@ -13,17 +13,22 @@ var chgpPwPage = document.querySelector('#chgpw-page');
 document.querySelector('#chkpw').addEventListener('click',
 function()
 {
-	const password = document.querySelector('#password').value.trim();
-
+	const password = document.querySelector('#lblPassword').value;
+	
 	if(password == "")
 	{
 		alert('비밀번호를 입력하세요!')
 		return
 	}
 	
+	const jsonObj = {"email":email, "password":password}
+	console.log(jsonObj)
 	const xhr = new XMLHttpRequest()
-	xhr.open('GET','/info/chkpw/'+email)
+	xhr.open('GET','/info/chkpw')
+	xhr.setRequestHeader('content-type', 'application/json;charset=utf-8')
 	
+	const data = JSON.stringify(jsonObj)
+	console.log(data)
 	xhr.send(data)
 	xhr.onload=function()
 	{

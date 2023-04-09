@@ -97,7 +97,7 @@ function()
 	const jsonObj = {"email":email,"name":name,"nickname":nickname,"phone":phone,"birth":birth,"createAt":createAt,"grade":grade}
 	
 	const xhr = new XMLHttpRequest()
-	xhr.open('PUT','/info/update/'+email)
+	xhr.open('PUT','/info/update')
 	xhr.setRequestHeader('content-type', 'application/json;charset=utf-8')
 	
 	const data = JSON.stringify(jsonObj)

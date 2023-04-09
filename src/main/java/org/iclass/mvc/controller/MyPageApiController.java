@@ -28,8 +28,8 @@ public class MyPageApiController
 	{this.service = service;}
 	
 	// member update
-	@PutMapping("/info/update/{email}")
-	public String update(@PathVariable String email, @RequestBody String member, HttpSession session) throws JsonMappingException, JsonProcessingException
+	@PutMapping("/info/update")
+	public String update(@RequestBody String member, HttpSession session) throws JsonMappingException, JsonProcessingException
 	{
 		Member dto = objMapper.readValue(member, Member.class);
 		
@@ -43,13 +43,17 @@ public class MyPageApiController
 	}	// method end
 	
 	// password check
-	@GetMapping("/info/chkpw/{email}")
-	public String update(@PathVariable String email, @RequestParam String password) throws JsonProcessingException
+	@GetMapping("/info/chkpw")
+	public String chkpw(@RequestBody String member) throws JsonProcessingException
 	{
-		Member member = service.login(email,password);
+		Member dto = objMapper.readValue(member, Member.class);
 		
-		log.info("Member member : {}",member);
+		log.info("===chkpw dto : {}",dto);
 		
-		return objMapper.writeValueAsString(member);
+		Member result = service.login(dto.getEmail(),dto.getPassword());
+		
+		log.info("Member member : {}",result);
+		
+		return objMapper.writeValueAsString(result);
 	}	// method end
 }	// Class end

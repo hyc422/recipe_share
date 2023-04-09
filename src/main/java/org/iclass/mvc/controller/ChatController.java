@@ -1,5 +1,8 @@
 package org.iclass.mvc.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 
 import org.iclass.mvc.dto.Chat;
@@ -55,8 +58,14 @@ public class ChatController
 	@MessageMapping("/chat/sendMessage")
 	public void sendMessage(@Payload Chat chat)
 	{
-		log.info("chat : {}",chat);
 		chat.setMessage(chat.getMessage());
+		
+		LocalDateTime date = LocalDateTime.now();
+		
+		chat.setTime(date.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
+		
+		
+		log.info("chat : {}",chat);
 		template.convertAndSend("/sub/chat/chatroom/" + chat.getRoomId(), chat);
 	}	// method end
 	

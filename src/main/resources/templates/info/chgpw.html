@@ -18,14 +18,13 @@
 		<div id="chkpw-page" style="margin-top:50px; padding: 30px;">
 			<div class="chkpw-page-container">
 				<h3>비밀번호 확인</h3>
-				<form id="chkPwForm" name="chkPwForm">
 				<table>
 					<tr>
 						<td>
 							<label for="lblPassword">PW</label>
 						</td>
 						<td>
-							<input type="password" id="password" name="password" placeholder="비밀번호 확인">
+							<input type="password" id="lblPassword" name="password" placeholder="비밀번호 확인">
 						</td>
 					<tr>
 						<td colspan="2" id="td-button">
@@ -34,12 +33,11 @@
 						</td>
 					</tr>
 				</table>
-				</form>
 			</div>
 		</div>
 		
 		<!-- 비밀번호 변경 -->
-		<div id="chgpw-page" style="margin-top:50px; padding: 30px;" class="hidden">
+		<!-- <div id="chgpw-page" style="margin-top:50px; padding: 30px;" class="hidden">
 			<div class="chgpw-page-container">
 				<h3>비밀번호 변경</h3>
 				<form id="chgPwForm" name="chkPwForm">
@@ -60,7 +58,7 @@
 				</table>
 				</form>
 			</div>
-		</div>
+		</div> -->
 
 		<script type="text/javascript">
 			const email = '[[${session.member.email}]]'
