@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <style>
@@ -66,20 +66,20 @@ input[name="tab_item"] {
 <div>
 	<div class="tabs">
 		<input id="id" type="radio" name="tab_item" checked><label
-			class="tab_item" for="id">아이디찾기</label> <input id="pwd"
+			class="tab_item" for="id">이메일 찾기</label> <input id="pwd"
 			type="radio" name="tab_item"><label class="tab_item" for="pwd">비밀번호
 			찾기</label>
 			
-		<div class="tab_content" id="id_content">
-			<input type="text" id="name" placeholder="이름" style="display: flex; justify-content: center;padding:10px;border-radius:10px;"><br>
-			<input type="text" id="phone" placeholder="전화번호 '-'포함 입력" style="display: flex; justify-content: center;padding:10px;border-radius:10px;"><br>
-			<input type="button" value="이메일 찾기" style="background-color: #4CA950; padding:10px;border-radius:10px;color:white;
-			display: flex; justify-content: center;cursor:pointer;">
-		</div>
+<div class="tab_content" id="id_content">
+    <input type="text" id="name" name="name" placeholder="이름" style="display: flex; justify-content: center;padding:10px;border-radius:10px;"><br>
+    <input type="text" id="phone" name="phone" placeholder="전화번호 '-'포함 입력" style="display: flex; justify-content: center;padding:10px;border-radius:10px;"><br>
+    <input type="button" id="emailfind" name="emailfind" value="이메일 찾기" style="background-color: #4CA950; padding:10px;border-radius:10px;color:white;
+    display: flex; justify-content: center;cursor:pointer;">
+</div>
 		<div class="tab_content" id="pwd_content">
-			<input type="text" id="email" placeholder="이메일" style="display: flex; justify-content: center;padding:10px;border-radius:10px;"><br>
-			<input type="text" id="name" placeholder="성함" style="display: flex; justify-content: center;padding:10px;border-radius:10px;"><br>
-			<input type="button" value="아이디찾기" style="background-color: #4CA950; padding:10px;border-radius:10px;color:white;
+			<input type="text" id="email" name="email" placeholder="이메일" style="display: flex; justify-content: center;padding:10px;border-radius:10px;"><br>
+			<input type="text" id="name2" name="name2" placeholder="성함" style="display: flex; justify-content: center;padding:10px;border-radius:10px;"><br>
+			<input type="button" id="pwdfind"value="비밀번호찾기" style="background-color: #4CA950; padding:10px;border-radius:10px;color:white;
 			display: flex; justify-content: center;cursor:pointer;">
 		</div>
 	</div>

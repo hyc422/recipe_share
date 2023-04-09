@@ -30,10 +30,10 @@ public class LoginController {
 		}	else {
 			session.setAttribute("member", member);
 		}
+
+		log.info("member : {}",member);
 		
-		log.info("Member : {}",member);
-		
-		return "redirect:/";		
+		return "redirect:/";
 	}
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
