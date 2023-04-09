@@ -3,15 +3,33 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="org.iclass.mvc.dao.CommentsMapper">
 	<insert id="Commentsinsert" parameterType="org.iclass.mvc.dto.Comments">
-		INSERT INTO HR.COMMENTS
-(IDX, NICKNAME, CONTENTS, CREATEDATE)
-VALUES(COMMENTS_idx_seq.nextval, #{nickname}, #{CONTENTS}, sysdate)
+		INSERT INTO COMMENTS
+(IDX, MERF,NICKNAME, CONTENTS, CREATEDATE)
+VALUES(COMMENTS_idx_seq.nextval,#{merf}, #{nickname}, #{contents}, sysdate)
 	</insert>
 	<delete id="CommentsDelete" parameterType="int">
 		Delete From comments
 		where idx=#{idx}
 	</delete>
 	<update id="setCommentsCount" parameterType="int">
-
+	UPDATE board b SET numcomments=(SELECT count(*) 
+	FROM COMMENTS c WHERE c.merf=#{idx})
+	WHERE b.idx=#{idx} 
 	</update>
+	<select id="setReadCount" resultType="int">
+		 SELECT
+            COUNT(*)
+        FROM COMMENTS
+	</select>
+<select id="commentList" resultType="Comments" parameterType="int">
+       SELECT merf, Nickname,contents, createdate FROM COMMENTS c 
+WHERE merf =#{merf}
+    </select>
+     <update id="commentUpdate" parameterType="Comments">
+        UPDATE COMMENT
+            SET
+            CONTENTS = #{contents}
+        WHERE idx = #{idx}
+    </update>
+    
  </mapper>

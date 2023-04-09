@@ -1,5 +1,6 @@
 package org.iclass.mvc.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,24 +32,26 @@ public class ChatService
 	public int createChatRoom(String roomName)
 	{
 		String roomId = UUID.randomUUID().toString();
-		return dao.createChatRoom(roomId,roomName);
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("roomId", roomId);
+		map.put("roomName", roomName);
+		
+		return dao.createChatRoom(map);
 	}	// method end
 	
-	public int plusUserCnt(String roomId)
+	public int countUser(String roomId)
 	{
-		return dao.plusUserCnt(roomId);
-	}	// method end
+		return dao.countUser(roomId);
+	}
 	
-	public int minusUserCnt(String roomId)
-	{
-		return dao.minusUserCnt(roomId);
-	}	// method end
-	
-	public String enterUser(String roomId, String nickname)
+	public String enterUser(UserList list)
 	{	
 		String userId = UUID.randomUUID().toString();
-
-		dao.enterUser(userId, roomId, nickname);
+		
+		list.setUserId(userId);
+		
+		dao.enterUser(list);
 
 		return userId;
 	}	// method end
@@ -58,9 +61,15 @@ public class ChatService
 		return dao.leaveUser(userId);
 	}	// method end
 	
-	public List<UserList> selectUserList(String roomId)
+	public ArrayList<String> selectUserList(String roomId)
 	{
-		return dao.selectUserListAll(roomId);
+		ArrayList<String> list = new ArrayList<>();
+		
+		List<UserList> userList = dao.selectUserListAll(roomId);
+		
+		userList.forEach((UserList u) -> list.add(u.getNickName()));
+		
+		return list;
 	}	// method end
 
 	public UserList selectUserListOne(String roomId, String userId)

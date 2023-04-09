@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<div th:fragment="myIncludedFragment">
-		<style type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<div th:fragment="myIncludedFragment">
+<style type="text/css">
 .sidebar {
-	position: fixed;
-	top: 10%;
-	left: 0;
-	border-radius: 20px;
-	width: 250px;
-	background-color: #f8f9fa;
-	border-right: 1px solid #dee2e6;
-	height: calc(115vh - 200px);
+  position: fixed;
+  top: 10%;
+  left: 0;
+  width: 15%;
+  padding: 20px;
+  height: calc(100vh);
 }
 
 .sidebar h4 {
@@ -46,89 +42,119 @@
 	background-color: #dee2e6;
 }
 </style>
-		<div class="sidebar" style="background-color: gray;">
-			<div
-				style="background-color: #4CA950; border-radius: 20px; padding: 10px;">
-				<form action="login" method="post" th:if="${session.user} == null">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link href="/css/styles.css" rel="stylesheet">
+<div class="sidebar">
+ 	<div
+				style="background-color: #4CA950; border-radius: 20px; padding: 10px; height: 800px;">
+				<form action="login" method="post" th:if="${session.member} == null" style="margin-top: 20px;">
 					<input type="text" name="email" id="email"
-						style="display: flex; justify-content: center;width: 60%; border-radius: 5px; margin: auto; border: 1px solid rgb(0, 128, 0); padding: 10px; justify-content: center; text-align: center; height: 10px; font-size: 5px;"
-						placeholder="이메일 입력"> <input type="password"
+						style="display: flex; justify-content: center;width: 60%; border-radius: 5px; margin: 10px auto; border: 1px solid rgb(0, 128, 0); padding: 15px; justify-content: center; text-align: center; height: 30px; font-size: 10px;"
+						placeholder="이메일 입력"> 
+					<input type="password"
 						name="password" id="password"
-						style="display: flex; justify-content: center;width: 60%; text-align: center; border-radius: 5px; border: 1px solid rgb(0, 128, 0); padding: 10px; height: 10px; font-size: 5px; margin: auto"
+						style="display: flex; justify-content: center;width: 60%; text-align: center; border-radius: 5px; border: 1px solid rgb(0, 128, 0); padding: 15px; height: 30px; font-size: 10px; margin: 10px auto;"
 						placeholder="비밀번호 입력">
 					<div style="display: flex; justify-content: center;">
 						<button
-							style="width: 80%; height: 60px; cursor: pointer; background-color: rgb(0, 128, 0); color: white; font-size: 16px; border: none; padding: 10px; border-radius: 5px;">로그인</button>
+							style="width: 80%; height: 60px; cursor: pointer; background-color: rgb(0, 128, 0); color: white; font-size: 16px; border: none; padding: 10px; border-radius: 5px; margin:auto;">로그인</button>
 					</div>
-				<div style="font-size: 9px; text-align: center;">
+				<div style="font-size: 9px; text-align: center; margin-top: 10px;">
 					<a style="color: white;" href="register">회원가입</a> <a
 						style="color: white;" href="javascript:finduser()">아이디/비밀번호 찾기</a>
 				</div>
 				</form>
-				<div class="user-profile" th:if="${session.user} != null">
+				<div class="user-profile" th:if="${session.member} != null">
 							<div style="display: flex; justify-content: center;">
-							<button style="width: 80%; height: 60px; cursor: pointer; background-color: rgb(0, 128, 0); color: white; font-size: 16px; border: none; padding: 10px; border-radius: 5px;">
-							<a href="logout" style="color:white;">로그아웃</a>
+							<button th:onclick="|location.href='@{/logout}'|" style="width: 80%; height: 60px; cursor: pointer; background-color: rgb(0, 128, 0); color: white; font-size: 16px; border: none; padding: 10px; border-radius: 5px;">
+								로그아웃
 							</button>
 							</div>
 					<div class="user-info">
-						<div class="user-name" th:text="${session.user.name}"></div>
-						<div class="user-grade" th:if="${session.user.grade} == 0" th:text="관리자"></div>
-						<div th:if="${session.user.grade} == 1" th:text="요린이"></div>
-						<div th:if="${session.user.grade} == 2" th:text="요리사"></div>
-						<div th:if="${session.user.grade} == 3" th:text="셰프"></div>
-						<div th:if="${session.user.grade} == 4" th:text="고든램지"></div>
+						<div class="user-name" th:text="${session.member.name}"></div>
+						<div class="user-grade" th:if="${session.member.grade} == 0" th:text="관리자"></div>
+						<div th:if="${session.member.grade} == 1" th:text="요린이"></div>
+						<div th:if="${session.member.grade} == 2" th:text="요리사"></div>
+						<div th:if="${session.member.grade} == 3" th:text="셰프"></div>
+						<div th:if="${session.member.grade} == 4" th:text="고든램지"></div>
 					</div>
 					<div class="user-links">
-						<a href="{my_posts_link}" class="my-posts">내가 쓴 글 보기</a> <a
-							href="{user_edit_link}" class="edit-profile">회원 정보 수정</a> 
+						<ul>
+							<li>
+								<a th:href="@{/info/mypage}" class="edit-profile">내 정보</a>
+							</li>
+							<li>
+								<a th:href="@{/info/myboardlist}" class="my-posts">작성 글 보기</a> 
+							</li>
+						</ul>
 					</div>
 				</div>
-
-				<div style="display: inline-block;">
-					<form method="get" th:action="search" style="margin-top: 50px;">
-						<select id="a" name="a"
-							style="border: 1px solid rgb(0, 128, 0); border-radius: 5px; font-size: 5px; width: 20%; height: 20px;">
-							<option value="0">전체</option>
-							<option value="1">카테고리</option>
-							<option value="2">제목</option>
-							<option value="3">내용</option>
-						</select> <input type="text" name="search" id="search"
-							style="border: 1px solid rgb(0, 128, 0); border-radius: 5px; width: 50%; height: 20px; font-size: 5px;"
-							placeholder="검색">
-						<button type="button" onclick="search()"
-							style="cursor: pointer; border: 1px solid rgb(0, 128, 0); color: white; border-radius: 5px; background-color: rgb(0, 128, 0); width: 18%; height: 20px; font-size: 1px;">검색</button>
-					</form>
-				</div>
-			</div>
-			<script type="text/javascript">
+  
+<!-- ====================================================================== -->
+ 
+  <div class="col-lg-8" style="width: 100%;">
+                    <!-- Search widget-->
+                            <form method="get" th:action="search" style="margin-top: 50px;">
+                    <div class="card mb-4">
+                        <div class="card-header" style="font-size: 20px;">Search</div>
+                        <div class="card-body">
+                            <div class="input-group">
+								  	<select id="a" name="a" style="width: 30%; font-size: 15px;">
+								  		<option value="0">전체</option>
+								  		<option value="1">카테고리</option>
+								  		<option value="2">제목</option>
+								  		<option value="3">내용</option>
+								  	</select>
+                                	<input class="form-control" type="text" name="search" id="search" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="button" onclick="searchData()">Go!</button>
+                            </div>
+                        </div>
+                    </div>
+								  </form>
+                    <!-- Categories widget-->
+                    <div class="card mb-4" style="font-size: 15px;">
+                        <div class="card-header"style="font-size: 20px;">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0">
+									    <li><a href="/list?Cate=전통음식&a=1&page=1">전통음식</a></li>
+									    <li><a href="/list?Cate=건강식&a=1&page=1">건강식</a></li>
+									    <li><a href="/list?Cate=주식&a=1&page=1">酒식</a></li>
+									    <li><a href="/list?Cate=자유게시판&a=0&page=1">자유게시판</a></li>
+									    <li><a href="/list?Cate=질문&a=0&page=1">질문게시판</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side widget-->
+                  <div class="col-lg-8">
+                    <!-- Post content-->
+                    <!-- Comments section-->
+                </div>
+                </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/js/scripts.js"></script>
+         
+  <script type="text/javascript">
+  function searchData() {
+	  const frm = document.forms[0];
+	  const value = frm.search.value;
+	  if(value == ""){
+		  alert('검색어를 입력해주세요.')
+	  } else if(value !== "") {
+		  frm.submit();
+	  }
+  }
+  </script>
+  <script type="text/javascript">
 				function finduser(){
 					window.open("/findUser","findUser","width=450, height=450, top=50, left=50");	
 				}
 			</script>
-			<script type="text/javascript">
-				function search() {
-					const frm = document.forms[0];
-					const value = frm.name.value;
-					if (value == "") {
-						alert('검색어를 입력해주세요.')
-					} else if (value !== "") {
-						frm.submit();
-						location.href = "/shoppingMall/search?name=" + value;
-					}
-				}
-			</script>
-			<ul class="menu" style="margin-top: 50px;">
-				<li><a href="#">전통음식</a></li>
-				<li><a href="#">건강식</a></li>
-				<li><a href="#">酒식</a></li>
-				<li><a href="#">자유게시판</a></li>
-				<li><a href="#">질문게시판</a></li>
-			</ul>
-		</div>
-	</div>
-	<script type="text/javascript">
-		
-	</script>
-</body>
+        </div>
+</div>
 </html>
