@@ -126,8 +126,8 @@ public class BoardDaoImpl implements BoardService {
 	}
 	//06. 게시글 조회수 증가
 	@Override
-	public void increaseViewcnt(int idx) {
-		SqlSession.update("board.updateviewcnt", idx);
+	public int increaseViewcnt(int idx) {
+		return dao.increaseViewcnt(idx);
 	}
 
 	@Override
@@ -142,6 +142,11 @@ public class BoardDaoImpl implements BoardService {
 	public Board selectByIdx(int idx) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Board SelectViewcnt(int idx) {
+		return dao.SelectViewcnt(idx);
 	}
 	
 	

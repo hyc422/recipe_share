@@ -20,7 +20,8 @@ public interface BoardMapper {
 	//05. 게시글 전체 목록
 	public List<Board> listAll(Map<String, Integer> map);
 	//06. 게시글 조회 증가 
-	public void increaseViewcnt(int idx);
+	public int increaseViewcnt(int idx);
+	public Board SelectViewcnt(int idx);
 	int count();
 	int getCategorycount(String category);
 	int getsubCatecount(String subCate);
