@@ -33,4 +33,5 @@
   	<select id="announcementList" resultType="Board">
   		SELECT*FROM BOARD b WHERE CATEGORY ='공지' ORDER by IDX DESC
   	</select>
+
   </mapper>

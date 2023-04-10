@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link href="/css/list.css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>회원관리 페이지</title>
 <link href="/css/list.css" rel="stylesheet">
@@ -51,8 +52,10 @@ input[name="tab_item"]{
    clear: both;
    overflow: hidden;
 }
+
 #Awrite:checked ~ #Awrite_content,#member:checked ~ #member_content,#announcement:checked ~ #announcement_content, #board:checked ~ #board_content{
    display:block;
+
 }
 
 .tabs input:checked+.tab_item {
@@ -276,6 +279,7 @@ input[name="tab_item"]{
 	
 		
 </div>
+
 </div>
 </div>
 <script>

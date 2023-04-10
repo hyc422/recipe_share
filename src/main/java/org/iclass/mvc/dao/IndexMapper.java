@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.iclass.mvc.dto.Board;
-import org.iclass.mvc.dto.TopSelect;
+import org.iclass.mvc.dto.Member;
+
 
 @Mapper
 public interface IndexMapper {
@@ -15,4 +16,6 @@ public interface IndexMapper {
 	List<Board>listAll();
 	int create();
 	List<Board>announcementList();
+
 }
+
