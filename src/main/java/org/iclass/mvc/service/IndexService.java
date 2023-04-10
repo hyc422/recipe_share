@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.iclass.mvc.dao.IndexMapper;
 import org.iclass.mvc.dto.Board;
-
 import org.iclass.mvc.dto.Member;
-
+import org.iclass.mvc.dto.TopSelect;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,9 @@ public class IndexService {
 	public List<Board> regSelect(){
 		return dao.regSelect();
 	}
-
+	public List<TopSelect> TopSelect(){
+		return dao.TopSelect();
+	}
 	public List<Member> memberAll(){
 		return dao.memberAll();
 	}
@@ -45,4 +46,5 @@ public class IndexService {
 	public List<Board>announcementList(){
 		return dao.announcementList();
 	}
+	
 }

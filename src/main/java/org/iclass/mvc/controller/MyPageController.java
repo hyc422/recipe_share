@@ -3,9 +3,13 @@ package org.iclass.mvc.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class MyPageController 
 {
+	
 	@GetMapping("/info/mypage")
 	public void mypage()
 	{
@@ -24,7 +28,7 @@ public class MyPageController
 		
 	}	// method end
 	
-	@GetMapping("info/chgpw")
+	@GetMapping("/info/chgpw")
 	public void chgpw()
 	{
 		
