@@ -86,6 +86,10 @@
 							<li>
 								<a th:href="@{/info/myboardlist}" class="my-posts">작성 글 보기</a> 
 							</li>
+							<li th:if="${session.member.grade} == 0">
+								<a th:href="@{/admin}">관리자 페이지</a>
+							</li>
+
 						</ul>
 					</div>
 				</div>
@@ -118,14 +122,11 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-									    <li><a href="/list?Cate=레시피&a=0&page=1">모든 레시피</a></li>
-									    <li><a href="/list?Cate=밥면죽&a=1&page=1">밥/면/죽</a></li>
-									    <li><a href="/list?Cate=국류&a=1&page=1">국/찌개/전골</a></li>
-									    <li><a href="/list?Cate=반찬&a=1&page=1">반찬</a></li>
 									    <li><a href="/list?Cate=전통음식&a=1&page=1">전통음식</a></li>
 									    <li><a href="/list?Cate=건강식&a=1&page=1">건강식</a></li>
 									    <li><a href="/list?Cate=주식&a=1&page=1">酒식</a></li>
-									    <li><a href="/list?Cate=자유&a=0&page=1">자유게시판</a></li>
+									    <li><a href="/list?Cate=자유게시판&a=0&page=1">자유게시판</a></li>
+
 									    <li><a href="/list?Cate=질문&a=0&page=1">질문게시판</a></li>
                                     </ul>
                                 </div>

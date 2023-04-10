@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<link href="/css/list.css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>회원관리 페이지</title>
 <style>
@@ -45,7 +46,7 @@ input[name="tab_item"]{
 	clear: both;
 	overflow: hidden;
 }
-#member_checked ~ #member_content, #board:checked ~ #board_content,#design:checked ~ #design_content{
+#member:checked ~ #member_content, #board:checked ~ #board_content,#design:checked ~ #design_content{
 	display:block;
 }
 .tabs input:checked+.tab_item {
@@ -57,99 +58,106 @@ input[name="tab_item"]{
 <body>
 <h3>관리자 페이지</h3>
 <hr>
-<div class="tabs">
-<input type="radio" id="member" name="tab_item"><label class="tab_item" for="member">회원 관리</label>
-<input type="radio" id="board" name="tab_item"><label class="tab_item" for="board">게시글 관리</label>
-<!-- 회원관리 페이지  -->
-<div class="tab_content" id="member_content">
+<div>
+	<div class="tabs" style="width:80%;">
+		<input type="radio" id="member" name="tab_item" checked><label class="tab_item" for="member">회원 관리</label>
+		<input type="radio" id="board" name="tab_item"><label class="tab_item" for="board">게시글 관리</label>
+		<!-- 회원관리 페이지  -->
+		<div class="tab_content" id="member_content">
+			<article class="new-board" id="new-board" style=" width: 100%;">
+     	 <div class="admin-area" style="font-size: 30px; text-align: center;">
+    	  </div>
+            <div class="w327B"></div>
 
-</div>
-<!-- 게시글 관리 페이지 -->
-<div class="tab_content" id="board_content">
-	<form method="get" th:action="board_search" style="margin-top: 50px;">
-		<select id="a" name="a" style="border: 1px solid rgb(0, 128, 0); border-radius: 5px; font-size: 11px; width: 20%; height: 40px; text-align:center;">
-			<option value="0">전체</option>
-			<option value="1">카테고리</option>
-			<option value="2">제목</option>
-			<option value="3">내용</option>
-		</select>
-		<input type="text" name="board_search" id="board_search" style="border: 1px solid rgb(0, 128, 0); border-radius: 5px;width: 250px;height:35px;" placeholder="검색">
-		<button type="button" onclick="search()" style="cursor: pointer; border: 1px solid rgb(0, 128, 0); height: 40px; color: white; border-radius: 5px; background-color: rgb(0, 128, 0); width: 18%; font-size: 9px;">검색</button>
-	</form>
-	<hr>
-	<ul id="main">
-	<li>
-		<ul  class="row">
-			<li>번호</li>
-			<li>제목</li>
-			<li>작성자</li>
-			<li>조회수</li>
-			<li>작성일</li>
-		</ul>
-	</li>
-	<th:block th:each="vo:${list}">
-	<li>
-		<ul  class="row">
-			<li>
-				[[${vo.idx}]]
-			</li>
-			<li><a href="#" class="title">  <!-- 현재페이지 번호 전달 시작 -순서1) -->
-					[[${vo.title}]]
-				</a>
-		 		..<span style="color:orange;font-size: 80%;">
-		 		</span></li>
-			<li>
-				[[${vo.nickname}]]
-			</li>
-			<li>
-				[[${vo.viewcnt}]]
-			</li>
-			<li>
-			<th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
-			    <span th:if="${#strings.equals(regdate, today)}">
-			        [[${#temporals.format(vo.regdate, 'HH:mm')}]]
-			    </span>
-			    <span th:unless="${#strings.equals(regdate, today)}">
-			        [[${#temporals.format(vo.regdate, 'MM-dd' )}]]
-			    </span>    
-			</th:block>
-			</li>
-		</ul>
-	</li>
-	<!-- https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#dates -->
- 	</th:block>
-	</ul>
-	<div style="width:700px;margin: auto;padding: 10px;text-align: center;">
-	전체 글 개수 : [[${paging.totalCount }]] <br>
-	<hr>
-	<div th:with="start=${paging.startPage},last=(${paging.startPage+9<paging.totalPage?start+9:paging.totalPage})">
-			<a th:href="@{search(a=${a},search=${search},page=1)}" th:class="${paging.startPage==1}? 'none':'btn btn-default'">&lt;&lt;</a>
-			
-			<a th:href="${paging.startPage==1}? '#':@{search(a=${a},search=${search},page=${paging.currentPage-10})}" 
-						th:class="${paging.startPage==1}? 'none':'btn btn-default'">&lt;</a>
-			<!-- start ~ last 범위값으로 반복-->
-			<a th:each="i:${#numbers.sequence(start,last)}" 
-			th:href="@{search(a=${a},search=${search},page=${i})}" th:text="${i}" th:class="${i==paging.currentPage}?'btn':'btn btn-default'"></a>
+         <div class="board-list" style="width: 100%; display: flex; justify-content: space-evenly;">
+            <table style="width: 100%;">
+               
+               <colgroup>
+                  <col class="size01" data-alias="number">
 
-			<a th:href="${paging.endPage==paging.totalPage}? '#':@{search(a=${a},search=${search},page=${paging.currentPage+10})}" 
-					th:class="${paging.endPage==paging.totalPage}? 'none':'btn btn-default'">&gt;</a>
-			<a th:href="@{search(a=${a},search=${search},page=${paging.totalPage})}"th:class="${paging.endPage==paging.totalPage}? 'none':'btn btn-default'">&gt;&gt;</a>
+                  <col class="size02" data-alias="subject">
+
+                  <col class="size03" data-alias="writer">
+
+                  <col class="size04" data-alias="date">
+
+                  <col class="size05" data-alias="hit">
+                  <col class="size06" data-alias="grade">
+
+                  <col class="size07" data-alias="req">
+                  <col class="size08" data-alias="rew">
+               </colgroup>
+               <thead>
+                  <tr style="background-color: #4CA950; color:white;">
+                     <th>이메일</th>
+                     <th>이름</th>
+                     <th>닉네임</th>
+                     <th>번호</th>
+                     <th>생년월일</th>
+                     <th>등급</th>
+                     <th>승진</th>
+                     <th>집행</th>
+                  </tr>
+               </thead>
+               <tbody>
+                <th:block th:each="vo:${member}">
+                  <tr class="lgtm">
+                     <td class="num"><span>[[${vo.email}]]</span></td>
+                     <td class="category"><span class="layercategory">[[${vo.name}]]</span>
+                     </td>
+                     <td class="subCate"><span class="layersubCate">[[${vo.nickname}]]</span>
+                     </td>
+                     <td class="tit">
+                        <div class="text-wrap">
+                           <div>
+                              <span class="user-icon"></span> <a
+                                       href="#"
+                                       class="title"> [[${vo.phone}]] </a>
+                           </div>
+                        </div>
+                     </td>
+
+                     
+                     <td class="user"><span class="layerNickName">[[${vo.birth}]]</span>
+                     </td>
+					<td class="numb">
+					<span th:if="${vo.grade} == 0" th:text="관리자"></span>
+					<span th:if="${vo.grade} == 1" th:text="요린이"></span>
+					<span th:if="${vo.grade} == 2" th:text="요리사"></span>
+					<span th:if="${vo.grade} == 3" th:text="셰프"></span>
+					<span th:if="${vo.grade} == 4" th:text="고든램지"></span>
+					</td>
+                     <td class="view">
+                     <form action="/updateM" method="GET">
+                     <select name="grade">
+                     	<option value="1">요린이
+                     	<option value="2">요리사
+                     	<option value="3">셰프
+                     	<option value="4">고든램지
+                     	<option value="0">관리자
+                     </select>
+                     <input type="hidden" th:value="${vo.idx}" name="idx">
+                     <input type="submit" style="background-color: #4CA950;color:white;">
+                     </form>
+                     </td>
+					<td>
+						<form action="/deleteM" method="GET">
+	                     <input type="hidden" th:value="${vo.idx}" name="idx">
+						<input type="submit" style="background-color:red; border-radius:3px; color:white;" value="집행">
+						</form>
+					</td>
+                  </tr>
+                  </th:block>
+               </tbody>
+            </table>
+         </div>
+   </article>
+		</div>
+		<!-- 게시글 관리 페이지 -->
+		<div class="tab_content" id="board_content">
+
+		</div>
 	</div>
-</div>
-	<script type="text/javascript">
-		function search() {
-			const frm = document.forms[0];
-			const value = frm.board_search.value;
-			if (value == "") {
-				alert('검색어를 입력해주세요.')
-			} else if (value !== "") {
-				frm.submit();
-			}
-		}
-	</script>
-</div>
-
-
 </div>
 </body>
 </html>

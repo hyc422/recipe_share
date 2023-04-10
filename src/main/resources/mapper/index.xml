@@ -15,11 +15,12 @@
   <select id="regSelect" resultType="Board">
   SELECT *FROM BOARD b ORDER BY REGDATE DESC 
   </select>
-  <!-- CGH 최근 올라 온 글 가져오기 -->
-  <select id="TopSelect" resultType="TopSelect">
-  	SELECT *FROM BOARD b
-	JOIN UPLOADFILE u 
-	ON b.IDX =u.BOARDNUM
-	ORDER by b.VIEWCNT DESC
-  </select>
+
+  <update id="updateM" parameterType="Member">
+  	UPDATE th_member SET grade=#{grade} where idx=#{idx}
+  </update>
+  <delete id="deleteM" parameterType="int">
+  	delete FROM th_member where idx=#{idx}
+  </delete>
+
   </mapper>
