@@ -1,3 +1,4 @@
+
 package org.iclass.mvc.dto;
 
 import java.sql.Date;
@@ -13,7 +14,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(exclude = {"idx","password"})
-public class Member {
+public class Member 
+{
 	private	int idx;
 	private	String email;
 	private String password;
@@ -21,5 +23,6 @@ public class Member {
 	private	String nickname;
 	private String phone;
 	private Date birth;
+	private String createAt;
 	private String grade;
 }

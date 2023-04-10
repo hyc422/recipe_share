@@ -16,11 +16,12 @@ public interface BoardMapper {
 	//03. 게시글 수정
 	public int update(Board vo);
 	//04. 게시글 삭제
-	public void delete(int idx);
+	public int delete(int idx);
 	//05. 게시글 전체 목록
 	public List<Board> listAll(Map<String, Integer> map);
 	//06. 게시글 조회 증가 
-	public void increaseViewcnt(int idx);
+	public int increaseViewcnt(int idx);
+	public Board SelectViewcnt(int idx);
 	int count();
 	int getCategorycount(String category);
 	int getsubCatecount(String subCate);
@@ -29,4 +30,6 @@ public interface BoardMapper {
     // 10. 카테고리별 게시글 목록 조회
     public List<Board> getCategoryList(Map<String, Object> map);
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory);
+	public int cntcomments(int idx);
+	public Board selectByIdx(int idx);
 }

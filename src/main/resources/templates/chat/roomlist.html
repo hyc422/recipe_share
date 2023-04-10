@@ -22,21 +22,28 @@
         }
     </script>
     <style>
-        a {
-            text-decoration: none;
-        }
+        a {text-decoration: none;}
     </style>
 </head>
 <body>
+	<div th:replace="top :: myIncludedFragment"></div>
+		<hr> <!-- 탑과 사이드를 구분하기 위해 추가 -->
+		<div style="display: flex;"> <!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
+			<div style="flex-basis: 25%; min-width: 200px;">
+				<div th:replace="side :: myIncludedFragment"></div>
+			</div>
+	</div>
+
     <th:block th:fragment="content">
-        <div class="container">
+        <div class="container" style="margin-top:50px;">
             <div>
                 <ul th:each="room : ${list}">
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">
                                 <span class="hidden" th:id="${room.roomName}"></span>
-                                <a th:href="@{/chat/room(roomId=${room.roomId})}">[[${room.roomName}]]</a>
+                                <!-- <button id="enter-room" type="button" th:onclick="|location.href='@{/chat/chatroom(roomId=${room.roomId})}'|">[[${room.roomName}]]</button> -->
+                                <a th:href="@{/chat/chatroom(roomId=${room.roomId})}">[[${room.roomName}]]</a>
                             </div>
                         </div>
                         <span class="badge bg-primary rounded-pill">[[${room.userCount}]]명</span>
@@ -44,10 +51,12 @@
                 </ul>
             </div>
         </div>
+        <div style="margin-top:50px;">
         <form action="/chat/createroom" method="post" onsubmit="return createRoom()">
-            <input type="text" name="name" class="form-control" id="roomName">
+            <input type="text" name="roomName" class="form-control" id="roomName">
             <button class="btn btn-secondary" id="create">개설하기</button>
         </form>
+        </div>
     </th:block>
 </body>
 </html>

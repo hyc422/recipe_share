@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.iclass.mvc.dao.UploadFileMapper">
+  
+  <insert id="save" parameterType="UploadFile">
+  INSERT INTO UPLOADFILE
+(UPIDX, BOARDNUM, FILENAME, FILEPATH ,SAVEFILENAME)
+VALUES(file_idx_seq.nextval, #{boardNum}, #{fileName}, #{filePath},#{saveFileName})
+  	</insert>
+  <select id="imgSelect" resultType="UploadFile" parameterType="int">
+  	select * from UploadFile
+  	where boardNum = #{boardNum} ORDER BY idx ASC
+  	</select>
+  	 <select id="load" resultType="UploadFile">
+  	select * from UploadFile
+  	where upidx = #{upidx}
+  	</select>
+  	<select id="nextSeq" resultType="int">
+		SELECT MAX(upidx)+1 FROM
+		UploadFile
+	</select>
+	<select id="boardNextSeq" resultType="int">
+		SELECT MAX(idx)+1 FROM
+		Board
+	</select>
+  </mapper>

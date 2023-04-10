@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.iclass.mvc.dao.IndexMapper;
 import org.iclass.mvc.dto.Board;
+
 import org.iclass.mvc.dto.Member;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class IndexService {
 	public List<Board> regSelect(){
 		return dao.regSelect();
 	}
+
 	public List<Member> memberAll(){
 		return dao.memberAll();
 	}
@@ -31,5 +34,6 @@ public class IndexService {
 	}
 	public void deleteM(int idx) {
 		dao.deleteM(idx);
+
 	}
 }

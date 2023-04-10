@@ -30,7 +30,7 @@ public class LoginController {
 		}	else {
 			session.setAttribute("member", member);
 		}
-		
+
 		log.info("member : {}",member);
 		
 		return "redirect:/";

@@ -14,11 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChatRoom 
 {
-	private String roomId; 		// roomId = nickname
-	private String roomName; 	// roomName
-	private long userCount; 	// userCount
-	private UserList userlist;	// userList
-	private int maxUserCnt;		// 
-	private String roomPwd;
-	private boolean sceretChk;
+	private String roomId; 		// 방 번호 (random UUID)
+	private String roomName; 	// 방 이름
+	private long userCount; 	// 사용자 수
 }	// Class end

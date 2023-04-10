@@ -6,14 +6,14 @@
   <!-- 게시글 작성 -->
   <insert id="create" parameterType="Board">
   	INSERT INTO BOARD
-  	(IDX, CATEGORY, MAINCAG, NICKNAME, TITLE, FILENAME, CONTENT, REGDATE)
-VALUES(board_idx_seq.nextval, #{category},  #{mainCag, jdbcType=VARCHAR}, #{nickname}, #{title}, #{filename},#{content}, sysdate)
+  	(IDX, CATEGORY, SUBCATE, NICKNAME, TITLE, FILENAME, CONTENT, REGDATE)
+VALUES(board_idx_seq.nextval, #{category},  #{subCate, jdbcType=VARCHAR}, #{nickname}, #{title}, #{filename},#{content}, sysdate)
   	</insert>
   
   <!-- 게시글 조회 -->
   	<select id="listAll" resultType="Board">
-  		SELECT #{idx}, #{category}, #{mainCag}, #{nickname}, #{title}, #{title}, #{filename},#{content}, sysdate, #{viewcnt}, #{numcomments}
-FROM HR.BOARD
+  		SELECT #{idx}, #{category}, #{subCate}, #{nickname}, #{title}, #{title}, #{filename},#{content}, sysdate, #{viewcnt}, #{numcomments}
+FROM BOARD
   	</select>
   	
   	<!-- 게시글 상세보기 조회 -->
@@ -21,23 +21,23 @@ FROM HR.BOARD
   	select * from board
   	where idx = #{idx}
   	</select>
-  	
   <!-- 게시글 조회수 증가 처리 -->
-  <update id="updateviewcnt">
+  <update id="increaseViewcnt" parameterType="int">
 	UPDATE board SET viewcnt = viewcnt + 1
 	WHERE idx = #{idx}
   </update>
-  
+  	<select id="SelectViewcnt" parameterType="int" resultType="Board">
+  SELECT VIEWCNT FROM BOARD WHERE IDX = #{idx}
+</select>
   <!-- 게시글 댓글 갯수 증가 처리 -->
-  <update id="cntcomments">
-  update board set numcomments = numcomments + 1
-  where idx = #{idx}
-  </update>
+  <select id="cntcomments" resultType="int">
+  SELECT NUMCOMMENTS FROM BOARD b WHERE b.IDX = #{idx}
+  </select>
   
   <!-- 게시글 수정 처리 -->
-  <update id="Article">
+  <update id="update" parameterType="Board">
   update board set 
-  mainCag = #{mainCag},
+  SUBCATE = #{subCate},
   title = #{title},
   filename = #{filename},
   content = #{content}
@@ -45,7 +45,7 @@ FROM HR.BOARD
   </update>
   
   <!-- 게시글 삭제 처리 -->
-  <delete id="deleteArticle">
+  <delete id="delete">
   	Delete from board
   	where idx = #{idx}
   </delete>
