@@ -36,4 +36,13 @@ public class IndexService {
 		dao.deleteM(idx);
 
 	}
+	public List<Board>listAll(){
+		return dao.listAll();
+	}
+	public int create() {
+		return dao.create();
+	}
+	public List<Board>announcementList(){
+		return dao.announcementList();
+	}
 }

@@ -13,6 +13,7 @@ import org.iclass.mvc.dto.Board;
 import org.iclass.mvc.dto.Comments;
 import org.iclass.mvc.service.BoardService;
 import org.iclass.mvc.service.CommentsService;
+import org.iclass.mvc.service.IndexService;
 import org.iclass.mvc.service.MemberService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,7 @@ public class BoardController {
 	private final BoardService service;
 	private final CommentsService ser;
 	private final MemberService memberservice;
+	private final IndexService Iservice;
 	
 	//레시피 게시판 자동 화면
 //	@GetMapping("/list")
@@ -76,8 +78,10 @@ public class BoardController {
 	    	model.addAttribute("list", service.getCategoryList(Cate, page).get("list"));
 	    	model.addAttribute("paging", service.getCategoryList(Cate, page).get("paging"));
 	    }
+	    
 	    model.addAttribute("a", a);
 	    model.addAttribute("Cate", Cate);
+	    model.addAttribute("Alist", Iservice.announcementList());
 //	    return "list?Cate="+Cate+"&a="+a+"&page="+page;
 	    return "list";
 	}
@@ -96,7 +100,7 @@ public class BoardController {
 	    
 	    service.increaseViewcnt(idx);
 	    
-	   Board viewcnt = service.SelectViewcnt(idx);
+	    Board viewcnt = service.SelectViewcnt(idx);
 	    model.addAttribute("viewcnt", viewcnt);
 	    
 	    Comments cnt = ser.setCommentsCount(idx);
