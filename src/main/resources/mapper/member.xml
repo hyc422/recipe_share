@@ -8,7 +8,7 @@
 		INSERT INTO th_member
 		(idx,email,password,name,nickname,phone,birth)
 		VALUES
-		(mem_idx_seq.nextval,#{email},#{password},#{name},#{nickname},#{phone},#{birth});
+		(mem_idx_seq.nextval,#{email},#{password},#{name},#{nickname},#{phone},#{birth})
 		<selectKey keyProperty="idx" resultType="int" order="AFTER">
 			SELECT
 			mem_idx_seq.currval
@@ -29,19 +29,28 @@
 		SELECT count(*) FROM th_member
 		where nickname=#{nickname}
 	</select>
+	<select id="findem" parameterType="java.util.Map" resultType="String">
+		SELECT email FROM th_member
+		where name=#{name} and phone=#{phone}
+	</select>
+	<select id="findpwd" parameterType="java.util.Map" resultType="String">
+		SELECT password FROM th_member
+		WHERE name=#{name} and email=#{email}
+	</select>
+	<!-- CJW#1 Login -->
 
 	<!-- HYC#3 Mypage -->
 	<select id="selectOne" parameterType="String"
 		resultType="Member">
 		SELECT * FROM th_member
-		WHERE id=#{id}
+		WHERE email=#{email}
 	</select>
 
 	<update id="update" parameterType="Member">
 		UPDATE TH_MEMBER
 		SET
-		NICKNAME=#{nickname}, PHONE=#{phone}, EMAIL=#{email}
-		WHERE ID=#{id}
+		NICKNAME=#{nickname}, PHONE=#{phone}
+		WHERE email=#{email}
 	</update>
 
 	<update id="pwChg" parameterType="java.util.Map">

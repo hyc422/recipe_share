@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	<style type="text/css">
+	
+	</style>
+	</head>
+	<body>
+		<div th:fragment="myInfo">
+		  	<nav class="menu" style="margin:auto;">
+			    <ul>
+			    	<li><a th:href="@{/info/mypage}">내 정보</a></li>
+			    	<li><a th:href="@{/info/myboardlist}">작성 글 목록</a></li>
+			    </ul>
+		  	</nav>
+		</div>
+	</body>
+</html>

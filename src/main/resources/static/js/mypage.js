@@ -6,8 +6,6 @@ function grade_func()
 {
 	let temp = null
 	
-	console.log(grade)
-	
 	if(grade == '0')
 		temp = '관리자'
 	else if(grade == '1')
@@ -18,8 +16,6 @@ function grade_func()
 		temp = '셰프'
 	else if(grade == '4')
 		temp = '고든램지'
-	
-	console.log(temp)
 	
 	document.querySelector('#grade').innerHTML = temp	
 }

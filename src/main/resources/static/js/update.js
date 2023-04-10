@@ -14,16 +14,37 @@ function()
 {
 	const nickName = document.querySelector('#lblNickName').value
 	
-	if(regNickName.test(nickName) === true)
+	const xhr = new XMLHttpRequest();
+	xhr.responseType = 'text';
+	xhr.open('GET', '/finds/' + nickName)
+	xhr.send()
+	
+	xhr.onreadystatechange = function() 
 	{
-		document.querySelector('#nickChk').innerHTML = "사용 가능"
-		document.querySelector('#nickChk').style.color = 'green'
-	}
-	else
-	{
-		document.querySelector('#nickChk').innerHTML = "사용 불가"
-		document.querySelector('#nickChk').style.color = 'red'
-	}
+		if (xhr.readyState === XMLHttpRequest.DONE) 
+		{
+			if (xhr.status === 200) 
+			{
+				const result = parseInt(xhr.responseText);
+				console.log(result)
+				
+				if (result === 0 && regNickName.test(nickName) === true) 
+				{
+					document.querySelector('#lblNickName').style.border = '3px solid green';
+					document.querySelector('#nickChk').innerHTML = "사용 가능"
+					document.querySelector('#nickChk').style.color = 'green'
+					isValid = true;
+				} 
+				else 
+				{
+					document.querySelector('#lblNickName').style.border = '3px solid red';
+					document.querySelector('#nickChk').innerHTML = "사용 불가"
+					document.querySelector('#nickChk').style.color = 'red'
+				}
+			}
+		}
+	};
+
 })
 
 // 전화번호 유효성 검사 function
@@ -34,11 +55,13 @@ function()
 	
 	if(regPhone.test(phone) === true)
 	{
+		document.querySelector('#lblPhone').style.border = '3px solid green';
 		document.querySelector('#phoneChk').innerHTML = "사용 가능"
 		document.querySelector('#phoneChk').style.color = 'green'
 	}
 	else
 	{
+		document.querySelector('#lblPhone').style.border = '3px solid red';
 		document.querySelector('#phoneChk').innerHTML = "사용 불가"
 		document.querySelector('#phoneChk').style.color = 'red'
 	}
@@ -66,16 +89,15 @@ function()
 document.querySelector('#update').addEventListener('click',
 function()
 {
-	const id = document.querySelector('#lblId').value
+	const email = document.querySelector('#lblEmail').value
 	const name = document.querySelector('#lblName').value
 	const nickname = document.querySelector('#lblNickName').value
 	const phone = document.querySelector('#lblPhone').value
-	const email = document.querySelector('#lblEmail').value
 
-	const jsonObj = {"id":id,"name":name,"nickname":nickname,"phone":phone,"email":email,"birth":birth,"createAt":createAt,"grade":grade}
+	const jsonObj = {"email":email,"name":name,"nickname":nickname,"phone":phone,"birth":birth,"createAt":createAt,"grade":grade}
 	
 	const xhr = new XMLHttpRequest()
-	xhr.open('PUT','/info/update/'+id)
+	xhr.open('PUT','/info/update')
 	xhr.setRequestHeader('content-type', 'application/json;charset=utf-8')
 	
 	const data = JSON.stringify(jsonObj)
@@ -88,14 +110,14 @@ function()
 		{
 			if(result == 1)
 			{
-				alert('수정 완료')
 				location.href='mypage'
+				alert('수정 완료')
 			}
 		}
 		else
 		{
 			console.error('오류',xhr.status)
-			alert('정보 수정 오류')
+			alert('수정 오류')
 		}
 	}
 })

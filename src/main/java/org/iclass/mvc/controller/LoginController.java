@@ -28,12 +28,12 @@ public class LoginController {
 		Member member = service.login(email,password);
 		if(member == null) {
 		}	else {
-			session.setAttribute("user", member);
+			session.setAttribute("member", member);
 		}
+
+		log.info("member : {}",member);
 		
-		log.info("User : {}",member);
-		
-		return "redirect:/";		
+		return "redirect:/";
 	}
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {

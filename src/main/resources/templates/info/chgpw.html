@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>비밀번호 변경</title>
+		<link rel="stylesheet" href="/css/chgpw.css">
+	</head>
+	<body>
+		<div th:replace="top :: myIncludedFragment"></div>
+		<hr> <!-- 탑과 사이드를 구분하기 위해 추가 -->
+		<div style="display: flex;"> <!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
+			<div style="flex-basis: 25%; min-width: 200px;">
+				<div th:replace="side :: myIncludedFragment"></div>
+			</div>
+		</div>
+		
+		<!-- 비밀번호 확인 -->
+		<div id="chkpw-page" style="margin-top:50px; padding: 30px;">
+			<div class="chkpw-page-container">
+				<h3>비밀번호 확인</h3>
+				<table>
+					<tr>
+						<td>
+							<label for="lblPassword">PW</label>
+						</td>
+						<td>
+							<input type="password" id="lblPassword" name="password" placeholder="비밀번호 확인">
+						</td>
+					<tr>
+						<td colspan="2" id="td-button">
+							<button id="chkpw">확인</button>
+							<button th:onclick="|location.href='@{/info/mypage}'|">돌아가기</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<!-- 비밀번호 변경 -->
+		<!-- <div id="chgpw-page" style="margin-top:50px; padding: 30px;" class="hidden">
+			<div class="chgpw-page-container">
+				<h3>비밀번호 변경</h3>
+				<form id="chgPwForm" name="chkPwForm">
+				<table>
+					<tr>
+						<td>
+							<label for="lblPassword">PW</label>
+						</td>
+						<td>
+							<input type="password" id="password2" name="password2" placeholder="비밀번호 확인">
+						</td>
+					<tr>
+						<td colspan="2" id="td-button">
+							<button id="chgpw">변경</button>
+							<button th:onclick="|location.href='@{/info/mypage}'|">돌아가기</button>
+						</td>
+					</tr>
+				</table>
+				</form>
+			</div>
+		</div> -->
+
+		<script type="text/javascript">
+			const email = '[[${session.member.email}]]'
+		</script>
+		
+		<script type="text/javascript" src="/js/chgpw.js"></script>
+	</body>
+</html>
