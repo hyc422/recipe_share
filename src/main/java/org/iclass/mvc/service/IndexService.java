@@ -26,4 +26,13 @@ public class IndexService {
 	public List<TopSelect> TopSelect(){
 		return dao.TopSelect();
 	}
+	public List<Board>listAll(){
+		return dao.listAll();
+	}
+	public int create() {
+		return dao.create();
+	}
+	public List<Board>announcementList(){
+		return dao.announcementList();
+	}
 }

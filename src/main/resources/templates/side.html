@@ -46,7 +46,7 @@
 <link href="/css/styles.css" rel="stylesheet">
 <div class="sidebar">
  	<div
-				style="background-color: #4CA950; border-radius: 20px; padding: 10px; height: 800px;">
+				style="background-color: #4CA950; border-radius: 20px; padding: 10px; height: 930px;">
 				<form action="login" method="post" th:if="${session.member} == null" style="margin-top: 20px;">
 					<input type="text" name="email" id="email"
 						style="display: flex; justify-content: center;width: 60%; border-radius: 5px; margin: 10px auto; border: 1px solid rgb(0, 128, 0); padding: 15px; justify-content: center; text-align: center; height: 30px; font-size: 10px;"
@@ -70,7 +70,7 @@
 								로그아웃
 							</button>
 							</div>
-					<div class="user-info">
+					<div class="user-info" style="margin-left: 10px;">
 						<div class="user-name" th:text="${session.member.name}"></div>
 						<div class="user-grade" th:if="${session.member.grade} == 0" th:text="관리자"></div>
 						<div th:if="${session.member.grade} == 1" th:text="요린이"></div>
@@ -78,7 +78,7 @@
 						<div th:if="${session.member.grade} == 3" th:text="셰프"></div>
 						<div th:if="${session.member.grade} == 4" th:text="고든램지"></div>
 					</div>
-					<div class="user-links">
+					<div class="user-links" style="margin-top: 3px;">
 						<ul>
 							<li>
 								<a th:href="@{/info/mypage}" class="edit-profile">내 정보</a>
@@ -86,6 +86,9 @@
 							<li>
 								<a th:href="@{/info/myboardlist}" class="my-posts">작성 글 보기</a> 
 							</li>
+							<li th:if="${session.member.grade} == 0">
+		                        <a th:href="@{/admin}">관리자 페이지</a>
+		                     </li>
 						</ul>
 					</div>
 				</div>
@@ -119,8 +122,8 @@
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
 									    <li><a href="/list?Cate=레시피&a=0&page=1">모든 레시피</a></li>
-									    <li><a href="/list?Cate=밥면죽&a=1&page=1">밥/면/죽</a></li>
-									    <li><a href="/list?Cate=국류&a=1&page=1">국/찌개/전골</a></li>
+									    <li><a href="/list?Cate=밥/면/죽&a=1&page=1">밥/면/죽</a></li>
+									    <li><a href="/list?Cate=국/찌개/전골&a=1&page=1">국/찌개/전골</a></li>
 									    <li><a href="/list?Cate=반찬&a=1&page=1">반찬</a></li>
 									    <li><a href="/list?Cate=전통음식&a=1&page=1">전통음식</a></li>
 									    <li><a href="/list?Cate=건강식&a=1&page=1">건강식</a></li>
@@ -171,5 +174,6 @@
 				}
 			</script>
         </div>
+</div>
 </div>
 </html>

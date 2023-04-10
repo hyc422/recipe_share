@@ -12,5 +12,7 @@ public interface IndexMapper {
 	List<Board> cntSelect();
 	List<Board> regSelect();
 	List<TopSelect> TopSelect();
-	
+	List<Board>listAll();
+	int create();
+	List<Board>announcementList();
 }

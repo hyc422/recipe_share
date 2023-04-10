@@ -2,25 +2,30 @@
 let isValid = false;
 
 document.querySelector("#idcheck").addEventListener('click', function() {
-	const email = document.querySelector("#email").value;
-	const xhr = new XMLHttpRequest();
-	xhr.responseType = 'text';
-	xhr.open('GET', '/find/' + email)
-	xhr.send()
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState === XMLHttpRequest.DONE) {
-			if (xhr.status === 200) {
-				const result = parseInt(xhr.responseText);
-				console.log(result)
-				if (result === 0) {
-					document.querySelector('#email').style.border = '3px solid green';
-					isValid = true;
-				} else if (result >= 1) {
-					document.querySelector('#email').style.border = '3px solid red';
-				}
-			}
-		}
-	};
+   const email = document.querySelector("#email").value;
+   const xhr = new XMLHttpRequest();
+   var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+   if (!regExp.test(email)) {
+      alert('이메일형식이 아닙니다')
+   } else {
+      xhr.responseType = 'text';
+      xhr.open('GET', '/find/' + email)
+      xhr.send()
+      xhr.onreadystatechange = function() {
+         if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+               const result = parseInt(xhr.responseText);
+               console.log(result)
+               if (result === 0) {
+                  document.querySelector('#email').style.border = '3px solid green';
+                  isValid = true;
+               } else if (result >= 1) {
+                  document.querySelector('#email').style.border = '3px solid red';
+               }
+            }
+         }
+      }
+   }
 })
 document.querySelector("#nickchk").addEventListener('click', function() {
 	const nickname = document.querySelector("#nickname").value;

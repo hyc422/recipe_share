@@ -12,8 +12,7 @@ VALUES(board_idx_seq.nextval, #{category},  #{subCate, jdbcType=VARCHAR}, #{nick
   
   <!-- 게시글 조회 -->
   	<select id="listAll" resultType="Board">
-  		SELECT #{idx}, #{category}, #{subCate}, #{nickname}, #{title}, #{title}, #{filename},#{content}, sysdate, #{viewcnt}, #{numcomments}
-FROM BOARD
+  		SELECT *FROM BOARD
   	</select>
   	
   	<!-- 게시글 상세보기 조회 -->

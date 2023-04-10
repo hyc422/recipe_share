@@ -6,8 +6,8 @@
 <title>레시피 천국</title>
 <style type="text/css">
 #cnt{
-	width: 410px; 
-	height: 500px; 
+	width: 450px; 
+	height: 550px; 
 	padding: 30px; 
 	border: 3px solid gray; 
 	margin: auto; 
@@ -31,7 +31,6 @@ width: 100%
 hr{
 	width: 80%;
 }
-
 </style>
 </head>
 <body>
@@ -39,14 +38,15 @@ hr{
 	<div th:replace="top :: myIncludedFragment"></div>
 	<hr> <!-- 탑과 사이드를 구분하기 위해 추가 -->
 	<div> <!-- 탑과 사이드를 같은 줄에 배치하기 위해 추가 -->
-		<div style="flex-basis: 40%; margin-top:50px; margin-left: 18%;">
+		<div style="flex-basis: 30%; margin-top:50px; margin-left: 18%;">
 			<div th:replace="side :: myIncludedFragment"></div>
 		</div>
 		<!-- 위에 인크루드 할 내용들 -->
 		<div style="margin: auto; display: inline-block; padding: 30px;">
 		</div>
 		<!-- 최고인기 레시피 Top5 -->
-		<div class="card-group" style="width: 60%;display: flex; margin-left: 5%;">
+		<h2 style="margin-left: 18%;">최고의 레시피</h2><br>
+		<div class="card-group" style="width: 70%;display: flex; margin-left: 16%;">
 		<th:block th:each="vo:${Top}">
 		<div class="card" style="width: 18rem;">
 		 <img style="height: 170px;" th:src="@{/uploads/}+${#strings.arraySplit(vo.filename, ',')[0]}" th:if="${vo.filename != null}"  class="card-img-top" alt="...">
@@ -60,50 +60,9 @@ hr{
 		</th:block>
 		</div>
 		<!--  -->
-		<div class="row" style="width: 80%;">
+		<div class="row" style="width: 80%; margin-left: 13%;">
 		<div style="flex-basis: 100%; min-width: 30%; margin-top: 50px;" > <!-- 변경된 부분: 사이드 너비를 25%로 지정하고, 나머지 부분에 글 목록을 배치 -->
 			<div style="margin: auto; display: inline-block; padding: 30px;">
-				<div id="cnt">
-					<h4 style="text-align: center; margin: auto;">30추 글</h4>
-					<table class="userupdate" style="table-layout: fixed;">
-						<tr style="text-align: center; height: 15px;">
-							<th style="height:15px; width: 20%;">카테고리</th>
-							<th style="height:15px; width: 20%;">제목</th>
-							<th style="height:15px; width: 20%;">닉네임</th>
-							<th style="height:15px; width: 20%;">조회수</th>
-							<th style="height:15px; width: 20%;">날짜</th>
-						</tr>
-						<th:block th:each="vo:${viewcnt}">
-							<tr class="out" style="height:15px;">
-								<td style="height:15px;">
-									<th:block th:if="${vo.category == '레시피'}">
-								    <a href="#" class="board">[[${vo.subCate}]]</a>
-									</th:block>
-									<th:block th:unless="${vo.category == '레시피'}">
-								    <a href="2#" class="board">[[${vo.category}]]</a>
-									</th:block>
-								</td>
-								<td  style="height:15px;">
-							        <span th:text="${#strings.length(vo.title) &gt; 4} ? ${#strings.substring(vo.title, 0, 4) + '...'} : ${vo.title}"></span>
-								</td>
-								<td  style="height:15px;">
-							        <span th:text="${#strings.length(vo.nickname) &gt; 4} ? ${#strings.substring(vo.nickname, 0, 4) + '...'} : ${vo.nickname}"></span>
-								</td>
-								<td style="height:15px;">[[${vo.viewcnt}]]</td>
-								<td style="height:15px;">
-									<th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
-									    <span th:if="${#strings.equals(regdate, today)}">
-									        [[${#temporals.format(vo.regdate, 'HH:mm')}]]
-									    </span>
-									    <span th:unless="${#strings.equals(regdate, today)}">
-									        [[${#temporals.format(vo.regdate, 'MM-dd' )}]]
-									    </span>    
-									</th:block>
-								</td>
-							</tr>
-						</th:block>
-					</table>
-				</div>
 
 				<div id="cnt"style="margin-left: 30px; margin-right: 30px;">
 					<h4 style="text-align: center; margin: auto;">인기 글</h4>
@@ -119,14 +78,18 @@ hr{
 							<tr class="out" style="height: 15px;">
 								<td style="height:15px;">
 								<th:block th:if="${vo.category == '레시피'}">
-								    <a href="#" class="board">[[${vo.subCate}]]</a>
+								    <a th:href="@{list(Cate=${vo.subCate},a=1,page=1)}" class="board" style="text-decoration: none; color: black;">[[${vo.subCate}]]</a>
 									</th:block>
 									<th:block th:unless="${vo.category == '레시피'}">
-								    <a href="2#" class="board">[[${vo.category}]]</a>
+								    <a th:href="@{list(Cate=${vo.category},a=0,page=1)}" class="board" style="text-decoration: none; color: black;">[[${vo.category}]]</a>
 									</th:block>
 								</td>
-								<td style="height:15px;"> <span th:text="${#strings.length(vo.title) &gt; 4} ? ${#strings.substring(vo.title, 0, 4) + '...'} : ${vo.title}"></span></td>
-								<td  style="height:15px;">
+								<td style="height:15px;">
+									<a th:href="@{read(idx=${vo.idx},page=1,a=1,Cate=1)}" style="text-decoration: none; color: black;">
+							        <span th:text="${#strings.length(vo.title) &gt; 4} ? ${#strings.substring(vo.title, 0, 4) + '...'} : ${vo.title}"></span>
+									</a>
+								</td>
+								<td style="height:15px;">
 							        <span th:text="${#strings.length(vo.nickname) &gt; 4} ? ${#strings.substring(vo.nickname, 0, 4) + '...'} : ${vo.nickname}"></span>
 								</td>
 								<td style="height:15px;">[[${vo.viewcnt}]]</td>
@@ -159,15 +122,18 @@ hr{
 							<tr class="out" style="height: 15px;">
 								<td style="height:15px;">
 								<th:block th:if="${vo.category == '레시피'}">
-								    <a href="#" class="board">[[${vo.subCate}]]</a>
+								    <a th:href="@{list(Cate=${vo.subCate},a=1,page=1)}" class="board" style="text-decoration: none; color: black;">[[${vo.subCate}]]</a>
 									</th:block>
 									<th:block th:unless="${vo.category == '레시피'}">
-								    <a href="2#" class="board">[[${vo.category}]]</a>
+								    <a th:href="@{list(Cate=${vo.category},a=0,page=1)}" class="board" style="text-decoration: none; color: black;">[[${vo.category}]]</a>
 									</th:block>
+								<td style="height:15px;">
+									<a th:href="@{read(idx=${vo.idx},page=1,a=1,Cate=1)}" style="text-decoration: none; color: black;">
+							        <span th:text="${#strings.length(vo.title) &gt; 4} ? ${#strings.substring(vo.title, 0, 4) + '...'} : ${vo.title}"></span>
+									</a>
 								</td>
-								<td style="height:15px;"><span th:text="${#strings.length(vo.title) &gt; 4} ? ${#strings.substring(vo.title, 0, 4) + '...'} : ${vo.title}"></span></td>
-								<td  style="height:15px;">
-							        <span th:text="${#strings.length(vo.nickname) &gt; 6} ? ${#strings.substring(vo.nickname, 0, 6) + '...'} : ${vo.nickname}"></span>
+								<td style="height:15px;">
+							        <span th:text="${#strings.length(vo.nickname) &gt; 4} ? ${#strings.substring(vo.nickname, 0, 4) + '...'} : ${vo.nickname}"></span>
 								</td>
 								<td style="height:15px;">[[${vo.viewcnt}]]</td>
 								<td style="height:15px;">
@@ -186,21 +152,25 @@ hr{
 				</div>
 			</div>
 		</div>
-	</div>
 <br>
-<hr>
-<div style="flex-basis: 100%; min-width: 400px;">
+<hr style="margin-left: 2%;">
+<div style="flex-basis: 100%; min-width: 400px; margin-left: 2%;">
 	<h4>인기 많은 레시피(Top5 Youtube)</h4>
 	<div class="container top10"></div>
 	<h4>최근 올라온 레시피(Top5 Youtube)</h4>
 	<div class="container latest10"></div>
 </div>
-	<hr>
-<div style="flex-basis: 90%; min-width: 400px;">
+	<hr style="margin-left: 2%;">
+<div style="flex-basis: 90%; min-width: 400px; margin-left: 2%;">
 	<h3>광고 후원업체</h3>
 	<h3>신선한 재료 사러가기</h3>
 	<a href="https://www.coupang.com/np/categories/393760" target="_blank"><span>쿠팡 프레시</span></a><br>
 	<a href="https://www.ssg.com" target="_blank"><span>SSG</span></a>
+	<br>
+	<br>
+	<br>
+	<br>
+</div>
 </div>
 </div>
 </div>

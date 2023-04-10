@@ -1,12 +1,17 @@
 package org.iclass.mvc.controller;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
+import org.iclass.mvc.dto.Board;
+import org.iclass.mvc.service.BoardService;
+import org.iclass.mvc.service.IndexService;
 import org.iclass.mvc.service.SearchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,31 +22,24 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminController {
 	
 	private final SearchService service;
-	
-	@GetMapping("/adminPage")
-	public String adminPage() {
-		return "";
-	}
-	
-	@GetMapping("/board_search")
-	public String board_search(@RequestParam(defaultValue = "1") int page, Model model,String board_search,int a) {
-		if(a == 0) {
-			model.addAttribute("list", service.AllSearch(board_search, page).get("list"));
-			model.addAttribute("paging", service.AllSearch(board_search, page).get("paging"));
-		}else if(a == 1) {
-			model.addAttribute("list", service.CagSearch(board_search, page).get("list"));
-			model.addAttribute("paging", service.CagSearch(board_search, page).get("paging"));
-		}else if(a == 2) {
-			model.addAttribute("list", service.TitSearch(board_search, page).get("list"));
-			model.addAttribute("paging", service.TitSearch(board_search, page).get("paging"));
-		}else if(a == 3) {
-			model.addAttribute("list", service.ContSearch(board_search, page).get("list"));
-			model.addAttribute("paging", service.CagSearch(board_search, page).get("paging"));
-		}
-		log.info("board_search :{} == a : {}",board_search,a);
+	private final IndexService ser;
+	private final BoardService ser2;
+	@GetMapping("/admin")
+	public void admin(Model model) {
+		model.addAttribute("list", ser.listAll());
 		model.addAttribute("today", LocalDate.now());	
-		model.addAttribute("a", a);	
-		model.addAttribute("board_search", board_search);	
-	    return "admin";
+		model.addAttribute("Alist", ser.announcementList());	
+		
+	}
+	@GetMapping("/deleteAdmin")
+	public String deleteAdmin(int idx) {
+		ser2.delete(idx);
+		return "redirect:/admin";
+	}
+	@PostMapping("/Awrite")
+	public String write(Board vo){
+		ser2.create(vo);
+		return "redirect:/admin";
+		
 	}
 }

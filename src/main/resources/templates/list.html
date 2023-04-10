@@ -19,8 +19,8 @@
 		</div>
 		<div class="post-area">
 				<a id="write-button" class="btn dark write"
-					th:if="${session.user != null}" th:href="@{/write}">글쓰기</a>
-				<p th:if="${session.user == null}" class="btn dark write"
+					th:if="${session.member != null}" th:href="@{/write}">글쓰기</a>
+				<p th:if="${session.member == null}" class="btn dark write"
 					onclick="alert('로그인 후에 글쓰기가 가능합니다.')">글쓰기</p>
 		</div>
 				<div class="w327B"></div>
@@ -42,7 +42,6 @@
 
 						<col class="size05" data-alias="hit">
 
-						<col class="size06" data-alias="req">
 					</colgroup>
 					<thead>
 						<tr>
@@ -59,6 +58,39 @@
 						</tr>
 					</thead>
 					<tbody>
+					<th:block th:each="vo:${Alist}">
+						<tr class="lgtm" style="background-color: orange;">
+							<td class="num"><span>[[${vo.idx}]]</span></td>
+
+							<td class="tit">
+								<div class="text-wrap">
+									<div>
+										<span class="user-icon"></span> <a style="text-decoration: none; color: black;"
+													th:href="@{read(idx=${vo.idx},page=1,a=0,Cate=${vo.category})}"
+													class="title"> [[${vo.title}]] </a>
+									</div>
+									<span data-opinion-bbs-comeidx="4811"
+										data-opinion-bbs-uid="6734402" data-opinion-bbs-opi="82"
+										class="con-comment">&#91;[[${vo.numcomments}]]&#93;</span>
+								</div>
+							</td>
+
+							<td class="user"><span class="layerNickName">[[${vo.nickname}]]</span>
+							</td>
+
+							<td class="date"><th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
+					             <span th:if="${#strings.equals(regdate, today)}">
+					                 [[${#temporals.format(vo.regdate, 'HH:mm')}]]
+					             </span>
+					             <span th:unless="${#strings.equals(regdate, today)}">
+					                 [[${#temporals.format(vo.regdate, 'MM-dd' )}]]
+					             </span>    
+					         </th:block></td>
+
+							<td class="view">[[${vo.viewcnt}]]</td>
+
+						</tr>
+						</th:block>
 					 <th:block th:each="vo:${list}">
 						<tr class="lgtm">
 							<td class="num"><span>[[${vo.idx}]]</span></td>
@@ -66,7 +98,7 @@
 							<td class="tit">
 								<div class="text-wrap">
 									<div>
-										<span class="user-icon"></span> <a
+										<span class="user-icon"></span> <a style="text-decoration: none; color: black;"
 													th:href="@{read(idx=${vo.idx},page=${paging.currentPage},a=${a},Cate=${Cate})}"
 													class="title"> [[${vo.title}]] </a>
 									</div>
@@ -98,8 +130,8 @@
 		</form>
 		<div class="post-area">
 				<a id="write-button" class="btn dark write"
-					th:if="${session.user != null}" th:href="@{/write}">글쓰기</a>
-				<p th:if="${session.user == null}" class="btn dark write"
+					th:if="${session.member != null}" th:href="@{/write}">글쓰기</a>
+				<p th:if="${session.member == null}" class="btn dark write"
 					onclick="alert('로그인 후에 글쓰기가 가능합니다.')">글쓰기</p>
 		</div>
 		<div style="width:700px;margin: auto;padding: 10px;text-align: center;">
