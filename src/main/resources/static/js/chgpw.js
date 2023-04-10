@@ -21,26 +21,21 @@ function()
 		return
 	}
 	
-	const jsonObj = {"email":email, "password":password}
-	console.log(jsonObj)
 	const xhr = new XMLHttpRequest()
-	xhr.open('GET','/info/chkpw')
+	xhr.open('GET','/info/chkpw/' + email)
 	xhr.setRequestHeader('content-type', 'application/json;charset=utf-8')
 	
-	const data = JSON.stringify(jsonObj)
-	console.log(data)
-	xhr.send(data)
+	xhr.send()
 	xhr.onload=function()
 	{
 		const result = JSON.parse(xhr.response)
 		
 		if(xhr.status === 200 || xhr.status === 201)
 		{
-			if(result != null)
+			if(result.password == password)
 			{
 				chkpPwPage.classList.add('hidden');
 				chgpPwPage.classList.remove('hidden');
-				alert('비밀번호 확인')
 			}
 			else
 				alert('비밀번호 입력 오류')

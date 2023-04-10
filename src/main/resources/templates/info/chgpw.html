@@ -37,7 +37,7 @@
 		</div>
 		
 		<!-- 비밀번호 변경 -->
-		<!-- <div id="chgpw-page" style="margin-top:50px; padding: 30px;" class="hidden">
+		<div id="chgpw-page" style="margin-top:50px; padding: 30px;" class="hidden">
 			<div class="chgpw-page-container">
 				<h3>비밀번호 변경</h3>
 				<form id="chgPwForm" name="chkPwForm">
@@ -49,6 +49,15 @@
 						<td>
 							<input type="password" id="password2" name="password2" placeholder="비밀번호 확인">
 						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="lblPassword">PW</label>
+						</td>
+						<td>
+							<input type="password" id="password2" name="password2" placeholder="비밀번호 확인">
+						</td>
+					</tr>
 					<tr>
 						<td colspan="2" id="td-button">
 							<button id="chgpw">변경</button>
@@ -58,7 +67,7 @@
 				</table>
 				</form>
 			</div>
-		</div> -->
+		</div>
 
 		<script type="text/javascript">
 			const email = '[[${session.member.email}]]'

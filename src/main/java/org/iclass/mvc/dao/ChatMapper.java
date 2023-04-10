@@ -18,4 +18,5 @@ public interface ChatMapper
 	int countUser(String roomId);
 	List<UserList> selectUserListAll(String roomId);
 	UserList selectUserListOne(Map<String, String> map);
+	int deleteChatRoom(String roomId);
 }	// Class end

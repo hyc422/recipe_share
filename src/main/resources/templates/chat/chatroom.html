@@ -18,67 +18,43 @@
     <link rel="stylesheet" href="/css/main.css"/>
 </head>
 <body>
-<noscript>
-    <h2>Sorry! Your browser doesn't support Javascript</h2>
-</noscript>
-
-<!-- <div th:replace="top :: myIncludedFragment"></div>
-		<hr> 탑과 사이드를 구분하기 위해 추가
-		<div style="display: flex;"> 탑과 사이드를 같은 줄에 배치하기 위해 추가
-			<div style="flex-basis: 25%; min-width: 200px;">
-				<div th:replace="side :: myIncludedFragment"></div>
-			</div>
-</div> -->
-<!-- <div id="nickName-page">
-    <div class="nickName-page-container">
-        <h1 class="title">Type your nickname</h1>
-        <form id="nickNameForm" name="nickNameForm">
-            <div class="form-group">
-                <input type="text" id="nickName" placeholder="Nickname" autocomplete="off" class="form-control"/>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="accent nickName-submit">Start Chatting</button>
-            </div>
-        </form>
-    </div>
-</div> -->
-
-
-<div id="chat-page" style="margin-top:50px;">
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-            참가한 유저
-        </button>
-        <div id="list" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-        </div>
-    </div>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h2>[[${room.roomName}]]</h2>
-        </div>
-        <div class="connecting">
-            Connecting...
-        </div>
-        <ul id="messageArea">
-
-        </ul>
-        <form id="messageForm" name="messageForm">
-            <div class="form-group">
-                <div class="input-group clearfix">
-                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off"
-                           class="form-control"/>
-                    <button type="submit" class="primary">Send</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-</div>
+	<noscript>
+    	<h2>Sorry! Your browser doesn't support Javascript</h2>
+	</noscript>
+	<div id="chat-page">
+	    <div class="dropdown">
+	        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+	                aria-haspopup="true" aria-expanded="false">
+	            참가한 유저
+	        </button>
+	        <div id="list" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	
+	        </div>
+	    </div>
+	    <div class="chat-container">
+	        <div class="chat-header">
+	            <h2>[[${room.roomName}]]</h2>
+	        </div>
+	        <div class="connecting">
+	            Connecting...
+	        </div>
+	        <ul id="messageArea">
+	
+	        </ul>
+	        <form id="messageForm" name="messageForm">
+	            <div class="form-group">
+	                <div class="input-group clearfix">
+	                    <input type="text" id="message" autocomplete="off" class="form-control"/>
+	                    <button type="submit" class="primary">전송</button>
+	                </div>
+	            </div>
+	        </form>
+	    </div>
+	</div>
 
 <script type="text/javascript">
 	const nickName = '[[${session.member.nickname}]]'
+	const grade = '[[${session.member.grade}]]'
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
