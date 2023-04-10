@@ -1,5 +1,8 @@
 package org.iclass.mvc.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.iclass.mvc.dto.Member;
@@ -50,5 +53,20 @@ public class MyPageApiController
 		log.info("Member member : {}",result);
 		
 		return objMapper.writeValueAsString(result);
+	}	// method end
+	
+	@PutMapping("/info/chgPw")
+	public String chgPw(@RequestBody String member) throws JsonMappingException, JsonProcessingException
+	{
+		Member dto = objMapper.readValue(member, Member.class);
+		
+		log.info("Member dto : {}",dto);
+		
+		log.info("email : {}",dto.getEmail());
+		log.info("password : {}",dto.getPassword());
+		
+		int count = service.chgPw(dto.getEmail(),dto.getPassword());
+		
+		return objMapper.writeValueAsString(count);
 	}	// method end
 }	// Class end

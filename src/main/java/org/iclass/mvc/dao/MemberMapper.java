@@ -1,6 +1,5 @@
 package org.iclass.mvc.dao;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -18,6 +17,6 @@ public interface MemberMapper
 	String findpwd(Map<String, String> map);
 	// HYC#3 mypage
 	int update(Member dto);
-	int pwChg(Map<String,String> map);
+	int chgPw(Map<String, String> map);
 	Member selectOne(String email);
 }

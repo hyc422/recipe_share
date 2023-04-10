@@ -48,16 +48,14 @@
 
 	<update id="update" parameterType="Member">
 		UPDATE TH_MEMBER
-		SET
-		NICKNAME=#{nickname}, PHONE=#{phone}
+		SET NICKNAME=#{nickname}, PHONE=#{phone}
 		WHERE email=#{email}
 	</update>
 
-	<update id="pwChg" parameterType="java.util.Map">
+	<update id="chgPw" parameterType="java.util.Map">
 		UPDATE TH_MEMBER
-		SET
-		PASWORD=#{PASSWORD}
-		WHERE ID=#{id}
+		SET password=#{password}
+		WHERE email=#{email}
 	</update>
 	<!-- HYC#3 Mypage -->
 </mapper>

@@ -1,8 +1,6 @@
 package org.iclass.mvc.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.iclass.mvc.dao.MemberMapper;
@@ -47,9 +45,13 @@ public class MemberService {
 		return dao.update(dto);
 	}	// method end
 	
-	public int chgPw(Map<String, String> map)
+	public int chgPw(String email, String password)
 	{
-		return dao.pwChg(map);
+		Map<String, String> map = new HashMap<>();
+		map.put("email", email);
+		map.put("password", password);
+		
+		return dao.chgPw(map);
 	}	// method end
 	
 	public Member selectOne(String email)

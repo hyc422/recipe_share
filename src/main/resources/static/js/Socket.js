@@ -91,6 +91,7 @@ function sendMessage(event)
 		{
 			"roomId" : roomId,
 			sender: nickName,
+			"grade": grade,
 			message: messageInput.value,
 			type:'TALK'
 		};
@@ -124,38 +125,59 @@ function onMessageReceived(payload)
 	{
 		messageElement.classList.add('chat-message');
 		
-		//var avatarElement = document.createElement('span');
-		//var avatarText = document.createTextNode(chat.sender[0]);
-		//avatarElement.appendChild(avatarText);
-		//avatarElement.style['background-color'] = getAvatarColor(chat.sender);
-		
-		// messageElement.appendChild(avatarElement);
-		
+		// nickName
 		var nickNameElement = document.createElement('span');
 		var nickNameText = document.createTextNode(chat.sender);
 		nickNameElement.appendChild(nickNameText)
-		nickNameElement.style['background-color'] = getAvatarColor(grade);
 		
 		messageElement.appendChild(nickNameElement);
+		
+		
+		// grade
+		var gradeElement = document.createElement('span');
+		var gradeText = null;
+		if(chat.grade == 0)
+			gradeText = document.createTextNode("(관리자)");
+		else if(chat.grade == 1)
+			gradeText = document.createTextNode("(요린이)");
+		else if(chat.grade == 2)
+			gradeText = document.createTextNode("(짜파게티 요리사)");
+		else if(chat.grade == 3)
+			gradeText = document.createTextNode("(셰프)");
+		else if(chat.grade == 4)
+			gradeText = document.createTextNode("(고든램지)");
+			
+		gradeElement.appendChild(gradeText);
+		gradeElement.style['background-color'] = getAvatarColor(chat.grade);
+		
+		messageElement.appendChild(gradeElement);
+		
+		// time
+		var timeElement = document.createElement('span');
+		var timeText = document.createTextNode(chat.time);
+		timeElement.appendChild(timeText);
+		timeElement.style['fontSize'] = '0.5rem';
+		
+		messageElement.appendChild(timeElement);
+		
+		if(chat.sender != nickName)
+			messageElement.style['textAlign'] = 'left';
+		else
+			messageElement.style['textAlign'] = 'right';
 	}
 	
+	// message
 	var textElement = document.createElement('p');
 	var messageText = document.createTextNode(chat.message);
 	textElement.appendChild(messageText);
 	
 	messageElement.appendChild(textElement);
-	
-	if(chat.type === 'TALK')
-	{
-		var timeElement = document.createElement('p');
-		var timeText = document.createTextNode(chat.time);
-		timeElement.appendChild(timeText);
-		
-		messageElement.appendChild(timeElement);
-	}
-	
+
 	messageArea.appendChild(messageElement);
-	messageElement.scrollTop = messageArea.scrollHeight;
+	
+	
+	
+	messageElement.scrollTo = messageArea.scrollHeight;
 }
 
 function getAvatarColor(grade)
