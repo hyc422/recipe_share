@@ -18,8 +18,6 @@ var messageInput = document.querySelector('#message');
 
 var stompClient = null;
 
-var colors = ['#2196F3','#32c787','#00BCD4','#ff5652','#ffc107','#ff85af','#FF85af','#FF9800','39bbb0'];
-
 const url = new URL(location.href).searchParams;
 const roomId = url.get('roomId');  
 
@@ -136,7 +134,7 @@ function onMessageReceived(payload)
 		var nickNameElement = document.createElement('span');
 		var nickNameText = document.createTextNode(chat.sender);
 		nickNameElement.appendChild(nickNameText)
-		nickNameElement.style['background-color'] = getAvatarColor(chat.sender);
+		nickNameElement.style['background-color'] = getAvatarColor(grade);
 		
 		messageElement.appendChild(nickNameElement);
 	}
@@ -160,17 +158,24 @@ function onMessageReceived(payload)
 	messageElement.scrollTop = messageArea.scrollHeight;
 }
 
-function getAvatarColor(messageSender)
+function getAvatarColor(grade)
 {
-	var hash = 0;
-	for(var i=0;i<messageSender.length;i++)
-		hash = 31 * hash + messageSender.charCodeAt(i);
+	var color = null;
 	
-	var index = Math.abs(hash % colors.length);
-	return colors[index];
+	if(grade == 0)
+		color='#2196F3';
+	else if(grade == 1)
+		color='#32c787';
+	else if(grade == 2)
+		color='#00BCD4';
+	else if(grade == 3)
+		color='#ff5652';
+	else if(grade == 4)
+		color='#ffc107';
+		
+	return color;
 }
 
 connect()
 
-// nickNameForm.addEventListener('submit', connect, true)
 messageForm.addEventListener('submit', sendMessage, true)

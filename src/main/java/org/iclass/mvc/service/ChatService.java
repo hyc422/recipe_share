@@ -79,5 +79,10 @@ public class ChatService
 		map.put("userId", userId);
 		
 		return dao.selectUserListOne(map);
+	}
+
+	public int deleteChatRoom(String roomId) 
+	{
+		return dao.deleteChatRoom(roomId);
 	}	// method end
 }	// Class end

@@ -36,6 +36,11 @@
   		where userId=#{userId}
 	</delete>
 	
+	<delete id="deleteChatRoom" parameterType="String">
+		DELETE FROM chatroom
+  		where roomId=#{roomId}
+	</delete>
+	
 	<select id="selectUserListAll" parameterType="String" resultType="UserList">
 		SELECT * FROM userlist
 		WHERE roomId=#{roomId}

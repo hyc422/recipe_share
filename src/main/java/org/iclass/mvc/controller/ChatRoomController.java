@@ -44,6 +44,21 @@ public class ChatRoomController
 		return "redirect:/chat/roomlist";
 	}	// method end
 	
+	@PostMapping("/chat/deleteroom")
+	public String deleteRoom(String roomId, RedirectAttributes rttr)
+	{
+		String message;
+		
+		if(service.deleteChatRoom(roomId) == 1)
+			message = "삭제 완료";
+		else
+			message = "삭제 실패";
+		
+		rttr.addFlashAttribute("message",message);
+		
+		return "redirect:/chat/roomlist";
+	}
+	
 	@GetMapping("/chat/chatroom")
 	public String chatRoom(Model model, String roomId)
 	{

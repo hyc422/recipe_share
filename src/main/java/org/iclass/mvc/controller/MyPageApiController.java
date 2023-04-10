@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -43,14 +42,10 @@ public class MyPageApiController
 	}	// method end
 	
 	// password check
-	@GetMapping("/info/chkpw")
-	public String chkpw(@RequestBody String member) throws JsonProcessingException
+	@GetMapping("/info/chkpw/{email}")
+	public String chkpw(@PathVariable String email) throws JsonProcessingException
 	{
-		Member dto = objMapper.readValue(member, Member.class);
-		
-		log.info("===chkpw dto : {}",dto);
-		
-		Member result = service.login(dto.getEmail(),dto.getPassword());
+		Member result = service.selectOne(email);
 		
 		log.info("Member member : {}",result);
 		

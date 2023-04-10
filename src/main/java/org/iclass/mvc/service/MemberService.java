@@ -51,4 +51,9 @@ public class MemberService {
 	{
 		return dao.pwChg(map);
 	}	// method end
+	
+	public Member selectOne(String email)
+	{
+		return dao.selectOne(email);
+	}	// method end
 }

@@ -19,4 +19,5 @@ public interface MemberMapper
 	// HYC#3 mypage
 	int update(Member dto);
 	int pwChg(Map<String,String> map);
+	Member selectOne(String email);
 }
