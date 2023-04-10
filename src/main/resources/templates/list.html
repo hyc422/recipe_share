@@ -13,12 +13,15 @@
 			<div th:replace="side :: myIncludedFragment"></div>
 		</div>
 	<article class="new-board" id="new-board" style="margin-top: 112px; margin-left:18%; width: 60%;">
-	
-		<div class="admin-area" style="font-size: 30px; text-align: center;">[[${Cate}]]</div>
+		<div class="admin-area" style="font-size: 30px; text-align: center;">
+		  <span th:if="${Cate == '주식'}">酒식게시판</span>
+		  <span th:unless="${Cate == '주식'}" th:text="${Cate}+게시판"></span>
+		</div>
 		<div class="post-area">
-			<a class="btn" href="https://www.inven.co.kr/board/lostark/4811">목록</a>
-			<a class="btn dark write"
-				href="https://www.inven.co.kr/board/powerbbs.php?query=write&amp;come_idx=4811&amp;my=chuchu">글쓰기</a>
+				<a id="write-button" class="btn dark write"
+					th:if="${session.user != null}" th:href="@{/write}">글쓰기</a>
+				<p th:if="${session.user == null}" class="btn dark write"
+					onclick="alert('로그인 후에 글쓰기가 가능합니다.')">글쓰기</p>
 		</div>
 				<div class="w327B"></div>
 
@@ -63,10 +66,9 @@
 							<td class="tit">
 								<div class="text-wrap">
 									<div>
-										<span class="user-icon"></span> <a class="subject-link"
-											href="#">
-											 [[${vo.title}]]
-										</a>
+										<span class="user-icon"></span> <a
+													th:href="@{read(idx=${vo.idx},page=${paging.currentPage},a=${a},Cate=${Cate})}"
+													class="title"> [[${vo.title}]] </a>
 									</div>
 									<span data-opinion-bbs-comeidx="4811"
 										data-opinion-bbs-uid="6734402" data-opinion-bbs-opi="82"
@@ -95,11 +97,10 @@
 			</div>
 		</form>
 		<div class="post-area">
-
-			<a class="btn" href="https://www.inven.co.kr/board/lostark/4811">목록</a>
-
-			<a class="btn dark write"
-				href="https://www.inven.co.kr/board/powerbbs.php?query=write&amp;come_idx=4811&amp;my=chuchu">글쓰기</a>
+				<a id="write-button" class="btn dark write"
+					th:if="${session.user != null}" th:href="@{/write}">글쓰기</a>
+				<p th:if="${session.user == null}" class="btn dark write"
+					onclick="alert('로그인 후에 글쓰기가 가능합니다.')">글쓰기</p>
 		</div>
 		<div style="width:700px;margin: auto;padding: 10px;text-align: center;">
 			    전체 글 개수 : [[${paging.totalCount }]] <br>
