@@ -48,6 +48,12 @@
                         <!-- Post content-->
                         <section class="mb-5">
                             <p class="fs-5 mb-4"></p>
+                            <div th:if="${vo.filename}!= null">
+                            <img style="height: 120px; width: 170px;" th:src="@{/uploads/}+${#strings.arraySplit(vo.filename, ',')[0]}" class="card-img-top" alt="...">
+                            <br>[[${#strings.arraySplit(vo.filename, ',')[0]}]]
+                            </div>
+                            <div th:if="${vo.filename}== null">썸네일용 이미지가 없습니다.<br>썸네일 이미지는 가장 첫 이미지로 설정 됩니다.</div>
+                            <hr>
                             <div th:utext="${vo.content}">
                             </div>
                         </section>
@@ -55,16 +61,16 @@
                         	
                     </article>
                     <form th:action="@{/deleteread}" method="post"
-							th:if="${session.member}!=null and ${session.member.nickname}==${vo.nickname}">
+							 th:if="${session.member} == null ? false : ${session.member.nickname} == ${vo.nickname} or ${session.member.grade} == 0">
 							<a class="btn btn-secondary"
 								style="margin-top: 10px; margin-left: 700px; margin-bottom: 30px;"
 								th:href="@{|/readupdate?idx=${vo.idx}&Cate=${Cate}&a=${a}&page=1|}"
 								onclick="if(confirm('글 수정하시겠습니까?')){ return true; } else { alert('취소 되었습니다.'); return false;}">수정</a>
 
-							<input type="hidden" name="idx" th:value="${vo.idx}" /> <input
-								type="hidden" name="category" th:value="${Cate}" /> <input
-								type="hidden" name="a" th:value="${a}" /> <input type="hidden"
-								name="page" th:value="${page}" />
+							<input type="hidden" name="idx" th:value="${vo.idx}"/> 
+							<input type="hidden" name="category" th:value="${Cate}"/> 
+							<input type="hidden" name="a" th:value="${a}" /> 
+							<input type="hidden" name="page" th:value="${page}" />
 
 							<button type="submit" class="btn btn-secondary"
 								onclick="return confirm('정말로 삭제하시겠습니까?')"
@@ -78,7 +84,7 @@
 								<form class="mb-4" method="post" th:action="@{/read}"
 									th:object="${com}">
 									<input type="hidden" th:name="merf" th:value="${vo.idx}">
-									<input type="hidden" th:name="cate" th:value="${vo.Category}" />
+									<input type="hidden" th:name="Cate" th:value="${Cate}" />
 									<input type="hidden" th:name="a" th:value="${a}" /> <input
 										type="hidden" th:name="page" th:value="${page}" /> <input
 										id="nickname" type="hidden" name="nickname" class="input"
@@ -107,7 +113,7 @@
 								<div th:each="cmt : ${cmtlist}">
 									<div class="d-flex">
 										<div class="flex-shrink-0"
-											th:text="${cmt.nickname} + '(' + ${#temporals.format(vo.regdate, 'yyyy-MM-dd')} + ')'">
+											th:text="${cmt.nickname} + '(' + ${#temporals.format(cmt.createDate, 'yyyy-MM-dd')} + ')'">
 											</div>
 											<div class="ms-3 fw-bold" th:utext="${cmt.contents}" style="width: 80%;">
 											</div>

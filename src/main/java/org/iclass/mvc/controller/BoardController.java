@@ -58,11 +58,22 @@ public class BoardController {
 	
 	// 게시판 글 저장
 	@PostMapping("/write")
-	public String write(Board vo, String category, Model model){
-		 String encodedCategory = URLEncoder.encode(category, StandardCharsets.UTF_8);
-		    String unicodeCategory = new String(encodedCategory.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+	public String write(Board vo, String category, Model model, String subCate){
+		 String CT=null;
+		 int a = 0;
+		    if(subCate != null) {
+		    	 String encodedSubCate = URLEncoder.encode(subCate, StandardCharsets.UTF_8);
+				 String unicodeSubCate = new String(encodedSubCate.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+				CT= unicodeSubCate;
+				a=1;
+		    }else {
+		    	String encodedCategory = URLEncoder.encode(category, StandardCharsets.UTF_8);
+			    String unicodeCategory = new String(encodedCategory.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+			    CT=unicodeCategory;
+			    a=0;
+		    }
 		    service.create(vo);
-		    return "redirect:/list?Cate=" + unicodeCategory + "&a=0&page=1";
+		    return "redirect:/list?Cate=" + CT + "&a="+a+"&page=1";
 		
 	}
 	//categorylist 페이지 호출
@@ -121,7 +132,7 @@ public class BoardController {
 	    String unicodeCategory = new String(encodedCategory.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
 		int delete= service.delete(idx);
 		model.addAttribute("delete", delete);
-	    return "redirect:/list?Cate=" + unicodeCategory + "&a=0&page=1";
+	    return "redirect:/list?Cate=" + unicodeCategory + "&a="+a+"&page="+page;
 	}
 	@GetMapping("/readupdate")
 	public String readupdate(Board vo ,int idx, int a, Model model,int page ,String Category) {

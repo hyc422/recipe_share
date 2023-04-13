@@ -20,18 +20,18 @@
 	
 	
     <div class="commu-body pcMain"><div class="isearch_section isearch_wrap">
-    	<div class="top_search_area">
-		<p class="text" style="font-size: 30px;">통합검색</p> 
-		<form method="get" th:action="search" style="margin-top: 30px;">
+    	<div class="top_search_area" style="height: 100px; margin-top: 30px;">
+		<p class="text" style="font-size: 30px;"> 검색결과</p> 
+		<!-- <form method="get" th:action="search" style="margin-top: 30px;">
 		<select id="a" name="a" style="height: 30px;">
   		<option value="0">전체</option>
   		<option value="1">카테고리</option>
   		<option value="2">제목</option>
   		<option value="3">내용</option>
   		</select>
-		<input type="text" class="input" id="search" maxlength="100" name="search">
+		<input type="text" class="input" id="search2" maxlength="100" name="search2">
 		<button class="btn btn_submit" onclick="searchData2()">검색</button>
-		</form>
+		</form> -->
 	</div>
  
     <div class="isearch_sub_wrap">
@@ -43,18 +43,20 @@
 <!-- 검색결과 리스트가 존재할 때 -->
 <div th:if="${not #lists.isEmpty(list)}">
     <div class="section_body">
+    
 	<ul class="news_list">
 	<th:block th:each="vo:${list}">
         		<li class="item">
-			<h1 style="font-size: 30px;"><a href="#" class="name" target="_blank">[[${vo.title}]]</a></h1>
+			<h1 style="font-size: 30px;"><a th:href="@{read(idx=${vo.idx}, page=1, a=${vo.category == '레시피' ? 1 : 0}, Cate=1)}" class="name">[[${vo.title}]]</a></h1>
 			<p class="caption" style="font-size:20px;">
-			<span th:text="${#strings.length(vo.content) &gt; 200} ? (${#strings.substring(vo.content, 0, 100)} + '<br>' + ${#strings.substring(vo.content, 100, 200)} + '...') : ${vo.content}" style="word-break: break-all;"></span></p> 
+			<span th:text="${vo.nickname}" style="word-break: break-all;"></span></p> 
 			<div class="item_info clearfix">
 			 <th:block th:if="${vo.category == '레시피'}">
-				 <a href="#" class="board">[[${vo.subCate}]]</a> 
+			 	
+				 <a th:href="@{list(Cate=${vo.subCate}, a=1, page=1)}" class="board">[[${vo.subCate}]]</a> 
 					</th:block>
 					<th:block th:unless="${vo.category == '레시피'}">
-				  <a href="2#" class="board">[[${vo.category}]]</a>
+				  <a th:href="@{list(Cate=${vo.category}, a=0, page=1)}" class="board">[[${vo.category}]]</a>
 					</th:block>
 				<p class="date"><th:block th:with="regdate=${#temporals.format(vo.regdate, 'yyyy-MM-dd')}">
 			    <span th:if="${#strings.equals(regdate, today)}">
@@ -93,7 +95,7 @@
 <script type="text/javascript">
   function searchData2() {
 	  const frm = document.forms[1];
-	  const value = frm.search.value;
+	  const value = frm.search2.value;
 	  if(value == ""){
 		  alert('검색어를 입력해주세요.')
 	  } else if(value !== "") {

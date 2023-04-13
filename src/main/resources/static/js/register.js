@@ -17,9 +17,13 @@ document.querySelector("#idcheck").addEventListener('click', function() {
                const result = parseInt(xhr.responseText);
                console.log(result)
                if (result === 0) {
+				   document.querySelector('#idOk').innerHTML = '사용가능';
+				   document.querySelector('#idOk').style.color = 'green';
                   document.querySelector('#email').style.border = '3px solid green';
                   isValid = true;
                } else if (result >= 1) {
+				   document.querySelector('#idOk').innerHTML = '사용 불가능';
+				   document.querySelector('#idOk').style.color = 'red';
                   document.querySelector('#email').style.border = '3px solid red';
                }
             }
@@ -39,9 +43,13 @@ document.querySelector("#nickchk").addEventListener('click', function() {
 				const result = parseInt(xhr.responseText);
 				console.log(result)
 				if (result === 0) {
+					document.querySelector('#niOk').innerHTML = '사용 가능';
+					document.querySelector('#niOk').style.color = 'green';
 					document.querySelector('#nickname').style.border = '3px solid green';
 					isValid = true;
 				} else if (result === 1) {
+					document.querySelector('#niOk').innerHTML = '사용 불가능';
+					document.querySelector('#niOk').style.color = 'red';
 					document.querySelector('#nickname').style.border = '3px solid red';
 				}
 			}
@@ -57,9 +65,13 @@ document.querySelector("#password").addEventListener('keyup', function() {
 	const pwd = document.join.password.value;
 	var pwdchk = /^(?=.[a-zA-Z])(?=.*[!@#$%^&*-])(?=.*[0-9]).{8,25}$/;
 	if (!pwdchk.test(pwd)) {
+		document.querySelector('#pwdOk').innerHTML = '사용 불가능';
+		document.querySelector('#pwdOk').style.color = 'red';
 		document.querySelector('#password').style.border = '3px solid red'
 	} else {
 		isValid = true;
+		document.querySelector('#pwdOk').innerHTML = '사용 가능';
+		document.querySelector('#pwdOk').style.color = 'green';
 		document.querySelector('#password').style.border = '3px solid green'
 	}
 });
@@ -68,9 +80,13 @@ document.querySelector("#password2").addEventListener('keyup', function() {
 	const pwd = document.join.password.value;
 	const pwd2 = document.join.password2.value;
 	if (pwd != pwd2) {
+		document.querySelector('#pwd2Ok').innerHTML = '불일치';
+		document.querySelector('#pwd2Ok').style.color = 'red';
 		document.querySelector('#password2').style.border = '3px solid red'
 	} else {
 		isValid = true;
+		document.querySelector('#pwd2Ok').innerHTML = '일치';
+		document.querySelector('#pwd2Ok').style.color = 'green';
 		document.querySelector('#password2').style.border = '3px solid green'
 	}
 });
@@ -91,9 +107,13 @@ $(document).ready(function() {
 				const code = data;
 				const codec = document.querySelector('#verification-codechk').value;
 					if (codec === code) {
+						document.querySelector('#emOk').innerHTML = '인증 성공';
+						document.querySelector('#emOk').style.color = 'green';
 						document.querySelector('#verification-codechk').style.border = '3px solid green'
 						isValid = true;
 					} else {
+						document.querySelector('#emOk').innerHTML = '인증 실패';
+						document.querySelector('#emOk').style.color = 'red';
 						document.querySelector('#verification-codechk').style.border = '3px solid red'
 					}
 				})

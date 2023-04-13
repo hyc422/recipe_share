@@ -44,7 +44,6 @@ function()
 			}
 		}
 	};
-
 })
 
 // 전화번호 유효성 검사 function

@@ -13,7 +13,7 @@ var chgpPwPage = document.querySelector('#chgpw-page');
 document.querySelector('#chkpw').addEventListener('click',
 function()
 {
-	const password = document.querySelector('#lblPassword').value;
+	const password = document.querySelector('#pwck').value;
 	
 	if(password == "")
 	{
@@ -44,6 +44,84 @@ function()
 		{
 			console.error('오류',xhr.status)
 			alert('오류')
+		}
+	}
+})
+
+// password 유효성 검사 function
+document.querySelector("#password").addEventListener('keyup',
+function()
+{
+	const password = document.querySelector('#password').value
+	
+	if(regPassword.test(password) === true)
+	{
+		document.querySelector('#password2').style.border = '3px solid green';
+		document.querySelector('#regpwChk').innerHTML = "사용 가능"
+		document.querySelector('#regpwChk').style.color = 'green'
+	}
+	else
+	{
+		document.querySelector('#password2').style.border = '3px solid red';
+		document.querySelector('#regpwChk').innerHTML = "비밀번호는 8자 이상 24자 이하"
+		document.querySelector('#regpwChk').style.color = 'red'
+	}
+})
+
+let isValid = false;
+
+// password 재확인 function
+document.querySelector("#password2").addEventListener('keyup',
+function()
+{
+	const password2 = document.querySelector('#password').value
+	const password3 = document.querySelector('#password2').value
+	
+	if(password2 == password3)
+	{
+		document.querySelector('#password').style.border = '3px solid green';
+		document.querySelector('#pwChk').innerHTML = "일치"
+		document.querySelector('#pwChk').style.color = 'green'
+		isValid = true;
+	}
+	else
+	{
+		document.querySelector('#password').style.border = '3px solid red';
+		document.querySelector('#pwChk').innerHTML = "불일치"
+		document.querySelector('#pwChk').style.color = 'red'
+	}
+})
+
+document.querySelector('#chgPw').addEventListener('click',
+function()
+{
+	const password = document.querySelector('#password').value
+
+	const jsonObj = {"email":email,"password":password}
+	console.log(jsonObj)
+	const xhr = new XMLHttpRequest()
+	xhr.open('PUT','/info/chgPw')
+	xhr.setRequestHeader('content-type', 'application/json;charset=utf-8')
+	
+	const data = JSON.stringify(jsonObj)
+	console.log(data)
+	xhr.send(data)
+	xhr.onload=function()
+	{
+		const result = JSON.parse(xhr.response)
+		
+		if(xhr.status === 200 || xhr.status === 201)
+		{
+			if(result == 1 && isValid)
+			{
+				location.href='mypage'
+				alert('수정 완료')
+			}
+		}
+		else
+		{
+			console.error('오류',xhr.status)
+			alert('수정 오류')
 		}
 	}
 })

@@ -33,5 +33,15 @@
   	<select id="announcementList" resultType="Board">
   		SELECT*FROM BOARD b WHERE CATEGORY ='공지' ORDER by IDX DESC
   	</select>
+  	
+  <update id="updateM" parameterType="Member">
+  	UPDATE th_member SET grade=#{grade} where idx=#{idx}
+  </update>
+  <delete id="deleteM" parameterType="int">
+  	delete FROM th_member where idx=#{idx}
+  </delete>
+  <select id="memberAll" resultType="Member">
+  		SELECT *FROM th_member
+  	</select>
 
   </mapper>

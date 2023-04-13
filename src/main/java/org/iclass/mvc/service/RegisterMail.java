@@ -35,7 +35,7 @@ public class RegisterMail implements MailServiceInter {
 
         message.setText(msgg, "utf-8", "html"); // 메일 내용, charset타입, subtype
         // 보내는 사람의 이메일 주소, 보내는 사람 이름
-        message.setFrom(new InternetAddress("yiuopqw@naver.com", "레시피천국"));
+        message.setFrom(new InternetAddress("jas08045@naver.com", "레시피천국"));
         System.out.println("********creatMessage 함수에서 생성된 msgg 메시지********" + msgg);
         
         System.out.println("********creatMessage 함수에서 생성된 리턴 메시지********" + message);
