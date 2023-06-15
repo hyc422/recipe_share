@@ -47,4 +47,5 @@ public class IndexService {
 	public List<Board>announcementList(){
 		return dao.announcementList();
 	}
+	
 }
