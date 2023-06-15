@@ -1,6 +1,6 @@
 function fetchVideos(type, container) {
-	//const API_KEY = "AIzaSyB4qRfJv7oiFQnZfZe2WJ2GN6hJjW0oZsU";
-	const API_KEY = "AAA";
+	const API_KEY = "AIzaSyB4qRfJv7oiFQnZfZe2WJ2GN6hJjW0oZsU";
+	//const API_KEY = "AAA";
 	let API_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&order=";
 
 	// 검색 유형에 따라 API URL 설정

@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style>
-*{
-text-align: center;
-}
 input[type="text"],input[type="password"],select,input[type="date"]{
 border-radius: 20px;
 padding: 10px;
@@ -15,6 +12,13 @@ border: 3px solid gray;
 }
 div{
 padding: 10px;
+}
+table{
+margin:auto;
+}
+td{
+display:inline-block;
+justify-content:center;
 }
 </style>
 </head>
@@ -28,50 +32,106 @@ padding: 10px;
 <body style="padding-top: 150px;">
 	<main>
 		<form action="register" method="post" name="join">
-			<div style="text-align: center;">
-				<div style="padding: 10px;">
-					<span>
+		<table>
+		<tr>
+			<td>
+			아이디
+			</td>
+		</tr>
+			<tr>
+				<td>
 					 <input type="text" id="email" name="email" placeholder="이메일">
-						<input type="button" style="background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;" id="idcheck" value="중복확인">
-						<button type="button" style="background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;" id="send-email-button">인증코드 발송</button> <br>
+						<input type="button" style="cursor:pointer;background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;" id="idcheck" value="중복확인">
+						<br><a style="font-size:9px; color:gray;">ex)example@example.com</a>
+						<br><a id="idOk"></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+						<button type="button" style="cursor:pointer; background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;" id="send-email-button">인증코드 발송</button> <br>
+				</td>
+			</tr>
+			<tr>
+				<td>
 						<span for="verification-code"></span> 
 						<input type="text" placeholder="인증번호 "id="verification-codechk" name="verification-codechk"> 
-						<input type="button"style="background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;" id="emailcheck" name="emailcheck" value="인증"><br>
-					</span>
-				</div>
-				<div>
-					<span>
-						<input type="password" id="password" name="password" placeholder="비밀번호">
-					</span> 
-					<span>
-						<input type="password" id="password2" name="password2" placeholder="비밀번호 재확인">
-					</span> 
-				</div>
-				<div>
-					<span><input type="text" id="name" name="name"placeholder="이름"></span>
-				</div>
-				<div>
-					<span>
-						<input type="text" id="nickname" name="nickname"placeholder="별명"> <br>
-						<input type="button"style="background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;" id="nickchk" value="중복검사"> <br>
-					</span>
-				</div>
-				<div>
-					<span><select id="phone1" name="phone1">
+						<input type="button"style="cursor:pointer;background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;" id="emailcheck" name="emailcheck" value="인증"><br>
+						<a id="emOk"></a>
+				</td>
+			</tr>
+			<tr>
+			<td>
+			비밀번호
+			</td>
+		</tr>
+			<tr>
+				<td>
+						<input type="password" id="password" name="password" placeholder="비밀번호"><br>
+						<a id="pwdOk"></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+						<input type="password" id="password2" name="password2" placeholder="비밀번호 재확인"><br>
+						<a style="font-size:9px; color:gray;">대,소 영문자 최소 1개, 특수문자[!,@,#,$,%,^,&,*] 중 최소 1개, 공백 사용불가</a>
+						<br><a id="pwd2Ok"></a>
+				</td>
+			</tr>
+			<tr>
+			<td>
+			성함
+			</td>
+		</tr>
+			<tr>
+				<td>
+					<input type="text" id="name" name="name"placeholder="이름">
+				</td>
+			</tr>
+			<tr>
+			<td>
+			별명
+			</td>
+		</tr>
+			<tr>
+				<td>
+						<input type="text" id="nickname" name="nickname"placeholder="별명">
+						<input type="button"style="cursor:pointer;background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;" id="nickchk" value="중복검사"> <br>
+						<a id="niOk"></a><br>
+				</td>
+			</tr>
+			<tr>
+			<td>
+			전화번호
+			</td>
+		</tr>
+			<tr>
+				<td>
+					<select id="phone1" name="phone1">
 							<option value="010" selected>010</option>
 							<option value="011">011</option>
 							<option value="012">012</option>
 					</select> - <input type="text"id="phone2" name="phone2" maxlength="4" style="width:80px;"> - <input type="text"style="width:80px;"id="phone3"
-						maxlength="4"name="phone3"></span>
-				</div>
-				<div>
-					<span><input type="date" name="birth" id="birth"></span>
-				</div>
-				<div>
-					<span><input type="button" name="join" id="join"
-						value="회원가입"style="background-color: #4CA950; border-radius: 20px; padding: 10px; color:white;"> </span>
-				</div>
-			</div>
+						maxlength="4"name="phone3">
+				</td>
+			</tr>
+			<tr>
+			<td>
+			생년월일
+			</td>
+		</tr>
+			<tr>
+				<td>
+					<input type="date" name="birth" id="birth">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<br><input type="button" name="join" id="join"
+						value="회원가입"style="cursor:pointer;background-color: #4CA950;width:300px; border-radius: 20px; padding: 10px; color:white;"> </span>
+				</td>
+			</tr>
+			
+		</table>
 		</form>
 	</main>
 	<script type="text/javascript" src="/js/register.js"></script>

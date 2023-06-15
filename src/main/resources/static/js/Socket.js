@@ -175,9 +175,8 @@ function onMessageReceived(payload)
 
 	messageArea.appendChild(messageElement);
 	
-	
-	
-	messageElement.scrollTo = messageArea.scrollHeight;
+	messageArea.scrollTo = messageArea.scrollHeight;
+
 }
 
 function getAvatarColor(grade)

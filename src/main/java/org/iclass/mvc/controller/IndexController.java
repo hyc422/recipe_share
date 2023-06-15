@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 
 import org.iclass.mvc.dto.Board;
 import org.iclass.mvc.dto.TopSelect;
-import org.iclass.mvc.dto.UploadFile;
-import org.iclass.mvc.service.BoardService;
 import org.iclass.mvc.service.ImgUploadService;
 import org.iclass.mvc.service.IndexService;
 import org.springframework.stereotype.Controller;

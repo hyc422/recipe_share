@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link href="/css/list.css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>회원관리 페이지</title>
 <link href="/css/list.css" rel="stylesheet">
@@ -52,10 +51,8 @@ input[name="tab_item"]{
    clear: both;
    overflow: hidden;
 }
-
 #Awrite:checked ~ #Awrite_content,#member:checked ~ #member_content,#announcement:checked ~ #announcement_content, #board:checked ~ #board_content{
    display:block;
-
 }
 
 .tabs input:checked+.tab_item {
@@ -66,6 +63,7 @@ input[name="tab_item"]{
 </head>
 <body>
 <h3>관리자 페이지</h3>
+<h4 style="margin-left: 10%;"><a th:href="@{/}">홈으로</a></h4>
 <hr>
 <div class="tabs" style="width: 80%">
 <input type="radio" id="member" name="tab_item" checked><label class="tab_item" for="member">회원 관리</label>
@@ -74,6 +72,94 @@ input[name="tab_item"]{
 <input type="radio" id="Awrite" name="tab_item"><label class="tab_item" for="Awrite">공지사항 쓰기</label>
 <!-- 회원관리 페이지  -->
 <div class="tab_content" id="member_content">
+			<article class="new-board" id="new-board" style=" width: 100%;">
+     	 <div class="admin-area" style="font-size: 30px; text-align: center;">
+    	  </div>
+            <div class="w327B"></div>
+
+         <div class="board-list" style="width: 100%; display: flex; justify-content: space-evenly;">
+            <table style="width: 100%;">
+               
+               <colgroup>
+                  <col class="size01" data-alias="number">
+
+                  <col class="size02" data-alias="subject">
+
+                  <col class="size03" data-alias="writer">
+
+                  <col class="size04" data-alias="date">
+
+                  <col class="size05" data-alias="hit">
+                  <col class="size06" data-alias="grade">
+
+                  <col class="size07" data-alias="req">
+                  <col class="size08" data-alias="rew">
+               </colgroup>
+               <thead>
+                  <tr style="background-color: #4CA950; color:white;">
+                     <th style="text-align: center;">이메일</th>
+                     <th style="text-align: center;">이름</th>
+                     <th style="text-align: center;">닉네임</th>
+                     <th style="text-align: center;">번호</th>
+                     <th style="text-align: center;">생년월일</th>
+                     <th style="text-align: center;">등급</th>
+                     <th style="text-align: center;">승진</th>
+                     <th style="text-align: center;">집행</th>
+                  </tr>
+               </thead>
+               <tbody>
+                <th:block th:each="vo:${member}">
+                  <tr class="lgtm">
+                     <td class="num"><span>[[${vo.email}]]</span></td>
+                     <td class="category"><span class="layercategory">[[${vo.name}]]</span>
+                     </td>
+                     <td class="subCate"><span class="layersubCate">[[${vo.nickname}]]</span>
+                     </td>
+                     <td class="tit">
+                        <div class="text-wrap">
+                           <div>
+                              <span class="user-icon"></span> <a
+                                       href="#"
+                                       class="title"> [[${vo.phone}]] </a>
+                           </div>
+                        </div>
+                     </td>
+
+                     
+                     <td class="user"><span class="layerNickName">[[${vo.birth}]]</span>
+                     </td>
+					<td class="numb">
+					<span th:if="${vo.grade} == 0" th:text="관리자"></span>
+					<span th:if="${vo.grade} == 1" th:text="요린이"></span>
+					<span th:if="${vo.grade} == 2" th:text="요리사"></span>
+					<span th:if="${vo.grade} == 3" th:text="셰프"></span>
+					<span th:if="${vo.grade} == 4" th:text="고든램지"></span>
+					</td>
+                     <td class="view">
+                     <form action="/updateM" method="GET">
+                     <select name="grade">
+                     	<option value="1">요린이
+                     	<option value="2">요리사
+                     	<option value="3">셰프
+                     	<option value="4">고든램지
+                     	<option value="0">관리자
+                     </select>
+                     <input type="hidden" th:value="${vo.idx}" name="idx">
+                     <input type="submit" style="background-color: #4CA950;color:white;">
+                     </form>
+                     </td>
+					<td>
+						<form action="/deleteM" method="GET">
+	                     <input type="hidden" th:value="${vo.idx}" name="idx">
+						<input type="submit" style="background-color:red; border-radius:3px; color:white;" value="집행">
+						</form>
+					</td>
+                  </tr>
+                  </th:block>
+               </tbody>
+            </table>
+         </div>
+   </article>
 
 </div>
 <!-- 게시글 관리 페이지 -->
@@ -102,13 +188,13 @@ input[name="tab_item"]{
 					</colgroup>
 					<thead>
 						<tr>
-							<th>번호</th>
-							<th>카테고리</th>
-							<th>서브 카테고리</th>
-							<th>제목</th>
-							<th>글쓴이</th>
-							<th>등록일</th>
-							<th>삭제</th>
+							<th style="text-align: center;">번호</th>
+							<th style="text-align: center;">카테고리</th>
+							<th style="text-align: center;">서브 카테고리</th>
+							<th style="text-align: center;">제목</th>
+							<th style="text-align: center;">글쓴이</th>
+							<th style="text-align: center;">등록일</th>
+							<th style="text-align: center;">삭제</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -123,7 +209,7 @@ input[name="tab_item"]{
 								<div class="text-wrap">
 									<div>
 										<span class="user-icon"></span> <a
-													href="#"
+													th:href="@{read(idx=${vo.idx}, page=1, a=${vo.category == '레시피' ? 1 : 0}, Cate=1)}"
 													class="title"> [[${vo.title}]] </a>
 									</div>
 									<span data-opinion-bbs-comeidx="4811"
@@ -192,12 +278,12 @@ input[name="tab_item"]{
 					</colgroup>
 					<thead>
 						<tr>
-							<th>번호</th>
-							<th>카테고리</th>
-							<th>제목</th>
-							<th>글쓴이</th>
-							<th>등록일</th>
-							<th>삭제</th>
+							<th style="text-align: center;">번호</th>
+							<th style="text-align: center;">카테고리</th>
+							<th style="text-align: center;">제목</th>
+							<th style="text-align: center;">글쓴이</th>
+							<th style="text-align: center;">등록일</th>
+							<th style="text-align: center;">삭제</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -207,17 +293,14 @@ input[name="tab_item"]{
 							<td class="category"><span class="layercategory">[[${vo.category}]]</span>
 							</td>
 							<td class="tit">
-								<div class="text-wrap">
-									<div>
-										<span class="user-icon"></span> <a
-													href="#"
-													class="title"> [[${vo.title}]] </a>
-									</div>
-									<span data-opinion-bbs-comeidx="4811"
-										data-opinion-bbs-uid="6734402" data-opinion-bbs-opi="82"
-										class="con-comment">&#91;[[${vo.numcomments}]]&#93;</span>
-								</div>
-							</td>
+						        <div class="text-wrap">
+						            <div>
+						                <span class="user-icon"></span>
+						                <a th:href="@{read(idx=${vo.idx}, page=1, a=${vo.category == '레시피' ? 1 : 0}, Cate=1)}" class="title">[[${vo.title}]]</a>
+						            </div>
+						            <span data-opinion-bbs-comeidx="4811" data-opinion-bbs-uid="6734402" data-opinion-bbs-opi="82" class="con-comment">&#91;[[${vo.numcomments}]]&#93;</span>
+						        </div>
+						    </td>
 
 							
 							<td class="user"><span class="layerNickName">[[${vo.nickname}]]</span>
@@ -279,7 +362,6 @@ input[name="tab_item"]{
 	
 		
 </div>
-
 </div>
 </div>
 <script>

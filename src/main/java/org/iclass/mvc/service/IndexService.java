@@ -27,6 +27,7 @@ public class IndexService {
 	public List<TopSelect> TopSelect(){
 		return dao.TopSelect();
 	}
+
 	public List<Member> memberAll(){
 		return dao.memberAll();
 	}
